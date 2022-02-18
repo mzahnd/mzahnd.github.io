@@ -63,8 +63,10 @@ fi
 
 echo ""
 
-rm -rf "_old_${OUTPUT_DIR}"
 touch "${OUTPUT_DIR}/.nojekyll"
+cp 'gitignore_gh-pages' "${OUTPUT_DIR}/.gitignore"
+
+rm -rf "_old_${OUTPUT_DIR}"
 
 
 # Exit script directory
