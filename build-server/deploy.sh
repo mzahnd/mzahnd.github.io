@@ -75,12 +75,12 @@ function make_public() {
                 echo  -e "\e[32mOk\e[0m"
             else     
                 echo  -e "\e[31mERROR\e[0m adding and commiting changes"
-                git checkout source
+                git checkout main
                 report_abort
             fi
         else
             echo  -e "\e[31mERROR\e[0m running git rm -rf"
-            git checkout source
+            git checkout main
             report_abort
         fi
     else
@@ -88,7 +88,7 @@ function make_public() {
         report_abort
     fi
 
-    git checkout source
+    git checkout main
     popd &> /dev/null
 
     return 0
