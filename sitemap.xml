@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://mzahnd.github.io/notes/building-custom-linux-kernel.html</loc>
+<lastmod>2020-03-28T08:34:00-03:00</lastmod>
+</url>
+<url>
+<loc>https://mzahnd.github.io/notes/HPLaserjet1020.html</loc>
+<lastmod>2021-03-20T16:42:00-03:00</lastmod>
+</url>
+<url>
+<loc>https://mzahnd.github.io/blog/2021/09/24/QemuKVM.html</loc>
+<lastmod>2021-09-24T19:42:00-03:00</lastmod>
+</url>
+<url>
+<loc>https://mzahnd.github.io/about.html</loc>
+</url>
+<url>
+<loc>https://mzahnd.github.io/contact.html</loc>
+</url>
+<url>
+<loc>https://mzahnd.github.io/blog/</loc>
+</url>
+<url>
+<loc>https://mzahnd.github.io/notes/</loc>
+</url>
+<url>
+<loc>https://mzahnd.github.io/</loc>
+</url>
+</urlset>

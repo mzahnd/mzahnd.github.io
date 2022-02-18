@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+      <title>Installing an HP LaserJet 1020 in Arch Linux - Martín's blog</title>
+    
+
+    <!--
+      Included files have their own css, js files and will not be 
+      appear here. 
+    -->
+
+    <!-- ====== CSS Files ====== -->
+    <link rel="stylesheet" href="/css/site-top-bar.css">
+    <link rel="stylesheet" href="/css/site-footer.css">
+    <link rel="stylesheet" href="/css/site-menu.css">
+    
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <link rel="stylesheet" href="/css/notes/note.css">
+    
+    
+    <!-- ====== END CSS Files ====== -->
+
+    <!-- ====== JS Files ====== -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/site-menu.js"></script>
+    <script type="text/javascript" src="/js/site-top-bar.js"></script>
+
+    
+    
+    <!-- ====== END JS Files ====== -->
+
+    <!-- ====== Font Awesome ====== -->
+    <script src="https://kit.fontawesome.com/0cfe53209a.js" crossorigin="anonymous">
+    </script>
+    <!-- ====== END Font Awesome ====== -->
+
+    
+
+    <!-- ====== SEO ====== -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Installing an HP LaserJet 1020 in Arch Linux | Martín’s blog</title>
+<meta name="generator" content="Jekyll v4.2.1">
+<meta property="og:title" content="Installing an HP LaserJet 1020 in Arch Linux">
+<meta name="author" content="Martín E. Zahnd">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="This notes summarize what needs to be done to properly configure and install an HP LaserJet 1020 in Arch Linux using the propietary plugin.">
+<meta property="og:description" content="This notes summarize what needs to be done to properly configure and install an HP LaserJet 1020 in Arch Linux using the propietary plugin.">
+<link rel="canonical" href="https://mzahnd.github.io/notes/HPLaserjet1020.html">
+<meta property="og:url" content="https://mzahnd.github.io/notes/HPLaserjet1020.html">
+<meta property="og:site_name" content="Martín’s blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2021-03-20T16:42:00-03:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Installing an HP LaserJet 1020 in Arch Linux">
+<meta name="google-site-verification" content="CT3cmVw_OhpKeDjTSMDoO9zCxnArTWa8PcyuM0xfozs">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Martín E. Zahnd"},"dateModified":"2021-03-20T16:42:00-03:00","datePublished":"2021-03-20T16:42:00-03:00","description":"This notes summarize what needs to be done to properly configure and install an HP LaserJet 1020 in Arch Linux using the propietary plugin.","headline":"Installing an HP LaserJet 1020 in Arch Linux","mainEntityOfPage":{"@type":"WebPage","@id":"https://mzahnd.github.io/notes/HPLaserjet1020.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mzahnd.github.io/assets/logo.png"},"name":"Martín E. Zahnd"},"url":"https://mzahnd.github.io/notes/HPLaserjet1020.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- ====== End SEO ====== -->
+  </head>
+  <body>
+    
+
+
+
+<div class="site-menu--container" id="site-main-menu">
+
+  <button class="btn" id="btn-site-main-menu-close">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="menu-content">
+    <img src="/assets/logo.png" class="logo" alt="Logo" loading="lazy">
+    <ul class="menu-list">
+      
+      <li>
+        <a href="/" class="btn btn-link">Home</a>
+      </li>
+      
+      <li>
+        <a href="/blog" class="btn btn-link">Blog</a>
+      </li>
+      
+      <li>
+        <a href="/notes" class="btn btn-link">Notes</a>
+      </li>
+      
+    </ul>
+
+    <ul class="menu-info-list">
+      
+      <li>
+        <a href="/about.html" class="btn btn-link">About</a>
+      </li>
+      
+      <li>
+        <a href="/contact.html" class="btn btn-link">Contact</a>
+      </li>
+      
+    </ul>
+
+    <div class="accessibility-opts">
+      <p>Current font size: 
+        <span id="accessibility-font-size-label">0 pt</span>
+      </p>
+      <ul>
+        <li>
+          <button class="btn" id="accessibility-zoom-m">
+            <i class="fas fa-minus"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" id="accessibility-zoom-p">
+            <i class="fas fa-plus"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" id="accessibility-zoom-reset">
+            <i class="fas fa-undo-alt"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div id="container-page">
+        
+
+
+<header class="site-top-bar">
+  <div class="top-bar--container" id="top-bar">
+    <button class="top-bar-btn" id="btn-toggle-menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="top-bar-separator"></div>
+    <div class="top-bar-logo">
+        <a href="/">
+          <p>Martín's blog</p>
+          <img class="logo" src="/assets/logo.png" alt="Logo" loading="eager">
+        </a>
+      </div>
+    <div class="top-bar-separator"></div>
+  </div>
+</header>
+
+        
+          <div class="page-content">
+        
+            
+
+
+
+
+<div class="note-content">
+    
+
+
+
+
+<header>
+  <h1 id="post-title">Installing an HP LaserJet 1020 in Arch Linux</h1>
+  <p id="post-author">Written by Martín E. Zahnd</p>
+
+  <p id="post-date">Published: 2021-03-20 16:42</p>
+  
+  <p id="post-edit">Edited: 2021-11-05 12:30</p>
+  
+  
+  <p id="post-tags">Tags: 
+      
+          hp, 
+      
+          laserjet, 
+      
+          1020, 
+      
+          printer, 
+      
+          linux
+      
+  </p>
+  
+  <br>
+
+  <div class="post-excerpt">
+      <p>This notes summarize what needs to be done to properly configure and install an HP LaserJet 1020 in
+Arch Linux using the propietary plugin.</p>
+
+
+  </div>
+</header>
+
+<ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#open-source-alternative-plugin">Open Source alternative plugin</a></li>
+<li class="toc-entry toc-h2"><a href="#dependencies">Dependencies</a></li>
+<li class="toc-entry toc-h2"><a href="#fixing-missing-so-files-">Fixing missing .so files 1</a></li>
+<li class="toc-entry toc-h2"><a href="#downloading-hp-plugin">Downloading hp-plugin</a></li>
+<li class="toc-entry toc-h2"><a href="#checking-that-there-are-no-missing-dependencies">Checking that there are no missing dependencies.</a></li>
+<li class="toc-entry toc-h2"><a href="#final-step">Final step</a></li>
+<li class="toc-entry toc-h2"><a href="#sources">Sources</a></li>
+</ul>
+
+
+
+
+
+
+<article>
+  <div class="post-content">
+    
+
+<h2 id="open-source-alternative-plugin">Open Source alternative plugin</h2>
+
+<p>There’s an open source version called <code>foo2zjs</code> which doesn’t seem to  work very well (yet) with
+this particular  printer and, among other things, the last time I tried, it had to be reinstalled
+and reconfigured every time the device was powered off and on again.
+
+</p>
+<p>Check the <a href="https://foo2zjs.linkevich.net/">official website</a> and the 
+<a href="https://aur.archlinux.org/packages/foo2zjs-nightly/">AUR package</a> if you are interested.</p>
+
+<h2 id="dependencies">Dependencies</h2>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span>pacman <span class="nt">-S</span> mlocate cups cups-pdf pyqt5 sane
+<span class="gp">]#</span><span class="w"> </span>systemctl <span class="nb">enable </span>org.cups.cupsd.service
+<span class="gp">]#</span><span class="w"> </span>systemctl start org.cups.cupsd.service
+<span class="gp">]$</span><span class="w"> </span>yay <span class="nt">-S</span> python-pyqt4 hplip-plugin
+<span class="gp">]#</span><span class="w"> </span><span class="nb">sudo </span>updatedb <span class="c"># Update mlocate db.</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>Even if you have already installed CUPS, restart the service to make sure that <strong>it is</strong> running.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span>systemctl restart org.cups.cupsd.service
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h2 id="fixing-missing-so-files-">Fixing missing .so files <sup id="fnref:cannot-locate-missing-so" role="doc-noteref"><a href="#fn:cannot-locate-missing-so" class="footnote" rel="footnote">1</a></sup>
+</h2>
+
+<p>Run hp-setup and log its stderr to a file. Be aware that after choosing the printer, the “missing
+pluggin” o any other screen might not be seen when doing this.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>hp-setup <span class="nt">-g</span> &amp;&gt; ~/hp-setup.log
+<span class="gp">]$</span><span class="w"> </span><span class="nb">cat</span> ~/hp-setup.log
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>When openning the file, you’ll se something like:</p>
+
+<pre><code class="language-plain">hp-setup[19265]: debug: Either /usr/lib/i386-linux-gnu/sane/libsane-hp2000S1.so file is not present or symbolic link is missing
+</code></pre>
+
+<p>You have to locate where is the .so file</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>locate libsane-hp2000S1
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>And create a link to it (if you’re having trouble creating the link, make sure that the destination
+folder exists with <code>mkdir -p /usr/lib/i386-linux-gnu/sane/</code>, for example).</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span><span class="nb">ln</span> <span class="nt">-s</span> /usr/lib/sane/libsane-hp2000S1.so /usr/lib/i386-linux-gnu/sane/libsane-hp2000S1.so
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>After having done this with all the files and getting no more errors when opening hp-setup,
+continue to the next step.</p>
+
+<h2 id="downloading-hp-plugin">Downloading hp-plugin</h2>
+
+<p>Apparently, the MIT server has some trouble retrieving the key, so we will change the line 45 on
+<code>/usr/share/hplip/base/validation.py</code> from <code>pgp.mit.edu</code> to <code>keyserver.ubuntu.com</code>.</p>
+
+<p>After that, run the plugin utility, download it and install it.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>hp-plugin <span class="nt">-i</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h2 id="checking-that-there-are-no-missing-dependencies">Checking that there are no missing dependencies.</h2>
+
+<p>Run</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>hp-doctor
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+<p>And read its output to verify if any dependency marked as <em>REQUIRED</em> is missed. If so, install it.</p>
+
+<h2 id="final-step">Final step</h2>
+
+<p>Run</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>hp-setup
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>:)</p>
+
+<h2 id="sources">Sources</h2>
+
+<p><a href="https://bugs.launchpad.net/hplip/+bug/1818629">HPLIP 3.19.1 - hp-plugin won’t install/update - unable to receive keys</a></p>
+
+<p><a href="https://bugs.launchpad.net/hplip/+bug/1084062">No PPD found for model deskjet_4620 using new/old algorithm</a></p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:cannot-locate-missing-so" role="doc-endnote">
+
+      <p>If you can not locate the missing files, try running the steps to download and install the hp
+plugin first. <a href="#fnref:cannot-locate-missing-so" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+</article>
+</div>
+        </div>
+
+        <div class="flex-separator"></div>
+        
+
+
+<footer class="site-footer">
+  <div class="site-footer--container">
+    <p>
+      Created by Martín E. Zahnd 
+      <i class="far fa-copyright"></i> 
+      2022
+    </p>
+  </div>
+</footer>
+    </div>
+  </body>
+</html>

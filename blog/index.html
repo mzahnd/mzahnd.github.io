@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+      <title>Martín's blog</title>
+    
+
+    <!--
+      Included files have their own css, js files and will not be 
+      appear here. 
+    -->
+
+    <!-- ====== CSS Files ====== -->
+    <link rel="stylesheet" href="/css/site-top-bar.css">
+    <link rel="stylesheet" href="/css/site-footer.css">
+    <link rel="stylesheet" href="/css/site-menu.css">
+    
+    
+    
+    <link rel="stylesheet" href="/css/blog/index.css">
+    
+    <!-- ====== END CSS Files ====== -->
+
+    <!-- ====== JS Files ====== -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/site-menu.js"></script>
+    <script type="text/javascript" src="/js/site-top-bar.js"></script>
+
+    
+    
+    <!-- ====== END JS Files ====== -->
+
+    <!-- ====== Font Awesome ====== -->
+    <script src="https://kit.fontawesome.com/0cfe53209a.js" crossorigin="anonymous">
+    </script>
+    <!-- ====== END Font Awesome ====== -->
+
+    
+
+    <!-- ====== SEO ====== -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Martín’s blog | My personal blog!</title>
+<meta name="generator" content="Jekyll v4.2.1">
+<meta property="og:title" content="Martín’s blog">
+<meta name="author" content="Martín E. Zahnd">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="Just another blog on the internet.">
+<meta property="og:description" content="Just another blog on the internet.">
+<link rel="canonical" href="https://mzahnd.github.io/blog/">
+<meta property="og:url" content="https://mzahnd.github.io/blog/">
+<meta property="og:site_name" content="Martín’s blog">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Martín’s blog">
+<meta name="google-site-verification" content="CT3cmVw_OhpKeDjTSMDoO9zCxnArTWa8PcyuM0xfozs">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Martín E. Zahnd"},"description":"Just another blog on the internet.","headline":"Martín’s blog","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mzahnd.github.io/assets/logo.png"},"name":"Martín E. Zahnd"},"url":"https://mzahnd.github.io/blog/"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- ====== End SEO ====== -->
+  </head>
+  <body>
+    
+
+
+
+<div class="site-menu--container" id="site-main-menu">
+
+  <button class="btn" id="btn-site-main-menu-close">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="menu-content">
+    <img src="/assets/logo.png" class="logo" alt="Logo" loading="lazy">
+    <ul class="menu-list">
+      
+      <li>
+        <a href="/" class="btn btn-link">Home</a>
+      </li>
+      
+      <li>
+        <a href="/blog" class="btn btn-link">Blog</a>
+      </li>
+      
+      <li>
+        <a href="/notes" class="btn btn-link">Notes</a>
+      </li>
+      
+    </ul>
+
+    <ul class="menu-info-list">
+      
+      <li>
+        <a href="/about.html" class="btn btn-link">About</a>
+      </li>
+      
+      <li>
+        <a href="/contact.html" class="btn btn-link">Contact</a>
+      </li>
+      
+    </ul>
+
+    <div class="accessibility-opts">
+      <p>Current font size: 
+        <span id="accessibility-font-size-label">0 pt</span>
+      </p>
+      <ul>
+        <li>
+          <button class="btn" id="accessibility-zoom-m">
+            <i class="fas fa-minus"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" id="accessibility-zoom-p">
+            <i class="fas fa-plus"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" id="accessibility-zoom-reset">
+            <i class="fas fa-undo-alt"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div id="container-page">
+        
+
+
+<header class="site-top-bar">
+  <div class="top-bar--container" id="top-bar">
+    <button class="top-bar-btn" id="btn-toggle-menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="top-bar-separator"></div>
+    <div class="top-bar-logo">
+        <a href="/">
+          <p>Martín's blog</p>
+          <img class="logo" src="/assets/logo.png" alt="Logo" loading="eager">
+        </a>
+      </div>
+    <div class="top-bar-separator"></div>
+  </div>
+</header>
+
+        
+          <div class="page-content">
+        
+            
+
+
+<div class="container-publication">
+    <h1 class="publication-title">Blog</h1>
+    <ul>
+    
+    <li style="border-bottom: none;">
+        <h1><a href="/blog/2021/09/24/QemuKVM.html">Installing and configuring QEMU with KVM in Arch Linux</a></h1>
+        <p id="post-date">Published: 2021-09-24 19:42:00 -0300</p>
+        
+        <p id="post-tags">Tags: 
+            
+                qemu, 
+            
+                kvm, 
+            
+                vm
+            
+        </p>
+        
+        <details>
+            <summary>Brief</summary>
+            <p>This is a brief tutorial for running VMs using QEMU/KVM in the same machine they’re created 
+(localhost), using ArchLinux as host OS. It is heavily influenced by the ArchWiki posts on the
+subject (see <a href="#sources">Sources and useful links</a>).</p>
+
+
+            <a href="/blog/2021/09/24/QemuKVM.html">Keep reading...</a>
+        </details>
+        
+    </li>
+    
+    </ul>
+</div>
+        </div>
+
+        <div class="flex-separator"></div>
+        
+
+
+<footer class="site-footer">
+  <div class="site-footer--container">
+    <p>
+      Created by Martín E. Zahnd 
+      <i class="far fa-copyright"></i> 
+      2022
+    </p>
+  </div>
+</footer>
+    </div>
+  </body>
+</html>

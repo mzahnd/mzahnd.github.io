@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+      <title>Building the Linux Kernel - Martín's blog</title>
+    
+
+    <!--
+      Included files have their own css, js files and will not be 
+      appear here. 
+    -->
+
+    <!-- ====== CSS Files ====== -->
+    <link rel="stylesheet" href="/css/site-top-bar.css">
+    <link rel="stylesheet" href="/css/site-footer.css">
+    <link rel="stylesheet" href="/css/site-menu.css">
+    
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <link rel="stylesheet" href="/css/notes/note.css">
+    
+    
+    <!-- ====== END CSS Files ====== -->
+
+    <!-- ====== JS Files ====== -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/site-menu.js"></script>
+    <script type="text/javascript" src="/js/site-top-bar.js"></script>
+
+    
+    
+    <!-- ====== END JS Files ====== -->
+
+    <!-- ====== Font Awesome ====== -->
+    <script src="https://kit.fontawesome.com/0cfe53209a.js" crossorigin="anonymous">
+    </script>
+    <!-- ====== END Font Awesome ====== -->
+
+    
+    <!--- ====== KaTeX ====== -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous">
+    </script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous" onload="renderMathInElement(document.body);">
+    </script>
+    <!-- ====== END KaTeX ====== -->
+    
+
+    <!-- ====== SEO ====== -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Building the Linux Kernel | Martín’s blog</title>
+<meta name="generator" content="Jekyll v4.2.1">
+<meta property="og:title" content="Building the Linux Kernel">
+<meta name="author" content="Martín E. Zahnd">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="This are my personal notes on building the Linux Kernel. I have originally written this in February 2020 when, for the second time in my life, I tried to build the mainline kernel from source and include extra drivers that were not originally built in (I am talking about the Realtek RTL8723DE driver). I have also made use of some internet resources and the book Linux Kernel in a Nutshell, by Greg Kroah-Hartman, which I read before starting this journey. See the Sources section for more information and links.">
+<meta property="og:description" content="This are my personal notes on building the Linux Kernel. I have originally written this in February 2020 when, for the second time in my life, I tried to build the mainline kernel from source and include extra drivers that were not originally built in (I am talking about the Realtek RTL8723DE driver). I have also made use of some internet resources and the book Linux Kernel in a Nutshell, by Greg Kroah-Hartman, which I read before starting this journey. See the Sources section for more information and links.">
+<link rel="canonical" href="https://mzahnd.github.io/notes/building-custom-linux-kernel.html">
+<meta property="og:url" content="https://mzahnd.github.io/notes/building-custom-linux-kernel.html">
+<meta property="og:site_name" content="Martín’s blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-03-28T08:34:00-03:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Building the Linux Kernel">
+<meta name="google-site-verification" content="CT3cmVw_OhpKeDjTSMDoO9zCxnArTWa8PcyuM0xfozs">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Martín E. Zahnd"},"dateModified":"2020-03-28T08:34:00-03:00","datePublished":"2020-03-28T08:34:00-03:00","description":"This are my personal notes on building the Linux Kernel. I have originally written this in February 2020 when, for the second time in my life, I tried to build the mainline kernel from source and include extra drivers that were not originally built in (I am talking about the Realtek RTL8723DE driver). I have also made use of some internet resources and the book Linux Kernel in a Nutshell, by Greg Kroah-Hartman, which I read before starting this journey. See the Sources section for more information and links.","headline":"Building the Linux Kernel","mainEntityOfPage":{"@type":"WebPage","@id":"https://mzahnd.github.io/notes/building-custom-linux-kernel.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mzahnd.github.io/assets/logo.png"},"name":"Martín E. Zahnd"},"url":"https://mzahnd.github.io/notes/building-custom-linux-kernel.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- ====== End SEO ====== -->
+  </head>
+  <body>
+    
+
+
+
+<div class="site-menu--container" id="site-main-menu">
+
+  <button class="btn" id="btn-site-main-menu-close">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="menu-content">
+    <img src="/assets/logo.png" class="logo" alt="Logo" loading="lazy">
+    <ul class="menu-list">
+      
+      <li>
+        <a href="/" class="btn btn-link">Home</a>
+      </li>
+      
+      <li>
+        <a href="/blog" class="btn btn-link">Blog</a>
+      </li>
+      
+      <li>
+        <a href="/notes" class="btn btn-link">Notes</a>
+      </li>
+      
+    </ul>
+
+    <ul class="menu-info-list">
+      
+      <li>
+        <a href="/about.html" class="btn btn-link">About</a>
+      </li>
+      
+      <li>
+        <a href="/contact.html" class="btn btn-link">Contact</a>
+      </li>
+      
+    </ul>
+
+    <div class="accessibility-opts">
+      <p>Current font size: 
+        <span id="accessibility-font-size-label">0 pt</span>
+      </p>
+      <ul>
+        <li>
+          <button class="btn" id="accessibility-zoom-m">
+            <i class="fas fa-minus"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" id="accessibility-zoom-p">
+            <i class="fas fa-plus"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" id="accessibility-zoom-reset">
+            <i class="fas fa-undo-alt"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <div id="container-page">
+        
+
+
+<header class="site-top-bar">
+  <div class="top-bar--container" id="top-bar">
+    <button class="top-bar-btn" id="btn-toggle-menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="top-bar-separator"></div>
+    <div class="top-bar-logo">
+        <a href="/">
+          <p>Martín's blog</p>
+          <img class="logo" src="/assets/logo.png" alt="Logo" loading="eager">
+        </a>
+      </div>
+    <div class="top-bar-separator"></div>
+  </div>
+</header>
+
+        
+          <div class="page-content">
+        
+            
+
+
+
+
+<div class="note-content">
+    
+
+
+
+
+<header>
+  <h1 id="post-title">Building the Linux Kernel</h1>
+  <p id="post-author">Written by Martín E. Zahnd</p>
+
+  <p id="post-date">Published: 2020-03-28 08:34</p>
+  
+  <p id="post-edit">Edited: 2021-11-05 15:34</p>
+  
+  
+  <p id="post-tags">Tags: 
+      
+          linux, 
+      
+          kernel, 
+      
+          rtl8723de, 
+      
+          module, 
+      
+          custom
+      
+  </p>
+  
+  <br>
+
+  <div class="post-excerpt">
+      <p>This are my personal notes on building the Linux Kernel.</p>
+
+<p>I have originally written this in February 2020 when, for the second time in my life, I tried to
+build the mainline kernel from source and <a href="#adding-rtl8723de-source">include extra drivers</a> that
+were not originally built in (I am talking about the Realtek RTL8723DE driver).</p>
+
+<p>I have also made use of some internet resources and the book <em>Linux Kernel in a Nutshell</em>, by
+Greg Kroah-Hartman, which I read before starting this journey.
+See the <a href="#sources">Sources</a> section for more information and links.</p>
+
+
+  </div>
+</header>
+
+<ul id="toc" class="section-nav">
+<li class="toc-entry toc-h2"><a href="#before-starting">Before starting</a></li>
+<li class="toc-entry toc-h2">
+<a href="#getting-the-sources">Getting the sources</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#downloading-the-sources">Downloading the sources</a></li>
+<li class="toc-entry toc-h3"><a href="#check-the-sources-signature">Check the sources signature</a></li>
+<li class="toc-entry toc-h3"><a href="#extract-the-sources">Extract the sources</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#configuring-the-kernel">Configuring the kernel</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#finding-a-specific-module-">Finding a specific module 2</a></li>
+<li class="toc-entry toc-h3"><a href="#creating-a-boot-logo">Creating a Boot Logo</a></li>
+<li class="toc-entry toc-h3"><a href="#debug-options">Debug options</a></li>
+<li class="toc-entry toc-h3">
+<a href="#adding-binary-blobs-in-the-kernel">Adding binary blobs in the kernel</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#cloning-linux-firmware-optional">Cloning linux-firmware (optional)</a></li>
+<li class="toc-entry toc-h4"><a href="#locating-the-desired-bin-files">Locating the desired .bin files</a></li>
+<li class="toc-entry toc-h4"><a href="#including-the-firmware">Including the firmware</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#adding-rtl8723de-source">Adding RTL8723DE source code into the kernel</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#compiling-the-kernel">Compiling the Kernel</a></li>
+<li class="toc-entry toc-h2">
+<a href="#installing-the-kernel">Installing the Kernel</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#previous-steps">Previous steps</a></li>
+<li class="toc-entry toc-h3"><a href="#kernel-modules">Kernel modules</a></li>
+<li class="toc-entry toc-h3"><a href="#copying-the-image">Copying the image</a></li>
+<li class="toc-entry toc-h3">
+<a href="#creating-the-initial-ramdisk">Creating the initial ramdisk</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#initram-manual">Manual method</a></li>
+<li class="toc-entry toc-h4"><a href="#automated-preset-method">Automated preset method</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#copy-systemmap">Copy System.map</a></li>
+<li class="toc-entry toc-h3"><a href="#generate-grub">Generate GRUB</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#speeding-things-up">Speeding things up</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ccache">ccache</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2">
+<a href="#maintaining-the-kernel-up-to-date">Maintaining the kernel up to date</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#applying-patches">Applying patches</a></li>
+<li class="toc-entry toc-h3"><a href="#reverting-patches">Reverting patches</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#sources">Sources</a></li>
+</ul>
+
+
+
+
+
+
+<article>
+  <div class="post-content">
+    
+
+<h2 id="before-starting">Before starting</h2>
+
+<ul>
+  <li>Do not run any of the following commands as root, unless a <code>]#</code> is shown at the beggining of the
+command. This is not necessary and can cause unexpected problems. <sup id="fnref:do-not-root" role="doc-noteref"><a href="#fn:do-not-root" class="footnote" rel="footnote">1</a></sup>
+</li>
+  <li>You’ll need the following tools
+    <ul>
+      <li>Tools in <code>build-essential</code> (Debian based distributions) or <code>base-devel</code> (Arch based)</li>
+      <li>
+<code>wget</code> or <code>curl</code>
+</li>
+      <li>
+<code>ld</code> and <code>as</code>: Both come in the <a href="https://www.gnu.org/software/binutils/" title="GNU Binutils">GNU Binutils</a> collection of binary tools
+  (In both Debian and Arch based distributions, the package is called <code>binutils</code>).</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="getting-the-sources">Getting the sources</h2>
+
+<h3 id="downloading-the-sources">Downloading the sources</h3>
+
+<p>Get the tarball from the <a href="https://www.kernel.org/" title="The Linux Kernel Archives">Linux Kernel Archives</a> as well as the pgp file
+and download them inside a folder in the home directory.
+
+</p>
+<p>For example, for the 5.5.6 version of the kernel, do</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span><span class="nb">mkdir</span> ~/linuxkernel
+<span class="gp">]$</span><span class="w"> </span><span class="nb">cd </span>linuxkernel
+<span class="gp">]$</span><span class="w"> </span>wget <span class="nt">-v</span> https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.5.6.tar.xz
+<span class="gp">]$</span><span class="w"> </span>wget <span class="nt">-v</span> https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.5.6.tar.sign
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h3 id="check-the-sources-signature">Check the sources signature</h3>
+
+<p>Now import the keys belonging to the main kernel developers with the following command:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>gpg2 <span class="nt">--locate-keys</span> <span class="o">[</span>username]@kernel.org
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>For example,</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>gpg2 <span class="nt">--locate-keys</span> torvalds@kernel.org gregkh@kernel.org
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>As the signed file is the <code>.tar</code>, and not the <code>.xz</code>, <code>unxz</code> the sources</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>unxz linux-5.5.6.tar.xz
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>And verify the <code>.tar</code> against the signature</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>gpg2 <span class="nt">--verify</span> linux-5.5.6.tar.sign
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>For more information read the <a href="https://www.kernel.org/signature.html" title="Linux kernel releases PGP signatures">Signatures</a> section in the Linux Kernel Archives
+website.</p>
+
+<h3 id="extract-the-sources">Extract the sources</h3>
+
+<p>Run</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span><span class="nb">tar</span> <span class="nt">-xvf</span> linux-5.5.6.tar
+<span class="gp">]$</span><span class="w"> </span><span class="nb">cd </span>linux-5.5.6
+<span class="gp">]$</span><span class="w"> </span>make mrproper <span class="c"># Clear configurations brought with the sources; this calls the clean target also</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>to untar the sources, enter the newly created directory and clean any posible configuration coming
+inside the <code>.tar</code> file.</p>
+
+<h2 id="configuring-the-kernel">Configuring the kernel</h2>
+
+<p>Copy the current kernel configurations (they are working, aren’t they?) and then edit them using
+the ncurses menu.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>zcat /proc/config.gz <span class="o">&gt;</span> .config
+<span class="gp">]$</span><span class="w"> </span>make nconfig
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h3 id="finding-a-specific-module-">Finding a specific module <sup id="fnref:find-specific-module" role="doc-noteref"><a href="#fn:find-specific-module" class="footnote" rel="footnote">2</a></sup>
+</h3>
+
+<p>In this example we’re looking for the module of the ethernet controller (eno1 in this machine).</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span><span class="nb">ls</span> /sys/class/net
+<span class="gp">#</span><span class="w"> </span>Output:
+<span class="gp">#</span><span class="w">   </span>eno1 lo wlo1
+<span class="gp">]$</span><span class="w"> </span><span class="nb">basename</span> <span class="sb">`</span><span class="nb">readlink</span> /sys/class/net/eno1/device/driver/module<span class="sb">`</span>
+<span class="gp">#</span><span class="w"> </span>Output:
+<span class="gp">#</span><span class="w">   </span>r8169
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>After running this two commands, the first one for knowing the controller’s name (<code>eno1 lo wlo1</code> in
+my case) and the second one for the module’s name (<code>r8169</code>), we should check if there is a 
+<code>_CONFIG\_*_</code> option already in the Makefile. For this we run</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>find <span class="nt">-type</span> f <span class="nt">-name</span> Makefile | xargs <span class="nb">grep </span>r8169
+<span class="gp">#</span><span class="w"> </span>Output:
+<span class="gp">#</span><span class="w">   </span>./drivers/net/ethernet/realtek/Makefile:r8169-objs +<span class="o">=</span> r8169_main.o r8169_firmware.o
+<span class="gp">#</span><span class="w">   </span>./drivers/net/ethernet/realtek/Makefile:obj-<span class="si">$(</span>CONFIG_R8169<span class="si">)</span> +<span class="o">=</span> r8169.o
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>Fortunately, <code>CONFIG_R8169</code> was found, so we can look up for it in the kernel configuration and
+enable it.</p>
+
+<h3 id="creating-a-boot-logo">Creating a Boot Logo</h3>
+
+<ul>
+  <li>Get (or create) an image with an exact size of 80x80px</li>
+  <li>Install netpbm
+    <div class="language-console highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp"> ]#</span><span class="w"> </span>pacman <span class="nt">-S</span> netpbm <span class="c"># Or apt install netpbm on Debian based</span>
+</pre></td>
+</tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>Go to the path where the image is and run
+    <div class="language-console highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp"> ]$</span><span class="w"> </span>pngtopnm &lt;path2img&gt;.png | ppmquant <span class="nt">-fs</span> 223 | pnmtoplainpnm <span class="o">&gt;</span> logo_&lt;name&gt;_clut224.ppm <span class="c">#Let's suppose logo_arch_clut224.ppm for this example</span>
+</pre></td>
+</tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>Copy the new image in ppm format into drivers/video/logo folder
+    <ul>
+      <li>Add the following code in <code>include/linux/linux_logo.h</code>
+        <div class="language-c highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre> <span class="k">extern</span> <span class="k">const</span> <span class="k">struct</span> <span class="n">linux_logo</span> <span class="n">logo_arch_clut224</span><span class="p">;</span>
+</pre></td>
+</tr></tbody></table></code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>Add the following code in <code>drivers/video/logo/Kconfig</code>
+    <div class="language-console highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="go"> config LOGO_ARCH_CLUT224
+ 	bool "Arch Linux 224-color logo"
+ 	depends on LOGO
+ 	default y
+</span></pre></td>
+</tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>Add the following code in <code>drivers/video/logo/logo.c</code>
+    <div class="language-c highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="c1">// Add inside condition "if (depth &gt;= 8) {"</span>
+<span class="cp">#ifdef CONFIG_LOGO_ARCH_CLUT224
+</span>              <span class="cm">/* Arch Linux Logo */</span>
+              <span class="n">logo</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">logo_arch_clut224</span><span class="p">;</span>
+<span class="cp">#endif
+</span></pre></td>
+</tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>Add to the Makefile in <code>drivers/video/logo/Makefile</code>
+    <pre><code class="language-Makefile"> obj-$(CONFIG_LOGO_ARCH_CLUT224)		+= logo_arch_clut224.o
+</code></pre>
+  </li>
+</ul>
+
+<h3 id="debug-options">Debug options</h3>
+
+<p>Set the following options to enable some extra debugging of the new kernel (let’s face it, <strong>it is
+going to fail</strong> the first time).</p>
+
+<pre><code class="language-plain">CONFIG_DEBUG_INFO
+CONFIG_DEBUG_INFO_DWARF4
+CONFIG_GDB_SCRIPTS
+CONFIG_KGDB
+CONFIG_KGDB_SERIAL_CONSOLE
+BLK_DEV_INITRD
+CONFIG_SERIAL_8250
+CONFIG_SERIAL_8250_PNP
+CONFIG_SERIAL_8250_CONSOLE
+</code></pre>
+
+<h3 id="adding-binary-blobs-in-the-kernel">Adding binary blobs in the kernel</h3>
+
+<p>Some Intel and AMDGPU binary blobs are distributed only in the linux-firmware <sup id="fnref:bin-linux-firmware" role="doc-noteref"><a href="#fn:bin-linux-firmware" class="footnote" rel="footnote">3</a></sup>
+package as well as the Bluetooth drivers for the RTL8723DE, among another things.
+In the following example, some AMDGPU binary blobs will be used to explain hoy to add this into the
+kernel.</p>
+
+<h4 id="cloning-linux-firmware-optional">Cloning linux-firmware (optional)</h4>
+
+<p>Start by cloning the linux-firmware package</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>git clone git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>It’ll take a little bit of time to download as its size (as of February 2020) is around 300 MiB.</p>
+
+<p>It’s important to notice that I cloned it in the same folder where I previously downloaded the
+kernel sources (<code>~/linuxkernel</code>), as this will be usefull in a few steps.</p>
+
+<h4 id="locating-the-desired-bin-files">Locating the desired <code>.bin</code> files</h4>
+
+<p>How to determine exactly which <code>.bin</code> files are needed varies on every case. In the case of the
+AMDGPU ones, I’m using the <a href="https://wiki.gentoo.org/wiki/AMDGPU" title="AMDGPU - Gentoo Wiki">Gentoo Wiki on the topic</a> for guidance.</p>
+
+<h4 id="including-the-firmware">Including the firmware</h4>
+
+<p>Before beginning, make sure that you are building directly <em>into</em> the kernel the desired drivers.
+In other words, that they <strong>are not</strong> build as modules, as they need to be loaded directly from the
+filesystem.</p>
+
+<ul>
+  <li>
+<code>CONFIG_FW_LOADER</code> has to be enabled in order to load the firmware.
+    <blockquote>
+      <p>Located in:
+  -&gt; Device Drivers
+      -&gt; Generic Driver Options
+          -&gt; Firmware loader</p>
+    </blockquote>
+  </li>
+  <li>And <code>CONFIG_EXTRA_FIRMWARE</code> has to be properly configured by using a string with the path to
+ all the desired binary files to load.
+ For example
+    <pre><code> radeon/hainan_ce.bin radeon/hainan_mc.bin radeon/hainan_me.bin radeon/hainan_pfp.bin radeon/hainan_rlc.bin radeon/hainan_smc.bin radeon/TAHITI_uvd.bin amdgpu/hainan_ce.bin amdgpu/hainan_mc.bin amdgpu/hainan_me.bin amdgpu/hainan_pfp.bin amdgpu/hainan_rlc.bin amdgpu/hainan_smc.bin rtl_bt/rtl8723d_config.bin  rtl_bt/rtl8723d_fw.bin rtlwifi/rtl8723defw.bin
+</code></pre>
+    <p>Which I got by executing the following line in bash:</p>
+    <div class="language-console highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="go">echo linux-firmware/{amdgpu/hainan_{ce,k_smc,mc,me,pfp,rlc,smc},radeon/{hainan_{ce,k_smc,mc,me,pfp,rlc,smc},TAHITI_uvd},i915/skl_dmc_ver1_27,rtl_bt/rtl8723d_{config,fw},rtlwifi/rtl8723defw}.bin
+</span></pre></td>
+</tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>Last but not least, <code>CONFIG_EXTRA_FIRMWARE_DIR</code> is the path where all those binary blobs are.
+ That could either be
+    <pre><code> /lib/firmware/
+</code></pre>
+    <p>or, most probably, the one where you cloned the <code>linux-firmware</code> files.</p>
+  </li>
+</ul>
+
+<h3 id="adding-rtl8723de-source">Adding RTL8723DE source code into the kernel</h3>
+
+<blockquote>
+  <p>When I originally wrote this notes, the Realtek RTL8723DE chip was not built into the kernel so
+I had to do it manually in order to connect to Wi-Fi networks.</p>
+
+  <p>As of <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/net/wireless/realtek/rtw88?id=f5df1a8b4376551f7fb2416135c58896b70a1467" title="rtw88: 8723d: Add 8723DE to Kconfig and Makefile">this commit</a> (commited on May 2020) this is no longer necessary
+because the source code has been marked as <em>ready</em> and is now built in. Also, the <code>rtlwifi_new</code>
+repository doesn’t exist anymore.</p>
+
+  <p>Nonetheless, I decided to keep this section here as a remainder of “what to do” if I ever again
+need to build something external to the mainline kernel and because it represents the first time
+I took a look to someone elses “real world” C code in order to learn how things are actually
+done.</p>
+</blockquote>
+
+<p>Clone the extended branch from <a href="lwfinger/rtlwifi_new"><code>rtlwifi_new</code> GitHub repository</a> on the same
+folder as the kernel, <code>~/linuxkernel/</code> in my case.</p>
+
+<p>Then we need to copy the related files in between the kernel source code.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="go">mkdir linux-5.5.6/drivers/net/wireless/realtek/rtlwifi/rtl8723de/
+cp -vR rtlwifi_new/rtl8723de/ linux-5.5.6/drivers/net/wireless/realtek/rtlwifi/
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>And edit the following Makefiles, comparing both with the one in <code>rtlwifi_new/rtl8723de/</code> and in
+<code>rtlwifi_new/</code> respectively:</p>
+<pre><code class="language-plain">linux-5.5.6/drivers/net/wireless/realtek/rtlwifi/Makefile
+linux-5.5.6/drivers/net/wireless/realtek/rtlwifi/rtl8723de/Makefile
+</code></pre>
+
+<h2 id="compiling-the-kernel">Compiling the Kernel</h2>
+
+<p>Before going on, don’t forget to add something to the <code>EXTRAVERSION</code> parameter in the Makefile of
+the kernel.</p>
+
+<p>Now yes, finally, it is time!</p>
+
+<p>Compile the kernel using the following command.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>make <span class="nt">-j</span><span class="si">$(</span><span class="nb">nproc</span><span class="si">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+<ul>
+  <li>
+<code>-jX</code> Tells make to use X number of threads at the same time.</li>
+  <li>
+<code>$(nproc)</code> runs <code>nproc</code>, which prints the number of processing units available. 
+ (So, you can make no mistake when replacing the <code>X</code> after the <code>-j</code>).</li>
+</ul>
+
+<h2 id="installing-the-kernel">Installing the Kernel</h2>
+
+<blockquote>
+  <p><strong>NOTE:</strong> The following commands need root access. Think twice before you
+actually do something!</p>
+</blockquote>
+
+<h3 id="previous-steps">Previous steps</h3>
+
+<p>Let’s make some backups (copies) of the critical files that’ll be replaced.</p>
+
+<ul>
+  <li>Make a copy of the initramfs file(s)
+    <div class="language-console highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-v</span> /boot/initramfs-linux.img /boot/initramfs-linux.img.bckp
+<span class="gp">]#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-v</span> /boot/initramfs-linux-fallback.img/boot/initramfs-linux-fallback.img.bckp
+</pre></td>
+</tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>Backup of the current GRUB
+    <div class="language-console highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span><span class="nb">mkdir</span> /boot/grub_bckp
+<span class="gp">]#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-rv</span> /boot/grub /boot/grub_bckp/
+<span class="gp">]#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-v</span> /boot/grub/grub.cfg /boot/grub/grub.cfg.bckp
+</pre></td>
+</tr></tbody></table></code></pre></div>    </div>
+  </li>
+  <li>Backup the linux preset file
+    <div class="language-console highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-v</span> /etc/mkinitcpio.d/linux.preset /etc/mkinitcpio.d/linux.preset.bckp
+</pre></td>
+</tr></tbody></table></code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="kernel-modules">Kernel modules</h3>
+
+<p>Install the kernel modules</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span>make modules_install
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h3 id="copying-the-image">Copying the image</h3>
+
+<p>Copy the bzImage file and rename it in the process</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-v</span> <span class="nb">arch</span>/x86_64/boot/bzImage /boot/vmlinuz-linux556
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+<blockquote>
+  <p><strong>Note:</strong> The new name <strong>must</strong> be prefixed with <code>vmlinuz-</code>. After the hyphen, whatever you type
+is a totally free choice.</p>
+</blockquote>
+
+<h3 id="creating-the-initial-ramdisk">Creating the initial ramdisk</h3>
+
+<h4 id="initram-manual">Manual method</h4>
+
+<p>Came on, this one is funnier!</p>
+
+<p>Generate the initramfs manually with</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span>mkinitcpio <span class="nt">-v</span> <span class="nt">-k</span> /boot/&lt;kernelimage&gt; <span class="nt">-g</span> /boot/initramfs-&lt;file name&gt;.img
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>Where</p>
+<ul>
+  <li>
+<code>-v</code> is for making the process verbose.</li>
+  <li>
+<code>-k</code> (<code>--kernel</code>) Specifies the modules to use when generating the initramfs image.
+ The <code>&lt;kernelimage&gt;</code> name will be the same as the name of the custom kernel source directory (and
+ the modules directory for it, located in <code>/usr/lib/modules/</code>).</li>
+  <li>
+<code>-g</code> (<code>--generate</code>) Specifies the name of the initramfs file to generate in the <code>/boot</code>
+ directory. Using the name convention <code>linux&lt;major revision&gt;&lt;minor revision&gt;</code> is recommended for
+ keeping track of the different kernels.</li>
+</ul>
+
+<blockquote>
+  <p><code>mkinitcpio</code> only works on Arch Linux. In Debian based distribution the right tool is called
+<code>update-initramfs</code>.</p>
+
+  <p>To mimic the previous command in Debian one should run</p>
+  <div class="language-console highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp"> ]#</span><span class="w"> </span>update-initramfs <span class="nt">-v</span> <span class="nt">-c</span> <span class="nt">-k</span> /boot/&lt;kernelimage&gt;
+</pre></td>
+</tr></tbody></table></code></pre></div>  </div>
+
+  <p>Where</p>
+  <ul>
+    <li>
+<code>-v</code> is for making the process verbose.</li>
+    <li>
+<code>-c</code> creates a new initramfs. (There’re also modes to update or remove existing initramfs.)</li>
+    <li>
+<code>-k</code> sets the specific kernel version for whom the initramfs will be generated.
+ The <code>&lt;kernelimage&gt;</code> name will be the same as the name of the custom kernel source directory (and
+ the modules directory for it, located in <code>/usr/lib/modules/</code>).</li>
+  </ul>
+</blockquote>
+
+<p>For this example,</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span>mkinitcpio <span class="nt">-v</span> <span class="nt">-k</span> /boot/vmlinuz-linux556 <span class="nt">-g</span> /boot/initramfs-linux556.img 
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<blockquote>
+  <p>In debian based distributions,</p>
+  <div class="language-console highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp"> ]#</span><span class="w"> </span>update-initramfs <span class="nt">-v</span> <span class="nt">-c</span> <span class="nt">-k</span> /boot/vmlinuz-linux556
+</pre></td>
+</tr></tbody></table></code></pre></div>  </div>
+</blockquote>
+
+<h4 id="automated-preset-method">Automated preset method</h4>
+
+<p>I’m not going to type it now. Enter the link and read it.</p>
+
+<blockquote>
+  <p>Wow.</p>
+
+  <p>I was (until now) the only one reading this notes, so this was directed to myself. I’m
+astonished. Such a <em>bad guy</em>! (…)</p>
+</blockquote>
+
+<p><a href="https://wiki.archlinux.org/title/Kernel/Traditional_compilation#Automated_preset_method" title="Automated preset method: Kernel/Traditional compilation - ArchWiki">This subsection of the ArchWiki</a> explains how to use an
+existing preset file in order to automatically generate the initramfs.</p>
+
+<p>It makes no real sense to copy and paste it, as I haven’t tried it. The small period of my life I
+kept building customized kernels I was using a bash script which ran the same command than I used
+in the <a href="#initram-manual">manual method</a>.</p>
+
+<h3 id="copy-systemmap">Copy System.map</h3>
+
+<p>Altough this file is not required for booting, it’s a good idea to copy it as it works as a list of
+functions in a particular build of a kernel.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span><span class="nb">cp</span> <span class="nt">-v</span> System.map /boot/System.map
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h3 id="generate-grub">Generate GRUB</h3>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span>grub-mkconfig <span class="nt">-o</span> /boot/grub/grub.cfg
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<blockquote>
+  <p>In Debian, the right command is <code>update-grub</code></p>
+  <div class="language-console highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]#</span><span class="w"> </span>update-grub
+</pre></td>
+</tr></tbody></table></code></pre></div>  </div>
+</blockquote>
+
+<h2 id="speeding-things-up">Speeding things up</h2>
+
+<p>Building a lot of modules is slow. Doing it many times the same day, it’s even slower.</p>
+
+<p>There’re some little tricks to speed up the process a little bit without the need of a
+supercomputer. The one I came across at the time is <code>ccache</code>.</p>
+
+<h3 id="ccache">ccache</h3>
+
+<p>Add the following to the make statement when building the kernel:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="go">CC="ccache gcc"
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>So it looks something like this:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">make CC="ccache gcc" -j$</span><span class="o">(</span><span class="nb">nproc</span><span class="o">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h2 id="maintaining-the-kernel-up-to-date">Maintaining the kernel up to date</h2>
+
+<h3 id="applying-patches">Applying patches</h3>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>patch <span class="nt">-p1</span> &lt; &lt;dir_to_patch&gt;
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h3 id="reverting-patches">Reverting patches</h3>
+
+<p>Let’s suppose that we have a patch in a previous directory called <code>patch-5.5.6-7</code>, so we’ll apply it like</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>patch <span class="nt">-p1</span> &lt; .../patch-5.5.6-7
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>And revert it using <code>-R</code></p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="gp">]$</span><span class="w"> </span>patch <span class="nt">-p1</span> <span class="nt">-R</span> .../patch-5.5.6-7
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h2 id="sources">Sources</h2>
+
+<p><a href="https://unix.stackexchange.com/q/391273" title="Include in-kernel firmware blobs in kernel binary">Include in-kernel firmware blobs in kernel binary</a></p>
+
+<p><a href="https://wiki.archlinux.org/title/Kernel/Traditional_compilation" title="Kernel/Traditional compilation - ArchWiki">Kernel/Traditional Compilation - ArchWiki</a></p>
+
+<p><a href="https://wiki.archlinux.org/title/GRUB#Configuration" title="GRUB: Configuration - ArchWiki">GRUB: Configuration - ArchWiki</a></p>
+
+<p><a href="https://unix.stackexchange.com/q/60078" title="Find out which modules are associated with a usb device?">Find out which modules are associated with a usb device?</a></p>
+
+<p><a href="http://www.kroah.com/lkn/" title="Linux Kernel in a Nutshell">Linux Kernel in a Nutshell</a> <sup id="fnref:lkn-book" role="doc-noteref"><a href="#fn:lkn-book" class="footnote" rel="footnote">4</a></sup></p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:do-not-root" role="doc-endnote">
+
+      <p><sup id="fnref:lkn-book:1" role="doc-noteref"><a href="#fn:lkn-book" class="footnote" rel="footnote">4</a></sup>, “Preface”, p. xii. <a href="#fnref:do-not-root" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:find-specific-module" role="doc-endnote">
+
+      <p><sup id="fnref:lkn-book:2" role="doc-noteref"><a href="#fn:lkn-book" class="footnote" rel="footnote">4</a></sup>, Ch. 7, pp. 46-52. <a href="#fnref:find-specific-module" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:bin-linux-firmware" role="doc-endnote">
+
+      <p>Check the kernel’s <a href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/" title="Repository of firmware blobs for use with the Linux kernel">git repository here</a>. <a href="#fnref:bin-linux-firmware" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:lkn-book" role="doc-endnote">
+
+      <p>G. Kroah-Hartman, <em>Linux Kernel in a Nutshell</em>,
+1st. ed. Sebastopol, CA, USA: O’Reilly Media, Inc, 2007. <a href="#fnref:lkn-book" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:lkn-book:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a> <a href="#fnref:lkn-book:2" class="reversefootnote" role="doc-backlink">↩<sup>3</sup></a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+</article>
+</div>
+        </div>
+
+        <div class="flex-separator"></div>
+        
+
+
+<footer class="site-footer">
+  <div class="site-footer--container">
+    <p>
+      Created by Martín E. Zahnd 
+      <i class="far fa-copyright"></i> 
+      2022
+    </p>
+  </div>
+</footer>
+    </div>
+  </body>
+</html>
