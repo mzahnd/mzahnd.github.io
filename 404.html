@@ -1,0 +1,84 @@
+---
+# 404 Page
+#
+permalink: /404.html
+---
+
+{% comment %}
+   Copyright 2022 Martín E. Zahnd
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+{% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <title>Hmmm... - {{ site.title }}</title>
+
+    <!--
+      Included files have their own css, js files and will not be 
+      appear here. 
+    -->
+
+    <!-- ====== CSS Files ====== -->
+    <link rel="stylesheet" href="/css/site-top-bar.css">
+    <link rel="stylesheet" href="/css/site-footer.css">
+    <link rel="stylesheet" href="/css/site-menu.css">
+
+    <link rel="stylesheet" href="/css/404.css">
+    <!-- ====== END CSS Files ====== -->
+
+    <!-- ====== JS Files ====== -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/site-menu.js"></script>
+    <script type="text/javascript" src="/js/site-top-bar.js"></script>
+    <!-- ====== END JS Files ====== -->
+
+    <!-- ====== Font Awesome ====== -->
+    <script 
+        src="https://kit.fontawesome.com/0cfe53209a.js"
+        crossorigin="anonymous">
+    </script>
+    <!-- ====== END Font Awesome ====== -->
+
+    <!-- ====== SEO ====== -->
+    {% seo %}
+    <!-- ====== End SEO ====== -->
+  </head>
+  <body>
+    {% include site-menu.html classes="site-menu--container" %}
+
+    <div id="container-page">
+        {% include site-top-bar.html %}
+
+        <div class="page-content">
+            <div class="error-404">
+              <p id="title">Hmm... Let me see...</p>
+              <img src="/assets/magnifier.png" alt="Magnifier draw">
+              <p>Noup. Sorry.</p>
+                
+              <p>I could not find anything around here.</p>
+              <p id="notfound-msg">404 - Page not found</p>
+            </div>
+        </div>
+
+        <!-- <div class="flex-separator"></div> -->
+        {% include site-footer.html %}
+    </div>
+  </body>
+</html>

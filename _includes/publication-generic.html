@@ -1,0 +1,47 @@
+{% comment %}
+   Copyright 2022 Martín E. Zahnd
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+{% endcomment %}
+
+
+{% assign pub_excerpt = page.content | 
+    split: site.excerpt_separator | 
+    first | 
+    append: '</p>' %}
+
+<header>
+  <h1 id="post-title">{{ page.title }}</h1>
+  <p id="post-author">Written by {{ page.author }}</p>
+
+  <p id="post-date">Published: {{ page.date | date: "%F %H:%M" }}</p>
+  {% if page.edit %}
+  <p id="post-edit">Edited: {{ page.edit | date: "%F %H:%M" }}</p>
+  {% endif %}
+  {% if page.tags.size > 0 %}
+  <p id="post-tags">Tags: 
+      {% for tag in page.tags %}
+          {{ tag }}{% if tag != page.tags.last %}, {% endif %}
+      {% endfor %}
+  </p>
+  {% endif %}
+  <br>
+
+  <div class="post-excerpt">
+      {{ pub_excerpt }}
+  </div>
+</header>
+
+{% toc %}
+
+{{ content }}

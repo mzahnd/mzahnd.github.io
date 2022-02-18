@@ -1,0 +1,114 @@
+---
+layout: default
+
+custom_css: [contact.css]
+custom_js: [contact.js]
+---
+
+{% comment %}
+   Copyright 2022 Martín E. Zahnd
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+{% endcomment %}
+
+
+<h1>Contact Me!</h1>
+
+<p>
+    I'd love to hear from you!
+
+    Write down a few lines and I'll answer your message as soon as I read it.
+</p>
+
+<p>
+    You can write me in both English or Spanish, whichever you feel more
+    comfortable with.
+</p>
+
+<p class="contact-note"> <i>
+    <b>Note:</b> As GitHub Pages only allows static websites, this form uses an
+    external provider.
+</i> </p>
+
+<form id="contact-form" action="https://usebasin.com/f/093317c95fbe" method="POST">
+    {% comment %}
+    <!-- https://stackoverflow.com/a/20189012 -->
+    {% endcomment %}
+    
+    <div class="form-field-group">
+        <label>Name</label>
+
+        <input type="text" name="name" id="field-name"
+        required
+        placeholder="José de San Martín">
+    </div>
+
+    <div class="form-field-group" style="display:none">
+        <input type="text" name="nopersona" style="display:none" />
+    </div>
+    
+    <div id="container-contact">
+        <label>Contact information</label>
+
+        <div class="form-field-group">
+            <label>Email</label>
+            
+            <input type="email" name="email" id="field-email"
+            placeholder="person@internet.com">
+        </div>
+
+        <p>Or</p>
+
+        <div class="form-field-group">
+            <label>Phone Number (Argentina only)</label>
+
+            <div id="container-phone">
+                <div class="container-phone-field">
+                    <input type="tel" name="area-code" id="field-area-code"
+                        pattern="\d{2,4}"
+                        placeholder="11"
+                        size="4"
+                        maxlength="4">
+                    <p>Sin el 0 inicial</p>
+                    <p>(Ej: 011 -> 11)</p>
+                </div>
+                <div class="container-phone-field">
+                    <input type="tel" name="phone" id="field-phone"
+                        pattern="\d{6,8}"
+                        placeholder="12345678"
+                        size="8" maxlength="8">
+                    <p>Sin el 15</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-field-group">
+        <label>Message</label>
+
+        <textarea name="message" id="field-msg"
+        required rows="15" cols="50"
+        placeholder="A nice message :)"></textarea>
+        
+        <div id="container-char-counter">
+            <p id="char-counter">0/0</p>
+        </div>
+    </div>
+
+    <div id="google-recaptcha"></div>
+
+    <input type="submit" id="btn-submit-form" class="btn" value="Send">
+
+</form>
+
+<script src="https://www.google.com/recaptcha/api.js?onload=reCaptchaOnLoadCallback&render=explicit" async defer></script>

@@ -1,0 +1,67 @@
+{% comment %}
+   Copyright 2022 Martín E. Zahnd
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+{% endcomment %}
+
+
+{% if include.classes %}
+<div class="{{ include.classes }}" id="site-main-menu">
+{% else %}
+<div id="site-main-menu"></div>
+{% endif %}
+  <button class="btn" id="btn-site-main-menu-close">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="menu-content">
+    <img src="{{ site.logo }}" class="logo" alt="Logo">
+    <ul class="menu-list">
+      {% for item in site.data.navigation %}
+      <li>
+        <a href="{{ item.link }}" class="btn btn-link">{{ item.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <ul class="menu-info-list">
+      {% for item in site.data.information %}
+      <li>
+        <a href="{{ item.link }}" class="btn btn-link">{{ item.name }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <div class="accessibility-opts">
+      <p>Current font size: 
+        <span id="accessibility-font-size-label">0 pt</span>
+      </p>
+      <ul>
+        <li>
+          <button class="btn" id="accessibility-zoom-m">
+            <i class="fas fa-minus"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" id="accessibility-zoom-p">
+            <i class="fas fa-plus"></i>
+          </button>
+        </li>
+        <li>
+          <button class="btn" id="accessibility-zoom-reset">
+            <i class="fas fa-undo-alt"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+#   Copyright 2022 Martín E. Zahnd
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       https://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+
+# ----   Site basic information   ----
+title: "Martín's blog"
+tagline: 'My personal blog!'
+description: 'Just another blog on the internet.'
+
+locale: en-US
+
+# ----   Personal information   ----
+author: 'Martín E. Zahnd'
+developer: 'Martín E. Zahnd'
+
+social:
+  name: 'Martín E. Zahnd'
+  links:
+    - https://github.com/mzahnd/
+    - https://www.linkedin.com/in/martin-e-zahnd/
+
+encoding: utf-8
+# Base hostname and protocol
+url: 'https://mzahnd.github.io'
+domain: 'mzahnd.github.io'
+logo: '/assets/logo.png'
+
+
+# ----   Building options   ----
+exclude:
+  - private/
+  - sass/
+  - simple_server/
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+
+
+strict_front_matter: true           # Fail if there's a YAML syntax error in a
+                                    # page's front matter.
+
+
+# ----   Permalinks   ----
+permalink: /:collection/:year/:month/:day/:title:output_ext
+collections_dir: collections
+collections:
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title:output_ext
+
+  notes:
+    output: true
+    permalink: /notes/:title:output_ext
+
+
+
+# ----   Markdown related   ----
+markdown: kramdown
+kramdown:
+  input: GFM
+  gfm_emojis: false
+  #
+  syntax_highlighter_opts:
+    default_lang: plain
+    guess_lang: true
+    line_numbers: true
+    #
+    # From https://github.com/rouge-ruby/rouge#configuration
+    start_line: 1                   # Number of the first row
+    line_id: 'line-%i'              # sprintf template for id attribute with
+    #                                 current line number
+    line_class: 'lineno'            # CSS class for each table-row
+    table_class: 'rouge-line-table' # CSS class for the table
+    gutter_class: 'rouge-gutter'    # CSS class for the line-number cell
+    code_class: 'rouge-code'        # CSS class for the code cell
+
+
+excerpt_separator: <!--more-->      # Separation between introduction and TOC
+
+
+show_drafts: false                  # Do not process draft posts
+
+
+# ----   Math rendering   ----
+katex:
+  # Path used to search for katex.min.js
+  # js_path: "{{ Gem::lib_path }}/js"
+  rendering_options:
+    # Default KaTeX rendering options. 
+    # See https://github.com/Khan/KaTeX#rendering-options
+    # - throwOnError: set to false if you want rendering to output error as 
+    #                 text rather than a build error
+    throw_error: true         
+    error_color: '#cc0000'
+
+
+# ----   Table Of Contents   ----
+toc:
+  # See https://github.com/toshimaru/jekyll-toc#customization
+  min_level: 1
+  max_level: 6
+  ordered_list: false
+  no_toc_section_class: no_toc_section
+  list_id: toc
+  list_class: section-nav
+  sublist_class: ''
+  item_class: toc-entry
+  item_prefix: toc-
+
+
+# ----   Ownership verification   ----
+webmaster_verifications:
+  google: CT3cmVw_OhpKeDjTSMDoO9zCxnArTWa8PcyuM0xfozs
+
+
+# ----   Plugins   ----
+plugins:
+  - jekyll-katex                    # KaTeX equations
+  - jekyll-toc                      # Table of Contents
+  - jekyll-loading-lazy             # Adds loading="lazy" to images and iframe
+  #                         https://github.com/gildesmarais/jekyll-loading-lazy
+  - jekyll-seo-tag                  # SEO
+  - jekyll-sitemap                  # RUN LAST !!  Creates sitemap

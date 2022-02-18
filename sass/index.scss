@@ -1,0 +1,108 @@
+/*
+ *   Copyright 2022 Martín E. Zahnd
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
+
+@use "sass:color";
+
+@use 'common';
+
+@use 'pages-style' with (
+  $-container-page-name: "#container-page",
+);
+@use 'publications/container';
+
+#container-publications-by-type {
+  display: flex;
+
+  @include common.flex-column;
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    @include common.flex-row-nw;
+    align-items: flex-start;
+  }
+
+  align-items: center;
+  justify-content: space-evenly;
+
+  > div {
+    display: flex;
+    @include common.flex-column;
+  }
+}
+
+.container-publication {
+  $content-width: 90vw;
+  $content-width-desktop: 45vw;
+
+  $publication-more-border: 2px solid transparent;
+
+  width: $content-width;
+  max-width: $content-width;
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    width: $content-width-desktop;
+    max-width: $content-width-desktop;
+  }
+
+  align-self: stretch;
+
+  .publication-title {
+    margin: 0;
+    padding: 0;
+    a {
+      margin: 0;
+      padding: 0.5rem 15px;
+      text-align: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      font-style: inherit;
+      color: inherit;
+    }
+  }
+
+  .publication-subtitle {
+    margin: 0;
+
+    text-align: center;
+    font-family: "Brush Script MT", cursive, serif;
+    font-style: oblique;
+
+    color: pages-style.get-color("header-main");
+  }
+
+  .publication-more {
+    margin: 1.5rem auto;
+  }
+
+  .btn {
+    min-width: 150px;
+
+    display: inline-block;
+
+    font-size: 1.25rem;
+    text-align: center;
+  }
+
+  ul {
+    padding: 0 20px;
+    li {
+      padding-bottom: 0;
+      border: 0;
+    }
+  }
+}

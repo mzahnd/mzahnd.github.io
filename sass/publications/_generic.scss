@@ -1,0 +1,339 @@
+/*
+ *   Copyright 2022 Martín E. Zahnd
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
+
+@use 'sass:color';
+@use 'sass:math';
+
+@use 'common';
+@use 'pages-style' with (
+  $-container-page-name: "#container-page",
+);
+
+$content-max-width: pages-style.get-content-max-width();
+$content-max-width-desktop: pages-style.get-content-max-width-desktop();
+$content-right-left-margin: auto;
+
+@use 'ids' with (
+  $mobile-left-right-margin:  auto,
+  $desktop-left-right-margin: auto
+);
+
+%textdefaults {
+  width: auto;
+  max-width: $content-max-width;
+
+  padding: 0;
+  margin: 0.2rem $content-right-left-margin;
+
+  color: pages-style.get-color("text");
+  text-align: left;
+  text-decoration: none;
+  text-indent: 0.5rem;
+  font-size: 1rem;
+  font-family: Georgia, serif;
+  line-height: 1.75;
+  
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+  }
+}
+
+#post-title {
+  text-align: center;
+}
+
+#toc {
+  width: -moz-fit-content;
+  width: fit-content;
+
+  max-width: $content-max-width;
+
+  margin: 2rem $content-right-left-margin 3rem;
+  padding: 1.5rem 1vw;
+  padding-right: 2vw;
+
+  border: 2px solid pages-style.get-color("border");
+  border-left: 0;
+  border-right: 0;
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+
+    padding-left: 34px;
+    padding-right: 68px;
+  }
+
+  // border-radius: 8px;    
+}
+
+/* Code styles */
+%code-block {
+  max-width: calc($content-max-width - 10px);
+
+  margin: 1rem auto;
+  padding: 1rem 0 1rem 5px;
+
+  display: block;
+
+  text-align: left;
+  text-decoration: none;
+  text-indent: 0;
+  font-size: 0.8rem;
+  font-family: monospace, "Courier New";
+
+  overflow-x: auto;
+  white-space: pre;
+
+  border: 0;
+  border-left: 5px solid pages-style.get-color("code-border");
+  background-color: pages-style.get-color("code-background");
+  border-radius: 1px;
+
+  a {
+    line-height: 1rem;
+  }
+  pre {
+    margin: 0;
+    font-family: inherit;
+    white-space: inherit;
+  }
+  
+  // Line-number cell. Class name set in _config.yml
+  .rouge-gutter {
+    margin:0;
+    padding: 0;
+    padding-left: 2px;
+    padding-right: 0.5rem;
+    color: color.adjust(pages-style.get-color("text"), $blackness: 35%);
+  }
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: calc($content-max-width-desktop - 10px);
+  }
+}
+
+%inline-code {
+  width: auto;
+  min-width: unset;
+  
+  margin: 0;
+  padding: 0 3px;
+
+  display: inline-flex;
+
+  background-color: color.adjust(
+    pages-style.get-color("code-background"),
+    $blackness: 5%
+  );
+  text-decoration: none;
+  text-indent: 0;
+  font-size: 0.9rem;
+  font-family: monospace, "Courier New";
+
+  border: 1px solid color.adjust(
+                      pages-style.get-color("code-background"),
+                      $lightness: 5%
+  );
+  line-height: 1.7;
+
+  overflow-wrap: break-word;
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+  }
+}
+
+code {
+  /* Inline by default */
+  @extend %inline-code;
+}
+
+
+div .highlight, pre {
+  code {
+      @extend %code-block;
+  }
+}
+/* End code styles */
+
+p {
+  @extend %textdefaults;
+
+  > a {
+    display: inline;
+    width: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 2.5rem $content-right-left-margin 1.5rem;
+  padding: 0 2rem;
+
+  color: pages-style.get-color("text");
+
+  a {
+    margin: unset; // TOC creates links inside headers
+  }
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+  }
+}
+
+a {
+  max-width: $content-max-width;
+
+  margin: 0.2rem 0.1rem;
+
+  text-decoration: underline;
+  font-size: 1rem;
+
+  cursor: pointer;
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+  }
+}
+
+ol, ul {
+  $sub-item-margin: 0 1.5rem;
+
+  width: auto;
+  max-width: $content-max-width;
+  margin: 0.3rem $content-right-left-margin;
+  padding: 0;
+
+  ul {
+    margin: $sub-item-margin;
+    margin-right: 0;
+    padding: 0;
+
+    li {
+      margin: $sub-item-margin;
+      margin-right: 0;
+      padding: 0;
+    }
+  }
+
+  li {
+    @extend %textdefaults;
+
+    width: auto;
+    margin: 0 2rem;
+    margin-right: 0;
+
+    /* Desktop */
+    @include common.media-screen(desktop) {
+      max-width: $content-max-width-desktop;
+      margin: 0 3rem;
+      margin-right: 0;
+    }
+
+    text-indent: 0;
+
+    > p {
+      margin: 0;
+    }
+    > a {
+      margin: 0;
+    }
+  }
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+  }
+}
+
+blockquote {
+  @extend %textdefaults;
+
+  width: auto;
+  margin: 1rem auto;
+  padding: 0;
+  
+  border: 1px solid pages-style.get-color("blockquote-border");
+  border-radius: 10px;
+
+  background-color: pages-style.get-color("blockquote-background");
+    
+  p {
+    width: auto;
+    margin: 0.75rem 1rem;
+
+    // font-style: oblique;
+    line-height: 1.6rem;
+    word-spacing: 0.05rem;
+
+    /* Desktop */
+    @include common.media-screen(desktop) {
+      max-width: $content-max-width-desktop;
+      margin: 0.75rem 1.5rem;
+
+      line-height: 1.5rem;
+      word-spacing: 0.05rem;
+    }
+  }
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+  }
+}
+
+img {
+  max-width: $content-max-width;
+  height: auto;
+  
+  display: block;
+  margin: 1rem $content-right-left-margin;
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+  }
+}
+
+// List of footnes
+.footnotes {
+  @extend %textdefaults;
+
+  padding: 0;
+  padding-top: 2rem;
+  margin: 2rem auto 0.2rem;
+}
+
+.post-excerpt {
+  $margin-tb: 2rem;
+
+  @extend %textdefaults;
+
+  margin-top: $margin-tb;
+  margin-bottom: $margin-tb;
+
+  p {
+    margin: auto;
+  }
+}

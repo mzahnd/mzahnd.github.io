@@ -1,0 +1,118 @@
+---
+---
+
+{% comment %}
+   Copyright 2022 Martín E. Zahnd
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+{% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    {% if page.title %}
+      <title>{{ page.title }} - {{ site.title }}</title>
+    {% else %}
+      <title>{{ site.title }}</title>
+    {% endif %}
+
+    <!--
+      Included files have their own css, js files and will not be 
+      appear here. 
+    -->
+
+    <!-- ====== CSS Files ====== -->
+    <link rel="stylesheet" href="/css/site-top-bar.css">
+    <link rel="stylesheet" href="/css/site-footer.css">
+    <link rel="stylesheet" href="/css/site-menu.css">
+    
+    {% for ccss in layout.custom_css %}
+    <link rel="stylesheet" href="/css/{{ ccss }}">
+    {% endfor %}
+    {% for ccss in page.custom_css %}
+    <link rel="stylesheet" href="/css/{{ ccss }}">
+    {% endfor %}
+    <!-- ====== END CSS Files ====== -->
+
+    <!-- ====== JS Files ====== -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/site-menu.js"></script>
+    <script type="text/javascript" src="/js/site-top-bar.js"></script>
+
+    {% for cjs in layout.custom_js %}
+    <script type="text/javascript" src="/js/{{ cjs }}"></script>
+    {% endfor %}
+    {% for cjs in page.custom_js %}
+    <script type="text/javascript" src="/js/{{ cjs }}"></script>
+    {% endfor %}
+    <!-- ====== END JS Files ====== -->
+
+    <!-- ====== Font Awesome ====== -->
+    <script 
+        src="https://kit.fontawesome.com/0cfe53209a.js"
+        crossorigin="anonymous">
+    </script>
+    <!-- ====== END Font Awesome ====== -->
+
+    {% if page.equations %}
+    <!--- ====== KaTeX ====== -->
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css"
+      integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET"
+      crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js"
+      integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb"
+      crossorigin="anonymous">
+    </script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer
+      src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js"
+      integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"
+      crossorigin="anonymous"
+      onload="renderMathInElement(document.body);">
+    </script>
+    <!-- ====== END KaTeX ====== -->
+    {% endif %}
+
+    <!-- ====== SEO ====== -->
+    {% seo %}
+    <!-- ====== End SEO ====== -->
+  </head>
+  <body>
+    {% include site-menu.html classes="site-menu--container" %}
+
+    <div id="container-page">
+        {% include site-top-bar.html %}
+
+        {% if page.content-id %}
+          <div class="page-content" id="{{ page.content-id }}">
+        {% else %}
+          <div class="page-content">
+        {% endif %}
+            {{ content }}
+        </div>
+
+        <div class="flex-separator"></div>
+        {% include site-footer.html %}
+    </div>
+  </body>
+</html>

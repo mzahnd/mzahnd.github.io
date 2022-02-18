@@ -1,0 +1,63 @@
+---
+layout: default
+
+custom_css: [notes/index.css]
+custom_js: []
+---
+
+{% comment %}
+   Copyright 2022 Martín E. Zahnd
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+{% endcomment %}
+
+
+{% comment %}
+<!--From: https://gist.github.com/lukecathie/2b4eaad90467b3a7c266 -->
+{% endcomment %}
+{% assign all_notes = site.notes | sort: 'date' | reverse %}
+<div class="container-publication">
+    <h1 class="publication-title">Notes</h1>
+    <p>
+        This is what I write down in a random piece of paper, a napkin, or 
+        <a href="https://joplinapp.org">Joplin</a> while learning something completely new, doing
+        something I've never done before or trying to reduce my number of (repeated) queries into
+        web search engines.
+    </p>
+    <p>
+        Some of them are older than this website, some are written with more detail, some are
+        nothing but the absolute minimum number of words needed to be read by myself of someone
+        who is looking for *that* command (s)he came across some time ago.
+    </p>
+    <ul>
+    {% for note in all_notes %}
+    <li {% if note == all_notes.last %} style="border-bottom: none;" {% endif %}>
+        <h1><a href="{{ note.url }}">{{ note.title }}</a></h1>
+        <p id="post-date">Published: {{ note.date }}</p>
+        {% if note.tags.size > 0 %}
+        <p id="post-tags">Tags: 
+            {% for tag in note.tags %}
+                {{ tag }}{% if tag != note.tags.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        {% endif %}
+        <details>
+            <summary>Brief</summary>
+            {{ note.excerpt }}
+            <a href="{{ note.url }}">Keep reading...</a>
+        </details>
+        
+    </li>
+    {% endfor %}
+    </ul>
+</div>

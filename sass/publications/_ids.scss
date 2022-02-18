@@ -1,0 +1,54 @@
+/*
+ *   Copyright 2022 Martín E. Zahnd
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
+
+@use "sass:color";
+
+@use 'common';
+@use 'pages-style';
+
+$mobile-left-right-margin: 0 !default;
+$desktop-left-right-margin: 1rem 0 !default;
+
+$post-header-font: "Courier New", monospace;
+
+#post-title {
+  color: pages-style.get-color("header-main");
+}
+
+#post-date, #post-edit, #post-tags {
+  margin: 0 $mobile-left-right-margin;
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    margin: 0 $desktop-left-right-margin;
+  }
+
+  color: color.adjust(pages-style.get-color("text"), $blackness: 25%);
+  text-align: left;
+  font-size: 0.75rem;
+
+  font-family: $post-header-font;
+}
+
+#post-author {
+
+  color: color.adjust(pages-style.get-color("text"), $blackness: 5%);
+  font-size: 1rem;
+  text-align: center;
+
+  font-family: $post-header-font;
+}

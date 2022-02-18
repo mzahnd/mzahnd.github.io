@@ -1,0 +1,200 @@
+/*
+ *   Copyright 2022 Martín E. Zahnd
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
+
+@use 'sass:color';
+@use 'sass:math';
+
+@use 'common';
+@use 'pages-style' with (
+  $-container-page-name: "#container-page",
+);
+
+$content-max-width: pages-style.get-content-max-width();
+$content-max-width-desktop: 500px;
+
+$group-margin: 1rem 0;
+$group-padding-top-bottom: 0.5rem;
+$group-padding-left-right: 1rem;
+$group-padding: $group-padding-top-bottom $group-padding-left-right;
+$group-border: 2px solid pages-style.get-color("form-border");
+$group-border-radius: 10px;
+
+form {
+  div, input, label, textarea {
+    width: $content-max-width;
+    max-width: $content-max-width;
+
+    /* Desktop */
+    @include common.media-screen(desktop) {
+        width: $content-max-width-desktop;
+        max-width: $content-max-width-desktop;
+    }
+  }
+
+  label {
+    margin: 0;
+    margin-bottom: $group-padding-top-bottom;
+  }
+
+  input, textarea {
+    border: $group-border;
+    border-color: color.adjust(pages-style.get-color("form-border"), $blackness: 50%);
+    border-radius: 5px;
+
+    background-color: pages-style.get-color("form-background");
+
+    color: pages-style.get-color("form-text");
+
+    &:focus, &:focus-visible {
+      outline: 3px solid pages-style.get-color("form-focus");
+    }
+  }
+}
+
+.page-content {
+  max-width: $content-max-width;
+  padding: 0;
+  margin: auto;
+
+  display: flex;
+  @include common.flex-column;
+}
+
+#contact-form {
+  max-width: $content-max-width;
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+  }
+  
+  margin: 1rem auto;
+
+  @include common.flex-item-align-center;
+  @include common.flex-column;
+}
+
+#container-contact {
+  margin: $group-margin;
+  padding: $group-padding;
+
+  display: flex;
+  @include common.flex-column;
+  @include common.box-borderbox;
+
+  border: $group-border;
+  border-radius: $group-border-radius;
+
+  .form-field-group {
+    width: auto;
+
+    margin: 0;
+    padding: $group-padding-top-bottom math.div($group-padding-left-right, 2);
+    
+    border-color: color.adjust(pages-style.get-color("form-border"), $blackness: 5%);
+  }
+
+  > p {
+    margin: 1rem auto;
+  }
+}
+
+#container-phone {
+  width: auto;
+  margin: auto;
+
+  display: flex;
+  @include common.flex-row-nw;
+
+  input {
+    width: fit-content;
+
+    text-align: center;
+  }
+
+  .container-phone-field {
+    width: fit-content;
+
+    margin: 0 5px;
+
+    display: flex;
+    @include common.flex-column;
+    align-items: center;
+
+    p {
+      margin: 0 auto;
+      padding: 0;
+
+      font-size: 0.75rem;
+    }
+  }
+}
+
+#container-char-counter {
+  // display: none;
+  margin: 0;
+  padding: 0;
+
+  p {
+    margin: 0;
+    padding: 0.25rem;
+
+    color: pages-style.get-color("form-attention");
+    text-align: right;
+    font-size: 0.85rem;
+  }
+}
+
+.form-field-group {
+  margin: $group-margin;
+  padding: $group-padding;
+  
+  display: flex;
+  @include common.flex-row;
+  @include common.box-borderbox;
+
+  border: $group-border;
+  border-radius: $group-border-radius;
+}
+
+#google-recaptcha {
+  width: unset;
+  margin: $group-margin;
+
+  div, input, label, textarea {
+    width: unset;
+    max-width: unset;
+  }
+}
+
+.btn {
+  margin: $group-margin;
+}
+
+#btn-submit-form {
+  width: 150px;   
+}
+
+.input-invalid {
+  background-color: pages-style.get-color("form-attention");
+}
+
+.contact-note {
+  b {
+    color: pages-style.get-color("header-main");
+  }
+}

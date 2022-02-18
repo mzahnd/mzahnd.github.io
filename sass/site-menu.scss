@@ -1,0 +1,221 @@
+/*
+ *   Copyright 2022 Martín E. Zahnd
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
+
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:math';
+
+@use 'common';
+@use 'pages-style';
+
+#site-main-menu {
+  $menu-min-width: 200px;
+
+  $btn-background-color: pages-style.get-color("btn-background");
+  $btn-margins: 15px; // Around buttons, set in 'li'
+  // Inside buttons, set in '.btn'. left and right padding: $menu-min-width
+  $btn-padding: 10px 0;
+  $btn-border-radius: 10px;
+
+  // min-width: $menu-min-width;
+  min-height: 100vh;
+
+  display: flex;
+  @include common.flex-row;
+
+  justify-content: space-between;
+  align-items: stretch;
+
+  overflow: auto;
+
+  background-color: pages-style.get-color("background");
+
+  // Should be above anything else.
+  z-index: 99;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    background-color: transparent;
+
+    list-style-type: none;
+    text-align: center;
+  }
+
+  li {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+  }
+
+  .menu-content {
+    height: 100vh;
+    max-width: inherit;
+
+    display: flex;
+    @include common.flex-column;
+    flex-grow: 9;
+
+    justify-content: space-between;
+    align-items: stretch;
+
+    .logo {
+      max-height: 8%;
+
+      margin: 0;
+      margin-top: 25px;
+
+      object-fit: scale-down;
+    }
+  }
+
+  #btn-site-main-menu-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    min-width: 0; // Override min-width in '.btn'
+    width: 30px;
+    height: 30px;
+
+    padding: 0;
+    -webkit-padding-before: 2px; // In Chrome looks out of place
+
+    font-size: 16pt;
+  }
+
+  .menu-list {
+    min-width: $menu-min-width;
+    max-width: inherit;
+
+    margin: 0;
+    padding: 5px 0;
+
+    @include common.flex-item-align-center;
+    @include common.flex-column;
+
+    li {
+      margin: $btn-margins;
+
+      background-color: transparent;
+
+      border-radius: $btn-border-radius;
+    }
+  }
+
+  .menu-info-list {
+    max-width: inherit;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    @include common.flex-row;
+
+    li {
+      margin: $btn-margins math.div($btn-margins, 3);
+
+      /* Tablet */
+      @include common.media-screen(tablet) {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      /* Desktop */
+      @include common.media-screen(desktop) {
+        margin-top: 0;
+      margin-bottom: 0;
+      }
+    }
+
+    .btn {
+      &-link {
+        min-width: math.div($menu-min-width, 2);
+
+        /* Tablet */
+        @include common.media-screen(tablet) {
+          min-width: math.div($menu-min-width, 1.45);
+        }
+
+        /* Desktop */
+        @include common.media-screen(desktop) {
+          min-width: math.div($menu-min-width, 1.45);
+        }
+
+        padding: math.div(list.nth($btn-padding, 1), 1.15);
+
+        font-size: 1.15rem;
+      }
+    }
+  }
+
+  .accessibility-opts {
+    max-width: inherit;
+
+    margin-top: 20px;
+    margin-bottom: 15px;
+
+    @include common.flex-item-align-center;
+    @include common.flex-column;
+
+    justify-content: flex-end;
+    align-items: center;
+
+    p {
+      width: inherit;
+
+      margin: 0;
+      padding: 0;
+
+      font-size: 1.25rem;
+    }
+
+    ul {
+      width: inherit;
+
+      @include common.flex-item-align-center;
+      @include common.flex-row;
+
+      justify-content: space-around;
+      align-items: center;
+
+      li {
+        margin: $btn-margins;
+      }
+    }
+
+    button {
+        font-size: 1rem;
+    }
+  }
+
+  .btn {
+    min-width: math.div($menu-min-width, 4);
+
+    margin: 0;
+    padding: $btn-padding;
+
+    display: inline-block;
+
+    &-link {
+      min-width: $menu-min-width;
+
+      font-size: 1.5rem;
+    }
+  }
+}

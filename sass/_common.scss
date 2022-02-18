@@ -1,0 +1,187 @@
+/*
+ *   Copyright 2022 Martín E. Zahnd
+ *
+ *   Licensed under the Apache License, Version 2.0 (the "License");
+ *   you may not use this file except in compliance with the License.
+ *   You may obtain a copy of the License at
+ *
+ *       https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing, software
+ *   distributed under the License is distributed on an "AS IS" BASIS,
+ *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *   See the License for the specific language governing permissions and
+ *   limitations under the License.
+ */
+
+
+@use "sass:selector";
+@use "sass:string";
+
+/* Up to 599px is mobile, from 600px is tablet */
+$-viewport-mobile-tablet:       600px;
+/* From 600px to 1023px is tablet; from 1024px is desktop */
+$-viewport-tablet-desktop:      1024px;
+/* From 1800px onward is a big desktop */
+$-viewport-desktop-desktop-big: 1800px;
+
+// Browser properties
+@function browser-specific($browser, $property) {
+  @if $browser == "Safari" {
+    @return -webkit-#{$property};
+  }
+  @else if $browser == "Firefox" or $browser == "Mozilla" {
+    @return -moz-#{$property};
+  }
+  @else if $browser == "IE" or $browser == "Explorer"
+    or $browser == "Microsoft" {
+    @return -ms-#{$property};
+  }
+  @else if $browser == "Opera" {
+    @return -o-#{$property};
+  }
+}
+
+
+// Boxes
+@mixin box-borderbox() {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+}
+// Buttons
+@mixin btn-no-border-chrome($btn-class) {
+    @at-root #{selector.unify($btn-class, ":focus:not(.focus-visible)")} {
+      outline: none;
+    }
+}
+
+// Flex
+@mixin flex-item-align-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-column {
+  flex-flow: column nowrap;
+  @content;
+}
+
+@mixin flex-column-w {
+  flex-flow: column wrap;
+  @content;
+}
+
+@mixin flex-row {
+  flex-flow: row wrap;
+  @content;
+}
+
+@mixin flex-row-nw {
+  flex-flow: row nowrap;
+  @content;
+}
+
+// Hacks
+@mixin clearfix-hack {
+    &::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+
+// Media
+@mixin -media-screen-generic($min: null, $max: null) {
+  @if $min == null and $max == null {
+    @error "At least one argument should be defined for this function.";
+  }
+
+  @if $min and $max {
+    @media screen and (min-width: $min) and (max-width: $max) { @content; }
+  }
+  @else if $min {
+    @media screen and (min-width: $min) { @content; }
+  }
+  @else {
+    @media screen and (max-width: $max) { @content; }
+  }
+}
+
+@mixin media-screen($size) {
+  // Phone only
+  @if $size == 'phone-only' {
+    @include -media-screen-generic($max: $-viewport-mobile-tablet - 1) {
+      @content;
+    }
+  }
+
+  // Tablet
+  @else if $size == 'tablet' {
+    @include -media-screen-generic($min: $-viewport-mobile-tablet,
+      $max: $-viewport-tablet-desktop - 1) {
+        @content;
+      };
+  }
+
+  // Desktop
+  @else if $size == 'desktop-small' {
+    @include -media-screen-generic($min: $-viewport-tablet-desktop,
+    $max: $-viewport-desktop-desktop-big - 1) {
+      @content;
+    }
+  }
+  @else if $size == 'desktop-big' {
+    @include -media-screen-generic($min: $-viewport-desktop-desktop-big) {
+      @content;
+    }
+  }
+  @else if $size == 'desktop' {
+    @include media-screen('desktop-small') { @content; }
+    @include media-screen('desktop-big') { @content; }
+  }
+  @else {
+    @error Invalid size property $size
+  }
+}
+
+// Sprites
+@function -print-spriter-args() {
+  @error "spriter mixin takes: spriter($url , $left, $top, $width, $height)";
+}
+@mixin spriter($url: null,
+    $left: null, $top: null,
+    $width: null, $height: null) {
+
+  @if not $url {
+    @error "Empty sprite URL!";
+    @include -print-spriter-args();
+  };
+  @if not $left {
+    @error "Empty sprite left coordinate!";
+    @include -print-spriter-args();
+  };
+  @if not $top {
+    @error "Empty sprite top coordinate!";
+    @include -print-spriter-args();
+  };
+  @if not $width {
+    @error "Empty sprite width!";
+    @include -print-spriter-args();
+  };
+  @if not $height {
+    @error "Empty sprite height!";
+    @include -print-spriter-args();
+  };
+
+  background-image: url(string.quote($url));
+  background-repeat: no-repeat;
+  background-position: $left $top;
+
+  width: $width;
+  height: $height;
+  max-width: $width;
+  max-height: $height;
+}
+
