@@ -66,20 +66,12 @@ function make_public() {
     if git checkout gh-pages; then
         echo -e "\e[34mSwitched to branch gh-pages\e[0m"
 
-        # Preview files before deletion
-        if git rm -rf --dry-run . ; git rm -rf . ; then
+        cp -rT "$TMP_FOLDER/$PRODUCTION_DIR"  .
 
-            cp -rT "$TMP_FOLDER/$PRODUCTION_DIR"  .
-
-            if git add -A && git commit -a -m "Deploy $BUILD_TIME"; then
-                echo  -e "\e[32mOk\e[0m"
-            else     
-                echo  -e "\e[31mERROR\e[0m adding and commiting changes"
-                git checkout main
-                report_abort
-            fi
-        else
-            echo  -e "\e[31mERROR\e[0m running git rm -rf"
+        if git add -A && git commit -a -m "Deploy $BUILD_TIME"; then
+            echo  -e "\e[32mOk\e[0m"
+        else     
+            echo  -e "\e[31mERROR\e[0m adding and commiting changes"
             git checkout main
             report_abort
         fi
