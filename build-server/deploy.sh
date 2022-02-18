@@ -68,7 +68,7 @@ function make_public() {
 
         cp -rT "$TMP_FOLDER/$PRODUCTION_DIR"  .
 
-        if git add -A && git commit -a -m "Deploy $BUILD_TIME"; then
+        if git add -A && git commit -a -m "Deploy $BUILD_TIME" && git push origin gh-pages; then
             echo  -e "\e[32mOk\e[0m"
         else     
             echo  -e "\e[31mERROR\e[0m adding and commiting changes"
