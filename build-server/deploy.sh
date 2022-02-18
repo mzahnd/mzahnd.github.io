@@ -17,6 +17,18 @@
 
 SCRIPT_DIR="$(dirname ${BASH_SOURCE[0]})"
 
+
+# Run first
+UNTRACKED_CHANGES=$(git status --porcelain=v1 2>/dev/null | wc -l)
+
+if [ $UNTRACKED_CHANGES -gt 0 ]; then
+    echo "You have untracked changes in this branch."
+    echo "Please commit everything before running this script."
+    exit 2
+fi
+
+
+
 readonly TMP_FOLDER=$(mktemp -d)
 
 # Script for building
