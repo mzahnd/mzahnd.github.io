@@ -375,7 +375,7 @@ const reCaptcha = function() {
 
     function onLoadCallback() {
         grecaptcha.render(CAPTCHA_ID, {
-            'sitekey': '6LfExO8cAAAAAAjw11POr-80KACU8ljYYOZlEXWD',
+            'sitekey': '6Ld3WogeAAAAABzqnIRaYMsM8ara91UgSJcjh2J7',
             'theme': 'dark',
             'size': 'normal',
             'callback': reCaptcha.correct,
