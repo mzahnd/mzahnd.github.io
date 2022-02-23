@@ -53,6 +53,7 @@ normal (es decir, como un *no* super usuario).
 Si algún comando requiere privilegios elevados será indicado oportunamente o
 utilizará `sudo`.
 
+Este artículo fue escrito y probado utilizando Ubuntu 22.04 LTS.
 
 # Paquetes necesarios
 
@@ -60,6 +61,7 @@ Necesitamos varios paquetes. Están todos en este único comando para no
 preocuparnos por ello más adelante.
 
 ~~~ bash
+sudo apt update
 sudo apt install build-essential pkg-config cmake git curl zip unzip tar libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev libxi-dev libasound2-dev mesa-common-dev xorg-dev libglu1-mesa-dev
 ~~~
 
@@ -104,7 +106,8 @@ Para ello, ejecutamos los siguientes comandos:
 ~~~ bash
 mkdir ~/dev && cd ~/dev
 git clone https://github.com/Microsoft/vcpkg.git
-bootstrap-vcpkg.sh
+cd vcpkg/
+./bootstrap-vcpkg.sh
 ./vcpkg integrate install
 ./vcpkg integrate bash
 ~~~
@@ -158,7 +161,11 @@ Para ello, primero descargamos el nuevo `portfile.cmake` desde
 [este link][assets-raylib-portfile]{:target="_blank"}
 (haciendo click derecho sobre el link -> Guardar cómo...) y lo guardamos en
 un lugar de fácil acceso, por ejemplo, la carpeta `~/dev/` que creamos al
-principio. 
+principio. [^portfile-live]
+
+[^portfile-live]:
+    También podemos [ver una copia en este
+    sitio][notes-raylib-portfile-live]{:target="_blank"} antes de descargarlo.
 
 
 > Como tenemos disponible cURL, podemos copiar la url del archivo modificado
@@ -185,7 +192,8 @@ Ahora, desde una terminal, reemplazamos el archivo original con nuestra
 versión:
 
 ~~~ bash
-cd ~/dev/
+cd ~/dev/vcpkg
+# Cambiar porfile.cmake por la dirección donde descargamos el archivo.
 mv portfile.cmake ~/dev/vcpkg/ports/raylib/portfile.cmake
 ~~~
 
@@ -200,11 +208,12 @@ Y procedemos, ahora sí, a instalar raylib con vcpkg:
 ## Instalación
 
 La manera más rápida de instalar el editor de texto es entrar a la sección de
-descargas en el sitio oficial de Visual Studio Code, descargar el archivo
-`.deb` y ejecutar: [^vscode-setup]
+descargas del [sitio oficial de Visual Studio
+Code][vscode-downloads]{:target="_blank"}, descargar el archivo `.deb` y
+ejecutar en una terminal: [^vscode-setup]
 
 ~~~ bash
-cd ~/Downloads
+cd ~/Downloads  # Cambiar por la ubicación donde se descargó el archivo
 sudo apt install ./code_<version>.deb
 ~~~
 
@@ -215,15 +224,15 @@ sudo apt install ./code_<version>.deb
 ## Extensiones
 
 Para poder utilizar C/C++ y CMake de manera amigable en Visual Studio Code,
-instalamos la extensión [C/C++ Extension
+instalaremos la extensión [C/C++ Extension
 Pack][vscode-ccpp-extension]{:target="_blank"}.
 
 Para ello, vamos al menú de extensiones, desde el botón ubicado en la barra 
 lateral izquierda o presionando `Ctrl+Shift+X` y buscamos la extensión por
-su nombre, o entramos a su
-[página en el Visual Studio
-Marketplace][vscode-ccpp-extension]{:target="_blank"} y la 
-instalamos mediante el comando provisto.
+su nombre. También podemos entrar a su
+[página en Visual Studio
+Marketplace][vscode-ccpp-extension]{:target="_blank"} e instalarla
+mediante el comando provisto.
 
 ## CMake
 
@@ -251,7 +260,7 @@ Entre las llaves (`{ }`), agregamos la siguiente línea de código:
 
 ~~~ json
 ,"cmake.configureSettings": {
-"CMAKE_TOOLCHAIN_FILE": “~/dev/vcpkg/scripts/buildsystems/vcpkg.cmake"
+"CMAKE_TOOLCHAIN_FILE": "~/dev/vcpkg/scripts/buildsystems/vcpkg.cmake"
 }
 ~~~
 
@@ -400,6 +409,7 @@ Podemos obtener una lista de las distantas plataformas
 
 [assets-raylib-portfile]: /assets/collections/posts/2022/02/22/portfile.cmake "portfile.cmake"
 
+[notes-raylib-portfile-live]: /notes/raylib_portfile_patch.html "Live copy of vcpkg patch for raylib"
 
 
 
@@ -417,6 +427,7 @@ Podemos obtener una lista de las distantas plataformas
 [raylib-docs-gnu]: https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux "raysan5/raylib: Working on GNU Linux"
 
 
+[vscode-downloads]: https://code.visualstudio.com/Download "Download Visual Studio Code"
 
 [vscode-docs-setup]: https://code.visualstudio.com/docs/setup/linux "Visual Studio Code on Linux"
 
