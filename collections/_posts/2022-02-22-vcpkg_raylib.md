@@ -62,7 +62,7 @@ preocuparnos por ello más adelante.
 
 ~~~ bash
 sudo apt update
-sudo apt install build-essential pkg-config cmake git curl zip unzip tar libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev libxi-dev libasound2-dev mesa-common-dev xorg-dev libglu1-mesa-dev
+sudo apt install build-essential pkg-config cmake git curl zip unzip tar libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev libxi-dev libasound2-dev mesa-common-dev xorg-dev libglu1-mesa-dev libglfw3-dev
 ~~~
 
 - **build-essential**, **pkg-config**, **cmake**: Herramientas de compilación
@@ -74,6 +74,8 @@ básicas que se utilizarán a lo largo del cuatrimestre.
 **libxrandr-dev**, **libxi-dev**, **libasound2-dev**, **mesa-common-dev**,
 **xorg-dev**, **libglu1-mesa-dev**: Dependencias de raylib. 
 [^raylib-dependencies]
+- **libglfw3-dev**: Biblioteca para OpenGL. La necesitamos para algunos levels.
+
 
 [^vcpkg-dependencies]:
     Del [repositorio oficial en
@@ -344,6 +346,8 @@ int main(void) {
 cmake_minimum_required(VERSION 3.0.0)
 project(raylib-example VERSION 0.1.0)
 
+set(EXECUTABLE_FILE_NAME main)
+
 # From "Working with CMake" documentation:
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(CMAKE_CXX_STANDARD 11)
@@ -352,11 +356,19 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 endif()
 
 
+add_executable(${EXECUTABLE_FILE_NAME} main.cpp)
+
+
+# Raylib
 find_package(raylib CONFIG REQUIRED)
-
-add_executable(main main.cpp)
-
-target_link_libraries(main PRIVATE raylib m ${CMAKE_DL_LIBS} pthread GL rt X11)
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    target_include_directories(${EXECUTABLE_FILE_NAME} PRIVATE ${RAYLIB_INCLUDE_DIRS})
+    target_link_libraries(${EXECUTABLE_FILE_NAME} PRIVATE ${RAYLIB_LIBRARIES})
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    target_link_libraries(${EXECUTABLE_FILE_NAME} PRIVATE raylib)
+elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    target_link_libraries(${EXECUTABLE_FILE_NAME} PRIVATE raylib m ${CMAKE_DL_LIBS} pthread GL rt X11)
+endif()
 
 
 # From "Working with CMake" documentation:
@@ -373,36 +385,19 @@ La línea de configuración
 target_link_libraries(main PRIVATE raylib m ${CMAKE_DL_LIBS} pthread GL rt X11)
 ~~~
 
-es necesaria para indicarle al linker que debe utilizar las bibliotecas
-especificadas (raylib, math, pthread, etc).
+es necesaria en Linux para indicarle al linker que debe utilizar las bibliotecas
+especificadas (raylib, math, pthread, etc).[^more-platforms-cmake]
+
+[^more-platforms-cmake]:
+    Podemos obtener una lista de las distantas plataformas
+    [en este artículo][cmake-platform-checks-vars]{:target="_blank"}.
+
+
 
 
 Para compilar nuestro proyecto de prueba, podemos presionar la tecla `F7` y,
 una vez compilado, `Shift+F5` para ejecutarlo.
 
-# TODO
-
-## CMake
-
-Probar si es posible (o necesario) reemplazar la línea 
-
-~~~ cmake
-target_link_libraries(main PRIVATE raylib m ${CMAKE_DL_LIBS} pthread GL rt X11)
-~~~
-
-que proveemos en el ejemplo por verificaciones específicas para cada 
-plataforma. Por ejemplo:
-
-~~~ cmake
-target_link_libraries(main PRIVATE raylib)
-
-if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    target_link_libraries(main PRIVATE m ${CMAKE_DL_LIBS} pthread GL rt X11)
-endif()
-~~~
-
-Podemos obtener una lista de las distantas plataformas
-[en este artículo][cmake-platform-checks-vars]{:target="_blank"}.
 
 
 
