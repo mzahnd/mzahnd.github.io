@@ -48,8 +48,11 @@ There's an open source version called `foo2zjs` which doesn't seem to  work very
 this particular  printer and, among other things, the last time I tried, it had to be reinstalled
 and reconfigured every time the device was powered off and on again.
 
-Check the [official website](https://foo2zjs.linkevich.net/) and the 
-[AUR package](https://aur.archlinux.org/packages/foo2zjs-nightly/) if you are interested.
+Check the [official website](https://foo2zjs.linkevich.net/){:target="_blank"}
+and the 
+[AUR
+package](https://aur.archlinux.org/packages/foo2zjs-nightly/){:target="_blank"}
+if you are interested.
 
 ## Dependencies
 
@@ -135,6 +138,6 @@ Run
 
 ## Sources 
 
-[HPLIP 3.19.1 - hp-plugin won't install/update - unable to receive keys](https://bugs.launchpad.net/hplip/+bug/1818629)
+[HPLIP 3.19.1 - hp-plugin won't install/update - unable to receive keys](https://bugs.launchpad.net/hplip/+bug/1818629){:target="_blank"}
 
-[No PPD found for model deskjet_4620 using new/old algorithm](https://bugs.launchpad.net/hplip/+bug/1084062)
+[No PPD found for model deskjet_4620 using new/old algorithm](https://bugs.launchpad.net/hplip/+bug/1084062){:target="_blank"}

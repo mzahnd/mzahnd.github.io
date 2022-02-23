@@ -56,7 +56,7 @@ See the [Sources](#sources) section for more information and links.
 - You'll need the following tools
     - Tools in `build-essential` (Debian based distributions) or `base-devel` (Arch based)
     - `wget` or `curl`
-    - `ld` and `as`: Both come in the [GNU Binutils][gnu-binutils] collection of binary tools
+    - `ld` and `as`: Both come in the [GNU Binutils][gnu-binutils]{:target="_blank"} collection of binary tools
     (In both Debian and Arch based distributions, the package is called `binutils`).
 
 [^do-not-root]:
@@ -66,7 +66,7 @@ See the [Sources](#sources) section for more information and links.
 
 ### Downloading the sources
 
-Get the tarball from the [Linux Kernel Archives][linux-kernel-archives] as well as the pgp file
+Get the tarball from the [Linux Kernel Archives][linux-kernel-archives]{:target="_blank"} as well as the pgp file
 and download them inside a folder in the home directory.
 
 For example, for the 5.5.6 version of the kernel, do
@@ -104,7 +104,7 @@ And verify the `.tar` against the signature
 ]$ gpg2 --verify linux-5.5.6.tar.sign
 ~~~
 
-For more information read the [Signatures][lka-signatures] section in the Linux Kernel Archives
+For more information read the [Signatures][lka-signatures]{:target="_blank"} section in the Linux Kernel Archives
 website.
 
 ### Extract the sources
@@ -221,7 +221,7 @@ In the following example, some AMDGPU binary blobs will be used to explain hoy t
 kernel.
 
 [^bin-linux-firmware]:
-    Check the kernel's [git repository here][bin-linux-firmware-repo].
+    Check the kernel's [git repository here][bin-linux-firmware-repo]{:target="_blank"}.
 
 
 #### Cloning linux-firmware (optional)
@@ -240,7 +240,7 @@ kernel sources (`~/linuxkernel`), as this will be usefull in a few steps.
 #### Locating the desired `.bin` files
 
 How to determine exactly which `.bin` files are needed varies on every case. In the case of the
-AMDGPU ones, I'm using the [Gentoo Wiki on the topic][gentoo-wiki-amdgpu] for guidance.
+AMDGPU ones, I'm using the [Gentoo Wiki on the topic][gentoo-wiki-amdgpu]{:target="_blank"} for guidance.
 
 #### Including the firmware
 
@@ -274,20 +274,29 @@ echo linux-firmware/{amdgpu/hainan_{ce,k_smc,mc,me,pfp,rlc,smc},radeon/{hainan_{
 ### Adding RTL8723DE source code into the kernel    {#adding-rtl8723de-source}
 
 > When I originally wrote this notes, the Realtek RTL8723DE chip was not built into the kernel so
-> I had to do it manually in order to connect to Wi-Fi networks.
+I had to do it manually in order to connect to Wi-Fi networks.
 > 
-> As of [this commit][rtw88-8723de-kernel] (commited on May 2020) this is no longer necessary
-> because the source code has been marked as *ready* and is now built in. Also, the `rtlwifi_new`
-> repository doesn't exist anymore.
+> As of [this commit][rtw88-8723de-kernel]{:target="_blank"} (commited on May 2020) this is no 
+longer necessary because the source code has been marked as *ready* and is now built in. Also, 
+the `rtlwifi_new` repository doesn't exist anymore.
 >
 > Nonetheless, I decided to keep this section here as a remainder of "what to do" if I ever again
-> need to build something external to the mainline kernel and because it represents the first time
-> I took a look to someone elses "real world" C code in order to learn how things are actually
-> done.
+need to build something external to the mainline kernel and because it represents the first time
+I took a look to someone elses "real world" C code in order to learn how things are actually
+done.
 
 
-Clone the extended branch from [`rtlwifi_new` GitHub repository](lwfinger/rtlwifi_new) on the same
-folder as the kernel, `~/linuxkernel/` in my case.
+Clone the extended branch from <s>`rtlwifi_new`</s>
+[`rtw88` GitHub repository][rtw88-gh]{:target="_blank"} [^rtlwifi-change-repo]
+in the same folder as the kernel, `~/linuxkernel/` in my case.
+
+[^rtlwifi-change-repo]:
+    The original GitHub repository, 
+    [`rtlwifi_new`](https://github.com/lwfinger/rtlwifi_new){:target="_blank"} has been removed by
+    its author and replaced with [`rtw88`][rtw88-gh]{:target="_blank"}
+
+[rtw88-gh]: https://github.com/lwfinger/rtw88 "lwfinger/rtw88"
+
 
 Then we need to copy the related files in between the kernel source code.
 ~~~ console
@@ -414,7 +423,7 @@ I'm not going to type it now. Enter the link and read it.
 > I was (until now) the only one reading this notes, so this was directed to myself. I'm
 > astonished. Such a *bad guy*! (...)
 
-[This subsection of the ArchWiki][archwiki-kernel-trad-comp-auto] explains how to use an
+[This subsection of the ArchWiki][archwiki-kernel-trad-comp-auto]{:target="_blank"} explains how to use an
 existing preset file in order to automatically generate the initramfs.
 
 It makes no real sense to copy and paste it, as I haven't tried it. The small period of my life I
@@ -483,15 +492,15 @@ And revert it using `-R`
 
 ## Sources  {#sources}
 
-[Include in-kernel firmware blobs in kernel binary][bin-blobs-in-kernel]
+- [Include in-kernel firmware blobs in kernel binary][bin-blobs-in-kernel]{:target="_blank"}
 
-[Kernel/Traditional Compilation - ArchWiki][archwiki-kernel-trad-comp]
+- [Kernel/Traditional Compilation - ArchWiki][archwiki-kernel-trad-comp]{:target="_blank"}
 
-[GRUB: Configuration - ArchWiki][archwiki-grub-configuration]
+- [GRUB: Configuration - ArchWiki][archwiki-grub-configuration]{:target="_blank"}
 
-[Find out which modules are associated with a usb device?][modules-associated-to-usb]
+- [Find out which modules are associated with a usb device?][modules-associated-to-usb]{:target="_blank"}
 
-[Linux Kernel in a Nutshell][lkn] [^lkn-book]
+- [Linux Kernel in a Nutshell][lkn]{:target="_blank"} [^lkn-book]
 
 [^lkn-book]:
     G. Kroah-Hartman, *Linux Kernel in a Nutshell*,

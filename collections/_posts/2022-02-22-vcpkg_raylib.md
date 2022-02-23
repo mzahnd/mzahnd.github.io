@@ -74,7 +74,8 @@ básicas que se utilizarán a lo largo del cuatrimestre.
 [^raylib-dependencies]
 
 [^vcpkg-dependencies]:
-    Del [repositorio oficial en GitHub][vcpkg-docs-linux-dev-tools]
+    Del [repositorio oficial en
+    GitHub][vcpkg-docs-linux-dev-tools]{:target="_blank"}
 
 [^raylib-dependencies]:
     Al compilar raylib obtenemos el siguiente mensaje:
@@ -89,7 +90,8 @@ básicas que se utilizarán a lo largo del cuatrimestre.
     These can be installed on Ubuntu systems via sudo apt install 
     libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev
     ~~~
-    Además, en la [Wiki del repositorio oficial][raylib-docs-gnu] nos dicen que
+    Además, en la [Wiki del repositorio
+    oficial][raylib-docs-gnu]{:target="_blank"} nos dicen que
     > You need to install some required libraries; ALSA for audio, Mesa for
     OpenGL accelerated graphics and X11 for windowing system.
 
@@ -121,7 +123,7 @@ nuestra shell es zsh podemos reemplazar `bash` por `zsh` en este comando.
 [^vcpkg-integrate-autocompletion]
 
 [^vcpkg-integrate-install]:
-    De [la documentación oficial][vcpkg-docs-integration]:
+    De [la documentación oficial][vcpkg-docs-integration]{:target="_blank"}:
     > This will implicitly add Include Directories, Link Directories, and Link 
     Libraries for all packages installed with Vcpkg to all VS2015, VS2017 and
     VS2019 MSBuild projects. We also add a post-build action for executable
@@ -129,7 +131,8 @@ nuestra shell es zsh podemos reemplazar `bash` por `zsh` en este comando.
     enabling a seamless F5 experience.
 
 [^vcpkg-integrate-autocompletion]:
-    Ver [la documentación oficial][vcpkg-docs-tab-autocompletion].
+    Ver [la documentación
+    oficial][vcpkg-docs-tab-autocompletion]{:target="_blank"}.
 
 > **¡IMPORTANTE!**
 >
@@ -152,7 +155,7 @@ la versión modificada. [^vcpkg-raylib-portfile]
 
 
 Para ello, primero descargamos el nuevo `portfile.cmake` desde 
-[este link][assets-raylib-portfile]
+[este link][assets-raylib-portfile]{:target="_blank"}
 (haciendo click derecho sobre el link -> Guardar cómo...) y lo guardamos en
 un lugar de fácil acceso, por ejemplo, la carpeta `~/dev/` que creamos al
 principio. 
@@ -172,7 +175,8 @@ curl -o ~/dev/vcpkg/ports/raylib/portfile.cmake <url a portfile.cmake>
 [^vcpkg-raylib-portfile]:
     Si en el futuro deja de ser necesario este parche, podemos reestablecer
     los archivos originales de vcpkg descargándolos desde [su ubicación en
-    el repositorio de GitHub][vcpkg-raylib-port-gh] y reinstalando raylib.
+    el repositorio de GitHub][vcpkg-raylib-port-gh]{:target="_blank"} 
+    y reinstalando raylib.
 
 
 [vcpkg-raylib-port-gh]: https://github.com/microsoft/vcpkg/tree/master/ports/raylib "microsoft/vcpkg/ports/raylib/"
@@ -205,18 +209,20 @@ sudo apt install ./code_<version>.deb
 ~~~
 
 [^vscode-setup]:
-    Ver [la documentación al respecto][vscode-docs-setup].
+    Ver [la documentación al respecto][vscode-docs-setup]{:target="_blank"}.
 
 
 ## Extensiones
 
 Para poder utilizar C/C++ y CMake de manera amigable en Visual Studio Code,
-instalamos la extensión [C/C++ Extension Pack][vscode-ccpp-extension].
+instalamos la extensión [C/C++ Extension
+Pack][vscode-ccpp-extension]{:target="_blank"}.
 
 Para ello, vamos al menú de extensiones, desde el botón ubicado en la barra 
 lateral izquierda o presionando `Ctrl+Shift+X` y buscamos la extensión por
 su nombre, o entramos a su
-[página en el Visual Studio Marketplace][vscode-ccpp-extension] y la 
+[página en el Visual Studio
+Marketplace][vscode-ccpp-extension]{:target="_blank"} y la 
 instalamos mediante el comando provisto.
 
 ## CMake
@@ -250,7 +256,7 @@ Entre las llaves (`{ }`), agregamos la siguiente línea de código:
 ~~~
 
 [^vscode-vcpkg-cmake]:
-    Ver [la documentación oficial][vcpkg-docs-cmake].
+    Ver [la documentación oficial][vcpkg-docs-cmake]{:target="_blank"}.
 
 Obteniendo un resultado similar al siguiente:
 
@@ -387,7 +393,7 @@ endif()
 ~~~
 
 Podemos obtener una lista de las distantas plataformas
-[en este artículo][cmake-platform-checks-vars].
+[en este artículo][cmake-platform-checks-vars]{:target="_blank"}.
 
 
 
