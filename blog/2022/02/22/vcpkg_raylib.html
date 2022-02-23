@@ -251,6 +251,8 @@ normal (es decir, como un <em>no</em> super usuario).
 <p>Si algún comando requiere privilegios elevados será indicado oportunamente o
 utilizará <code>sudo</code>.</p>
 
+<p>Este artículo fue escrito y probado utilizando Ubuntu 22.04 LTS.</p>
+
 <h1 id="paquetes-necesarios">Paquetes necesarios</h1>
 
 <p>Necesitamos varios paquetes. Están todos en este único comando para no 
@@ -258,8 +260,10 @@ preocuparnos por ello más adelante.</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
 <td class="rouge-gutter gl"><pre class="lineno">1
+2
 </pre></td>
-<td class="rouge-code"><pre><span class="nb">sudo </span>apt <span class="nb">install </span>build-essential pkg-config cmake git curl zip unzip <span class="nb">tar </span>libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev libxi-dev libasound2-dev mesa-common-dev xorg-dev libglu1-mesa-dev
+<td class="rouge-code"><pre><span class="nb">sudo </span>apt update
+<span class="nb">sudo </span>apt <span class="nb">install </span>build-essential pkg-config cmake git curl zip unzip <span class="nb">tar </span>libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev libxi-dev libasound2-dev mesa-common-dev xorg-dev libglu1-mesa-dev
 </pre></td>
 </tr></tbody></table></code></pre></div></div>
 
@@ -293,10 +297,12 @@ básicas que se utilizarán a lo largo del cuatrimestre.</li>
 3
 4
 5
+6
 </pre></td>
 <td class="rouge-code"><pre><span class="nb">mkdir</span> ~/dev <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/dev
 git clone https://github.com/Microsoft/vcpkg.git
-bootstrap-vcpkg.sh
+<span class="nb">cd </span>vcpkg/
+./bootstrap-vcpkg.sh
 ./vcpkg integrate <span class="nb">install</span>
 ./vcpkg integrate bash
 </pre></td>
@@ -349,7 +355,7 @@ la versión modificada. <sup id="fnref:vcpkg-raylib-portfile" role="doc-noteref"
 <a href="/assets/collections/posts/2022/02/22/portfile.cmake" title="portfile.cmake" target="_blank">este link</a>
 (haciendo click derecho sobre el link -&gt; Guardar cómo…) y lo guardamos en
 un lugar de fácil acceso, por ejemplo, la carpeta <code>~/dev/</code> que creamos al
-principio.</p>
+principio. <sup id="fnref:portfile-live" role="doc-noteref"><a href="#fn:portfile-live" class="footnote" rel="footnote">6</a></sup></p>
 
 <blockquote>
   <p>Como tenemos disponible cURL, podemos copiar la url del archivo modificado
@@ -374,8 +380,10 @@ versión:</p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
 <td class="rouge-gutter gl"><pre class="lineno">1
 2
+3
 </pre></td>
-<td class="rouge-code"><pre><span class="nb">cd</span> ~/dev/
+<td class="rouge-code"><pre><span class="nb">cd</span> ~/dev/vcpkg
+<span class="c"># Cambiar porfile.cmake por la dirección donde descargamos el archivo.</span>
 <span class="nb">mv </span>portfile.cmake ~/dev/vcpkg/ports/raylib/portfile.cmake
 </pre></td>
 </tr></tbody></table></code></pre></div></div>
@@ -394,14 +402,15 @@ versión:</p>
 <h2 id="instalación">Instalación</h2>
 
 <p>La manera más rápida de instalar el editor de texto es entrar a la sección de
-descargas en el sitio oficial de Visual Studio Code, descargar el archivo
-<code>.deb</code> y ejecutar: <sup id="fnref:vscode-setup" role="doc-noteref"><a href="#fn:vscode-setup" class="footnote" rel="footnote">6</a></sup></p>
+descargas del <a href="https://code.visualstudio.com/Download" title="Download Visual Studio Code" target="_blank">sitio oficial de Visual Studio
+Code</a>, descargar el archivo <code>.deb</code> y
+ejecutar en una terminal: <sup id="fnref:vscode-setup" role="doc-noteref"><a href="#fn:vscode-setup" class="footnote" rel="footnote">7</a></sup></p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
 <td class="rouge-gutter gl"><pre class="lineno">1
 2
 </pre></td>
-<td class="rouge-code"><pre><span class="nb">cd</span> ~/Downloads
+<td class="rouge-code"><pre><span class="nb">cd</span> ~/Downloads  <span class="c"># Cambiar por la ubicación donde se descargó el archivo</span>
 <span class="nb">sudo </span>apt <span class="nb">install</span> ./code_&lt;version&gt;.deb
 </pre></td>
 </tr></tbody></table></code></pre></div></div>
@@ -409,15 +418,15 @@ descargas en el sitio oficial de Visual Studio Code, descargar el archivo
 <h2 id="extensiones">Extensiones</h2>
 
 <p>Para poder utilizar C/C++ y CMake de manera amigable en Visual Studio Code,
-instalamos la extensión <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack" title="Visual Studio Marketplace: C/C++ Extension Pack" target="_blank">C/C++ Extension
+instalaremos la extensión <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack" title="Visual Studio Marketplace: C/C++ Extension Pack" target="_blank">C/C++ Extension
 Pack</a>.</p>
 
 <p>Para ello, vamos al menú de extensiones, desde el botón ubicado en la barra 
 lateral izquierda o presionando <code>Ctrl+Shift+X</code> y buscamos la extensión por
-su nombre, o entramos a su
-<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack" title="Visual Studio Marketplace: C/C++ Extension Pack" target="_blank">página en el Visual Studio
-Marketplace</a> y la 
-instalamos mediante el comando provisto.</p>
+su nombre. También podemos entrar a su
+<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack" title="Visual Studio Marketplace: C/C++ Extension Pack" target="_blank">página en Visual Studio
+Marketplace</a> e instalarla
+mediante el comando provisto.</p>
 
 <h2 id="cmake">CMake</h2>
 
@@ -448,7 +457,7 @@ similar al siguiente:</p>
 </tr></tbody></table></code></pre></div></div>
 
 <p>Entre las llaves (<code>{ }</code>), agregamos la siguiente línea de código:
-<sup id="fnref:vscode-vcpkg-cmake" role="doc-noteref"><a href="#fn:vscode-vcpkg-cmake" class="footnote" rel="footnote">7</a></sup></p>
+<sup id="fnref:vscode-vcpkg-cmake" role="doc-noteref"><a href="#fn:vscode-vcpkg-cmake" class="footnote" rel="footnote">8</a></sup></p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
 <td class="rouge-gutter gl"><pre class="lineno">1
@@ -456,8 +465,8 @@ similar al siguiente:</p>
 3
 </pre></td>
 <td class="rouge-code"><pre><span class="err">,</span><span class="nl">"cmake.configureSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="nl">"CMAKE_TOOLCHAIN_FILE"</span><span class="p">:</span><span class="w"> </span><span class="err">“~/dev/vcpkg/scripts/buildsystems/vcpkg.cmake</span><span class="s2">"
-}
+</span><span class="nl">"CMAKE_TOOLCHAIN_FILE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"~/dev/vcpkg/scripts/buildsystems/vcpkg.cmake"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></pre></td>
 </tr></tbody></table></code></pre></div></div>
 
@@ -731,6 +740,11 @@ oficial</a>. <a href="#fnref:vcpkg-integrate-autocompletion" class="reversefoot
 los archivos originales de vcpkg descargándolos desde <a href="https://github.com/microsoft/vcpkg/tree/master/ports/raylib" title="microsoft/vcpkg/ports/raylib/" target="_blank">su ubicación en
 el repositorio de GitHub</a> 
 y reinstalando raylib. <a href="#fnref:vcpkg-raylib-portfile" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:portfile-live" role="doc-endnote">
+
+      <p>También podemos <a href="/notes/raylib_portfile_patch.html" title="Live copy of vcpkg patch for raylib" target="_blank">ver una copia en este
+sitio</a> antes de descargarlo. <a href="#fnref:portfile-live" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:vscode-setup" role="doc-endnote">
 
