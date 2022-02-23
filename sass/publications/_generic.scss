@@ -53,35 +53,6 @@ $content-right-left-margin: auto;
   }
 }
 
-#post-title {
-  text-align: center;
-}
-
-#toc {
-  width: -moz-fit-content;
-  width: fit-content;
-
-  max-width: $content-max-width;
-
-  margin: 2rem $content-right-left-margin 3rem;
-  padding: 1.5rem 1vw;
-  padding-right: 2vw;
-
-  border: 2px solid pages-style.get-color("border");
-  border-left: 0;
-  border-right: 0;
-
-  /* Desktop */
-  @include common.media-screen(desktop) {
-    max-width: $content-max-width-desktop;
-
-    padding-left: 34px;
-    padding-right: 68px;
-  }
-
-  // border-radius: 8px;    
-}
-
 /* Code styles */
 %code-block {
   max-width: calc($content-max-width - 10px);
@@ -160,6 +131,83 @@ $content-right-left-margin: auto;
     max-width: $content-max-width-desktop;
   }
 }
+
+%blockquote-style {
+  $blockquote-content-margins: 0.75rem 1rem;
+
+  @extend %textdefaults;
+
+  width: auto;
+  margin: 1rem auto;
+  padding: 0;
+  
+  border: 1px solid pages-style.get-color("blockquote-border");
+  border-radius: 10px;
+
+  background-color: pages-style.get-color("blockquote-background");
+    
+  p {
+    width: auto;
+    margin: $blockquote-content-margins;
+
+    // font-style: oblique;
+    line-height: 1.6rem;
+    word-spacing: 0.05rem;
+
+    /* Desktop */
+    @include common.media-screen(desktop) {
+      max-width: $content-max-width-desktop;
+      margin: 0.75rem 1.5rem;
+
+      line-height: 1.5rem;
+      word-spacing: 0.05rem;
+    }
+  }
+
+  /* Code block */
+  div .highlight, pre {
+    code {
+      margin: $blockquote-content-margins;
+    }
+  }
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+  }
+
+}
+
+#post-title {
+  text-align: center;
+}
+
+#toc {
+  width: -moz-fit-content;
+  width: fit-content;
+
+  max-width: $content-max-width;
+
+  margin: 2rem $content-right-left-margin 3rem;
+  padding: 1.5rem 1vw;
+  padding-right: 2vw;
+
+  border: 2px solid pages-style.get-color("border");
+  border-left: 0;
+  border-right: 0;
+
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+
+    padding-left: 34px;
+    padding-right: 68px;
+  }
+
+  // border-radius: 8px;    
+}
+
+
 
 code {
   /* Inline by default */
@@ -268,48 +316,7 @@ ol, ul {
 }
 
 blockquote {
-  $content-margins: 0.75rem 1rem;
-
-  @extend %textdefaults;
-
-  width: auto;
-  margin: 1rem auto;
-  padding: 0;
-  
-  border: 1px solid pages-style.get-color("blockquote-border");
-  border-radius: 10px;
-
-  background-color: pages-style.get-color("blockquote-background");
-    
-  p {
-    width: auto;
-    margin: $content-margins;
-
-    // font-style: oblique;
-    line-height: 1.6rem;
-    word-spacing: 0.05rem;
-
-    /* Desktop */
-    @include common.media-screen(desktop) {
-      max-width: $content-max-width-desktop;
-      margin: 0.75rem 1.5rem;
-
-      line-height: 1.5rem;
-      word-spacing: 0.05rem;
-    }
-  }
-
-  /* Code block */
-  div .highlight, pre {
-    code {
-      margin: $content-margins;
-    }
-  }
-
-  /* Desktop */
-  @include common.media-screen(desktop) {
-    max-width: $content-max-width-desktop;
-  }
+  @extend %blockquote-style;
 }
 
 img {
@@ -332,6 +339,11 @@ img {
   padding: 0;
   padding-top: 2rem;
   margin: 2rem auto 0.2rem;
+
+  // footnotes redefines padding and margin
+  blockquote {
+    @extend %blockquote-style;
+  }
 }
 
 .post-excerpt {
