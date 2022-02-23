@@ -131,6 +131,7 @@ webmaster_verifications:
 plugins:
   - jekyll-katex                    # KaTeX equations
   - jekyll-toc                      # Table of Contents
+  - premonition                     # Cool block-quotes
   - jekyll-loading-lazy             # Adds loading="lazy" to images and iframe
   #                         https://github.com/gildesmarais/jekyll-loading-lazy
   - jekyll-seo-tag                  # SEO
