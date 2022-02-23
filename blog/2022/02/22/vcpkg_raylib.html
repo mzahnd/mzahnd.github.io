@@ -346,7 +346,7 @@ la biblioteca para vcpkg.</p>
 la versión modificada. <sup id="fnref:vcpkg-raylib-portfile" role="doc-noteref"><a href="#fn:vcpkg-raylib-portfile" class="footnote" rel="footnote">5</a></sup></p>
 
 <p>Para ello, primero descargamos el nuevo <code>portfile.cmake</code> desde 
-<a href="/assets/collections/posts/2022/02/22/portfile.cmake" title="portfile.cmake">este link</a>
+<a href="/assets/collections/posts/2022/02/22/portfile.cmake" title="portfile.cmake" target="_blank">este link</a>
 (haciendo click derecho sobre el link -&gt; Guardar cómo…) y lo guardamos en
 un lugar de fácil acceso, por ejemplo, la carpeta <code>~/dev/</code> que creamos al
 principio.</p>
@@ -409,12 +409,14 @@ descargas en el sitio oficial de Visual Studio Code, descargar el archivo
 <h2 id="extensiones">Extensiones</h2>
 
 <p>Para poder utilizar C/C++ y CMake de manera amigable en Visual Studio Code,
-instalamos la extensión <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack" title="Visual Studio Marketplace: C/C++ Extension Pack">C/C++ Extension Pack</a>.</p>
+instalamos la extensión <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack" title="Visual Studio Marketplace: C/C++ Extension Pack" target="_blank">C/C++ Extension
+Pack</a>.</p>
 
 <p>Para ello, vamos al menú de extensiones, desde el botón ubicado en la barra 
 lateral izquierda o presionando <code>Ctrl+Shift+X</code> y buscamos la extensión por
 su nombre, o entramos a su
-<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack" title="Visual Studio Marketplace: C/C++ Extension Pack">página en el Visual Studio Marketplace</a> y la 
+<a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack" title="Visual Studio Marketplace: C/C++ Extension Pack" target="_blank">página en el Visual Studio
+Marketplace</a> y la 
 instalamos mediante el comando provisto.</p>
 
 <h2 id="cmake">CMake</h2>
@@ -676,13 +678,14 @@ plataforma. Por ejemplo:</p>
 </tr></tbody></table></code></pre></div></div>
 
 <p>Podemos obtener una lista de las distantas plataformas
-<a href="https://gitlab.kitware.com/cmake/community/-/wikis/doc/tutorials/How-To-Write-Platform-Checks#platform-variables" title="How To Write Platform Checks: Platform Variables">en este artículo</a>.</p>
+<a href="https://gitlab.kitware.com/cmake/community/-/wikis/doc/tutorials/How-To-Write-Platform-Checks#platform-variables" title="How To Write Platform Checks: Platform Variables" target="_blank">en este artículo</a>.</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:vcpkg-dependencies" role="doc-endnote">
 
-      <p>Del <a href="https://github.com/microsoft/vcpkg/blob/master/README.md#installing-linux-developer-tools" title="microsoft/vcpkg: Installing Linux Developer Tools">repositorio oficial en GitHub</a> <a href="#fnref:vcpkg-dependencies" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>Del <a href="https://github.com/microsoft/vcpkg/blob/master/README.md#installing-linux-developer-tools" title="microsoft/vcpkg: Installing Linux Developer Tools" target="_blank">repositorio oficial en
+GitHub</a> <a href="#fnref:vcpkg-dependencies" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:raylib-dependencies" role="doc-endnote">
 
@@ -697,7 +700,8 @@ manager:
 These can be installed on Ubuntu systems via sudo apt install 
 libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev
 </code></pre>
-      <p>Además, en la <a href="https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux" title="raysan5/raylib: Working on GNU Linux">Wiki del repositorio oficial</a> nos dicen que</p>
+      <p>Además, en la <a href="https://github.com/raysan5/raylib/wiki/Working-on-GNU-Linux" title="raysan5/raylib: Working on GNU Linux" target="_blank">Wiki del repositorio
+oficial</a> nos dicen que</p>
       <blockquote>
         <p>You need to install some required libraries; ALSA for audio, Mesa for
 OpenGL accelerated graphics and X11 for windowing system.</p>
@@ -706,7 +710,7 @@ OpenGL accelerated graphics and X11 for windowing system.</p>
     </li>
     <li id="fn:vcpkg-integrate-install" role="doc-endnote">
 
-      <p>De <a href="https://github.com/microsoft/vcpkg/blob/master/docs/users/integration.md#user-wide-integration" title="microsoft/vcpkg: Buildsystem Integration / User-wide integration">la documentación oficial</a>:</p>
+      <p>De <a href="https://github.com/microsoft/vcpkg/blob/master/docs/users/integration.md#user-wide-integration" title="microsoft/vcpkg: Buildsystem Integration / User-wide integration" target="_blank">la documentación oficial</a>:</p>
       <blockquote>
         <p>This will implicitly add Include Directories, Link Directories, and Link 
 Libraries for all packages installed with Vcpkg to all VS2015, VS2017 and
@@ -718,21 +722,23 @@ enabling a seamless F5 experience.</p>
     </li>
     <li id="fn:vcpkg-integrate-autocompletion" role="doc-endnote">
 
-      <p>Ver <a href="https://github.com/microsoft/vcpkg#tab-completionauto-completion" title="microsoft/vcpkg: Tab-Completion/Auto-Completion">la documentación oficial</a>. <a href="#fnref:vcpkg-integrate-autocompletion" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>Ver <a href="https://github.com/microsoft/vcpkg#tab-completionauto-completion" title="microsoft/vcpkg: Tab-Completion/Auto-Completion" target="_blank">la documentación
+oficial</a>. <a href="#fnref:vcpkg-integrate-autocompletion" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:vcpkg-raylib-portfile" role="doc-endnote">
 
       <p>Si en el futuro deja de ser necesario este parche, podemos reestablecer
-los archivos originales de vcpkg descargándolos desde <a href="https://github.com/microsoft/vcpkg/tree/master/ports/raylib" title="microsoft/vcpkg/ports/raylib/">su ubicación en
-el repositorio de GitHub</a> y reinstalando raylib. <a href="#fnref:vcpkg-raylib-portfile" class="reversefootnote" role="doc-backlink">↩</a></p>
+los archivos originales de vcpkg descargándolos desde <a href="https://github.com/microsoft/vcpkg/tree/master/ports/raylib" title="microsoft/vcpkg/ports/raylib/" target="_blank">su ubicación en
+el repositorio de GitHub</a> 
+y reinstalando raylib. <a href="#fnref:vcpkg-raylib-portfile" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:vscode-setup" role="doc-endnote">
 
-      <p>Ver <a href="https://code.visualstudio.com/docs/setup/linux" title="Visual Studio Code on Linux">la documentación al respecto</a>. <a href="#fnref:vscode-setup" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>Ver <a href="https://code.visualstudio.com/docs/setup/linux" title="Visual Studio Code on Linux" target="_blank">la documentación al respecto</a>. <a href="#fnref:vscode-setup" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:vscode-vcpkg-cmake" role="doc-endnote">
 
-      <p>Ver <a href="https://github.com/microsoft/vcpkg/blob/master/README.md#visual-studio-code-with-cmake-tools" title="microsoft/vcpkg: Using vcpkg with CMake / Visual Studio Code with CMake Tools">la documentación oficial</a>. <a href="#fnref:vscode-vcpkg-cmake" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>Ver <a href="https://github.com/microsoft/vcpkg/blob/master/README.md#visual-studio-code-with-cmake-tools" title="microsoft/vcpkg: Using vcpkg with CMake / Visual Studio Code with CMake Tools" target="_blank">la documentación oficial</a>. <a href="#fnref:vscode-vcpkg-cmake" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
   </ol>
 </div>

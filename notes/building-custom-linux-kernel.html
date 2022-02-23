@@ -301,7 +301,7 @@ command. This is not necessary and can cause unexpected problems. <sup id="fnref
 <code>wget</code> or <code>curl</code>
 </li>
       <li>
-<code>ld</code> and <code>as</code>: Both come in the <a href="https://www.gnu.org/software/binutils/" title="GNU Binutils">GNU Binutils</a> collection of binary tools
+<code>ld</code> and <code>as</code>: Both come in the <a href="https://www.gnu.org/software/binutils/" title="GNU Binutils" target="_blank">GNU Binutils</a> collection of binary tools
   (In both Debian and Arch based distributions, the package is called <code>binutils</code>).</li>
     </ul>
   </li>
@@ -311,7 +311,7 @@ command. This is not necessary and can cause unexpected problems. <sup id="fnref
 
 <h3 id="downloading-the-sources">Downloading the sources</h3>
 
-<p>Get the tarball from the <a href="https://www.kernel.org/" title="The Linux Kernel Archives">Linux Kernel Archives</a> as well as the pgp file
+<p>Get the tarball from the <a href="https://www.kernel.org/" title="The Linux Kernel Archives" target="_blank">Linux Kernel Archives</a> as well as the pgp file
 and download them inside a folder in the home directory.
 
 </p>
@@ -368,7 +368,7 @@ and download them inside a folder in the home directory.
 </pre></td>
 </tr></tbody></table></code></pre></div></div>
 
-<p>For more information read the <a href="https://www.kernel.org/signature.html" title="Linux kernel releases PGP signatures">Signatures</a> section in the Linux Kernel Archives
+<p>For more information read the <a href="https://www.kernel.org/signature.html" title="Linux kernel releases PGP signatures" target="_blank">Signatures</a> section in the Linux Kernel Archives
 website.</p>
 
 <h3 id="extract-the-sources">Extract the sources</h3>
@@ -560,7 +560,7 @@ kernel sources (<code>~/linuxkernel</code>), as this will be usefull in a few st
 <h4 id="locating-the-desired-bin-files">Locating the desired <code>.bin</code> files</h4>
 
 <p>How to determine exactly which <code>.bin</code> files are needed varies on every case. In the case of the
-AMDGPU ones, I’m using the <a href="https://wiki.gentoo.org/wiki/AMDGPU" title="AMDGPU - Gentoo Wiki">Gentoo Wiki on the topic</a> for guidance.</p>
+AMDGPU ones, I’m using the <a href="https://wiki.gentoo.org/wiki/AMDGPU" title="AMDGPU - Gentoo Wiki" target="_blank">Gentoo Wiki on the topic</a> for guidance.</p>
 
 <h4 id="including-the-firmware">Including the firmware</h4>
 
@@ -606,9 +606,9 @@ filesystem.</p>
   <p>When I originally wrote this notes, the Realtek RTL8723DE chip was not built into the kernel so
 I had to do it manually in order to connect to Wi-Fi networks.</p>
 
-  <p>As of <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/net/wireless/realtek/rtw88?id=f5df1a8b4376551f7fb2416135c58896b70a1467" title="rtw88: 8723d: Add 8723DE to Kconfig and Makefile">this commit</a> (commited on May 2020) this is no longer necessary
-because the source code has been marked as <em>ready</em> and is now built in. Also, the <code>rtlwifi_new</code>
-repository doesn’t exist anymore.</p>
+  <p>As of <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/drivers/net/wireless/realtek/rtw88?id=f5df1a8b4376551f7fb2416135c58896b70a1467" title="rtw88: 8723d: Add 8723DE to Kconfig and Makefile" target="_blank">this commit</a> (commited on May 2020) this is no 
+longer necessary because the source code has been marked as <em>ready</em> and is now built in. Also, 
+the <code>rtlwifi_new</code> repository doesn’t exist anymore.</p>
 
   <p>Nonetheless, I decided to keep this section here as a remainder of “what to do” if I ever again
 need to build something external to the mainline kernel and because it represents the first time
@@ -616,8 +616,9 @@ I took a look to someone elses “real world” C code in order to learn how thi
 done.</p>
 </blockquote>
 
-<p>Clone the extended branch from <a href="lwfinger/rtlwifi_new"><code>rtlwifi_new</code> GitHub repository</a> on the same
-folder as the kernel, <code>~/linuxkernel/</code> in my case.</p>
+<p>Clone the extended branch from <s>`rtlwifi_new`</s>
+<a href="https://github.com/lwfinger/rtw88" title="lwfinger/rtw88" target="_blank"><code>rtw88</code> GitHub repository</a> <sup id="fnref:rtlwifi-change-repo" role="doc-noteref"><a href="#fn:rtlwifi-change-repo" class="footnote" rel="footnote">4</a></sup>
+in the same folder as the kernel, <code>~/linuxkernel/</code> in my case.</p>
 
 <p>Then we need to copy the related files in between the kernel source code.</p>
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
@@ -813,7 +814,7 @@ is a totally free choice.</p>
 astonished. Such a <em>bad guy</em>! (…)</p>
 </blockquote>
 
-<p><a href="https://wiki.archlinux.org/title/Kernel/Traditional_compilation#Automated_preset_method" title="Automated preset method: Kernel/Traditional compilation - ArchWiki">This subsection of the ArchWiki</a> explains how to use an
+<p><a href="https://wiki.archlinux.org/title/Kernel/Traditional_compilation#Automated_preset_method" title="Automated preset method: Kernel/Traditional compilation - ArchWiki" target="_blank">This subsection of the ArchWiki</a> explains how to use an
 existing preset file in order to automatically generate the initramfs.</p>
 
 <p>It makes no real sense to copy and paste it, as I haven’t tried it. The small period of my life I
@@ -909,29 +910,43 @@ supercomputer. The one I came across at the time is <code>ccache</code>.</p>
 
 <h2 id="sources">Sources</h2>
 
-<p><a href="https://unix.stackexchange.com/q/391273" title="Include in-kernel firmware blobs in kernel binary">Include in-kernel firmware blobs in kernel binary</a></p>
-
-<p><a href="https://wiki.archlinux.org/title/Kernel/Traditional_compilation" title="Kernel/Traditional compilation - ArchWiki">Kernel/Traditional Compilation - ArchWiki</a></p>
-
-<p><a href="https://wiki.archlinux.org/title/GRUB#Configuration" title="GRUB: Configuration - ArchWiki">GRUB: Configuration - ArchWiki</a></p>
-
-<p><a href="https://unix.stackexchange.com/q/60078" title="Find out which modules are associated with a usb device?">Find out which modules are associated with a usb device?</a></p>
-
-<p><a href="http://www.kroah.com/lkn/" title="Linux Kernel in a Nutshell">Linux Kernel in a Nutshell</a> <sup id="fnref:lkn-book" role="doc-noteref"><a href="#fn:lkn-book" class="footnote" rel="footnote">4</a></sup></p>
+<ul>
+  <li>
+    <p><a href="https://unix.stackexchange.com/q/391273" title="Include in-kernel firmware blobs in kernel binary" target="_blank">Include in-kernel firmware blobs in kernel binary</a></p>
+  </li>
+  <li>
+    <p><a href="https://wiki.archlinux.org/title/Kernel/Traditional_compilation" title="Kernel/Traditional compilation - ArchWiki" target="_blank">Kernel/Traditional Compilation - ArchWiki</a></p>
+  </li>
+  <li>
+    <p><a href="https://wiki.archlinux.org/title/GRUB#Configuration" title="GRUB: Configuration - ArchWiki" target="_blank">GRUB: Configuration - ArchWiki</a></p>
+  </li>
+  <li>
+    <p><a href="https://unix.stackexchange.com/q/60078" title="Find out which modules are associated with a usb device?" target="_blank">Find out which modules are associated with a usb device?</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.kroah.com/lkn/" title="Linux Kernel in a Nutshell" target="_blank">Linux Kernel in a Nutshell</a> <sup id="fnref:lkn-book" role="doc-noteref"><a href="#fn:lkn-book" class="footnote" rel="footnote">5</a></sup></p>
+  </li>
+</ul>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:do-not-root" role="doc-endnote">
 
-      <p><sup id="fnref:lkn-book:1" role="doc-noteref"><a href="#fn:lkn-book" class="footnote" rel="footnote">4</a></sup>, “Preface”, p. xii. <a href="#fnref:do-not-root" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p><sup id="fnref:lkn-book:1" role="doc-noteref"><a href="#fn:lkn-book" class="footnote" rel="footnote">5</a></sup>, “Preface”, p. xii. <a href="#fnref:do-not-root" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:find-specific-module" role="doc-endnote">
 
-      <p><sup id="fnref:lkn-book:2" role="doc-noteref"><a href="#fn:lkn-book" class="footnote" rel="footnote">4</a></sup>, Ch. 7, pp. 46-52. <a href="#fnref:find-specific-module" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p><sup id="fnref:lkn-book:2" role="doc-noteref"><a href="#fn:lkn-book" class="footnote" rel="footnote">5</a></sup>, Ch. 7, pp. 46-52. <a href="#fnref:find-specific-module" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:bin-linux-firmware" role="doc-endnote">
 
-      <p>Check the kernel’s <a href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/" title="Repository of firmware blobs for use with the Linux kernel">git repository here</a>. <a href="#fnref:bin-linux-firmware" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>Check the kernel’s <a href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/" title="Repository of firmware blobs for use with the Linux kernel" target="_blank">git repository here</a>. <a href="#fnref:bin-linux-firmware" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:rtlwifi-change-repo" role="doc-endnote">
+
+      <p>The original GitHub repository, 
+<a href="https://github.com/lwfinger/rtlwifi_new" target="_blank"><code>rtlwifi_new</code></a> has been removed by
+its author and replaced with <a href="https://github.com/lwfinger/rtw88" title="lwfinger/rtw88" target="_blank"><code>rtw88</code></a> <a href="#fnref:rtlwifi-change-repo" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:lkn-book" role="doc-endnote">
 
