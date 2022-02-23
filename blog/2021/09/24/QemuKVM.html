@@ -172,6 +172,8 @@
 
   <p id="post-date">Published: 2021-09-24 19:42</p>
   
+  <p id="post-edit">Edited: 2022-02-21 10:50</p>
+  
   
   <p id="post-tags">Tags: 
       
@@ -179,7 +181,13 @@
       
           kvm, 
       
-          vm
+          vm, 
+      
+          linux, 
+      
+          virtualization, 
+      
+          arch
       
   </p>
   
@@ -240,6 +248,7 @@ subject (see <a href="#sources">Sources and useful links</a>).</p>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#sources">Sources and useful links</a></li>
+<li class="toc-entry toc-h1"><a href="#changelog">Changelog</a></li>
 </ul>
 
 
@@ -329,7 +338,9 @@ to make our work a little easier.</p>
   <li>
 <strong>openbsd-netcat</strong>: For remote management over SSH.</li>
   <li>
-<strong>edk2-ovmf</strong>: UEFI support for guests.</li>
+<strong>edk2-ovmf</strong>: UEFI support for guests. Must be installed with package <code>qemu-arch-extra</code>.</li>
+  <li>
+<strong>qemu-arch-extra</strong>: Extra architectures support and enables UEFI firmware while creating the Virtual Machine.</li>
 </ul>
 
 <blockquote>
@@ -644,6 +655,11 @@ works out of the box for internet connection and SSH access from the host machin
   </li>
 </ul>
 
+<h1 id="changelog">Changelog</h1>
+
+<ul>
+  <li>2022-02-21 10:50 -0300: Added <code>qemu-arch-extra</code> to packages list for proper UEFI guest support.</li>
+</ul>
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:qemu-qcow2-favourite-features" role="doc-endnote">
