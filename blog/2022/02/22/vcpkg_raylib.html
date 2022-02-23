@@ -225,12 +225,6 @@ Buenos Aires.</p>
 </ul>
 </li>
 <li class="toc-entry toc-h1"><a href="#probando-probando">Probando… probando…</a></li>
-<li class="toc-entry toc-h1">
-<a href="#todo">TODO</a>
-<ul>
-<li class="toc-entry toc-h2"><a href="#cmake-1">CMake</a></li>
-</ul>
-</li>
 </ul>
 
 
@@ -263,7 +257,7 @@ preocuparnos por ello más adelante.</p>
 2
 </pre></td>
 <td class="rouge-code"><pre><span class="nb">sudo </span>apt update
-<span class="nb">sudo </span>apt <span class="nb">install </span>build-essential pkg-config cmake git curl zip unzip <span class="nb">tar </span>libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev libxi-dev libasound2-dev mesa-common-dev xorg-dev libglu1-mesa-dev
+<span class="nb">sudo </span>apt <span class="nb">install </span>build-essential pkg-config cmake git curl zip unzip <span class="nb">tar </span>libgl1-mesa-dev libx11-dev libxcursor-dev libxinerama-dev libxrandr-dev libxi-dev libasound2-dev mesa-common-dev xorg-dev libglu1-mesa-dev libglfw3-dev
 </pre></td>
 </tr></tbody></table></code></pre></div></div>
 
@@ -283,6 +277,8 @@ básicas que se utilizarán a lo largo del cuatrimestre.</li>
 <strong>xorg-dev</strong>, <strong>libglu1-mesa-dev</strong>: Dependencias de raylib. 
 <sup id="fnref:raylib-dependencies" role="doc-noteref"><a href="#fn:raylib-dependencies" class="footnote" rel="footnote">2</a></sup>
 </li>
+  <li>
+<strong>libglfw3-dev</strong>: Biblioteca para OpenGL. La necesitamos para algunos levels.</li>
 </ul>
 
 <h1 id="vcpkg">vcpkg</h1>
@@ -611,10 +607,22 @@ contenido:</p>
 23
 24
 25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
 </pre></td>
 <td class="rouge-code"><pre><span class="c1"># CMakeLists.txt</span>
 <span class="nb">cmake_minimum_required</span><span class="p">(</span>VERSION 3.0.0<span class="p">)</span>
 <span class="nb">project</span><span class="p">(</span>raylib-example VERSION 0.1.0<span class="p">)</span>
+
+<span class="nb">set</span><span class="p">(</span>EXECUTABLE_FILE_NAME main<span class="p">)</span>
 
 <span class="c1"># From "Working with CMake" documentation:</span>
 <span class="nb">if</span> <span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_SYSTEM_NAME</span><span class="si">}</span> MATCHES <span class="s2">"Darwin"</span><span class="p">)</span>
@@ -624,11 +632,19 @@ contenido:</p>
 <span class="nb">endif</span><span class="p">()</span>
 
 
+<span class="nb">add_executable</span><span class="p">(</span><span class="si">${</span><span class="nv">EXECUTABLE_FILE_NAME</span><span class="si">}</span> main.cpp<span class="p">)</span>
+
+
+<span class="c1"># Raylib</span>
 <span class="nb">find_package</span><span class="p">(</span>raylib CONFIG REQUIRED<span class="p">)</span>
-
-<span class="nb">add_executable</span><span class="p">(</span>main main.cpp<span class="p">)</span>
-
-<span class="nb">target_link_libraries</span><span class="p">(</span>main PRIVATE raylib m <span class="si">${</span><span class="nv">CMAKE_DL_LIBS</span><span class="si">}</span> pthread GL rt X11<span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_SYSTEM_NAME</span><span class="si">}</span> MATCHES <span class="s2">"Windows"</span><span class="p">)</span>
+    <span class="nb">target_include_directories</span><span class="p">(</span><span class="si">${</span><span class="nv">EXECUTABLE_FILE_NAME</span><span class="si">}</span> PRIVATE <span class="si">${</span><span class="nv">RAYLIB_INCLUDE_DIRS</span><span class="si">}</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">EXECUTABLE_FILE_NAME</span><span class="si">}</span> PRIVATE <span class="si">${</span><span class="nv">RAYLIB_LIBRARIES</span><span class="si">}</span><span class="p">)</span>
+<span class="nb">elseif</span><span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_SYSTEM_NAME</span><span class="si">}</span> MATCHES <span class="s2">"Darwin"</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">EXECUTABLE_FILE_NAME</span><span class="si">}</span> PRIVATE raylib<span class="p">)</span>
+<span class="nb">elseif</span><span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_SYSTEM_NAME</span><span class="si">}</span> MATCHES <span class="s2">"Linux"</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">EXECUTABLE_FILE_NAME</span><span class="si">}</span> PRIVATE raylib m <span class="si">${</span><span class="nv">CMAKE_DL_LIBS</span><span class="si">}</span> pthread GL rt X11<span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
 
 
 <span class="c1"># From "Working with CMake" documentation:</span>
@@ -649,45 +665,11 @@ contenido:</p>
 </pre></td>
 </tr></tbody></table></code></pre></div></div>
 
-<p>es necesaria para indicarle al linker que debe utilizar las bibliotecas
-especificadas (raylib, math, pthread, etc).</p>
+<p>es necesaria en Linux para indicarle al linker que debe utilizar las bibliotecas
+especificadas (raylib, math, pthread, etc).<sup id="fnref:more-platforms-cmake" role="doc-noteref"><a href="#fn:more-platforms-cmake" class="footnote" rel="footnote">9</a></sup></p>
 
 <p>Para compilar nuestro proyecto de prueba, podemos presionar la tecla <code>F7</code> y,
 una vez compilado, <code>Shift+F5</code> para ejecutarlo.</p>
-
-<h1 id="todo">TODO</h1>
-
-<h2 id="cmake-1">CMake</h2>
-
-<p>Probar si es posible (o necesario) reemplazar la línea</p>
-
-<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
-<td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td>
-<td class="rouge-code"><pre><span class="nb">target_link_libraries</span><span class="p">(</span>main PRIVATE raylib m <span class="si">${</span><span class="nv">CMAKE_DL_LIBS</span><span class="si">}</span> pthread GL rt X11<span class="p">)</span>
-</pre></td>
-</tr></tbody></table></code></pre></div></div>
-
-<p>que proveemos en el ejemplo por verificaciones específicas para cada 
-plataforma. Por ejemplo:</p>
-
-<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
-<td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td>
-<td class="rouge-code"><pre><span class="nb">target_link_libraries</span><span class="p">(</span>main PRIVATE raylib<span class="p">)</span>
-
-<span class="nb">if</span><span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_SYSTEM_NAME</span><span class="si">}</span> MATCHES <span class="s2">"Linux"</span><span class="p">)</span>
-    <span class="nb">target_link_libraries</span><span class="p">(</span>main PRIVATE m <span class="si">${</span><span class="nv">CMAKE_DL_LIBS</span><span class="si">}</span> pthread GL rt X11<span class="p">)</span>
-<span class="nb">endif</span><span class="p">()</span>
-</pre></td>
-</tr></tbody></table></code></pre></div></div>
-
-<p>Podemos obtener una lista de las distantas plataformas
-<a href="https://gitlab.kitware.com/cmake/community/-/wikis/doc/tutorials/How-To-Write-Platform-Checks#platform-variables" title="How To Write Platform Checks: Platform Variables" target="_blank">en este artículo</a>.</p>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
@@ -753,6 +735,11 @@ sitio</a> antes de descargarlo. <a href="#fnref:portfile-live" class="reversefo
     <li id="fn:vscode-vcpkg-cmake" role="doc-endnote">
 
       <p>Ver <a href="https://github.com/microsoft/vcpkg/blob/master/README.md#visual-studio-code-with-cmake-tools" title="microsoft/vcpkg: Using vcpkg with CMake / Visual Studio Code with CMake Tools" target="_blank">la documentación oficial</a>. <a href="#fnref:vscode-vcpkg-cmake" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:more-platforms-cmake" role="doc-endnote">
+
+      <p>Podemos obtener una lista de las distantas plataformas
+<a href="https://gitlab.kitware.com/cmake/community/-/wikis/doc/tutorials/How-To-Write-Platform-Checks#platform-variables" title="How To Write Platform Checks: Platform Variables" target="_blank">en este artículo</a>. <a href="#fnref:more-platforms-cmake" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
   </ol>
 </div>
