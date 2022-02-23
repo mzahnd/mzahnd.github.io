@@ -268,6 +268,8 @@ ol, ul {
 }
 
 blockquote {
+  $content-margins: 0.75rem 1rem;
+
   @extend %textdefaults;
 
   width: auto;
@@ -281,7 +283,7 @@ blockquote {
     
   p {
     width: auto;
-    margin: 0.75rem 1rem;
+    margin: $content-margins;
 
     // font-style: oblique;
     line-height: 1.6rem;
@@ -294,6 +296,13 @@ blockquote {
 
       line-height: 1.5rem;
       word-spacing: 0.05rem;
+    }
+  }
+
+  /* Code block */
+  div .highlight, pre {
+    code {
+      margin: $content-margins;
     }
   }
 
