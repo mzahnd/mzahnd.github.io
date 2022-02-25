@@ -25,6 +25,9 @@
   </button>
   <div class="menu-content">
     <img src="{{ site.logo }}" class="logo" alt="Logo">
+
+    <div class="flex-separator"></div>
+
     <ul class="menu-list">
       {% for item in site.data.navigation %}
       <li>
@@ -33,6 +36,8 @@
       {% endfor %}
     </ul>
 
+    <div class="flex-separator"></div>
+    
     <ul class="menu-info-list">
       {% for item in site.data.information %}
       <li>
@@ -40,6 +45,8 @@
       </li>
       {% endfor %}
     </ul>
+
+    <div class="flex-separator"></div>
 
     <div class="accessibility-opts">
       <p>Current font size: 
@@ -63,5 +70,7 @@
         </li>
       </ul>
     </div>
+
+    <div class="flex-separator"></div>
   </div>
 </div>

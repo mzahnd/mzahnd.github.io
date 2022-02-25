@@ -25,15 +25,26 @@ mainMenu = function() {
     const MIN_FONT_SIZE = DEFAULT_FONT_SIZE[0] / 2;
 
     let containerMenuMain = null;
+    let containerPage = null;
+
+    let isBeingShown = false;   // Makes things easier. (Very short code...)
 
     document.addEventListener('readystatechange', event => {
         // HTML/DOM elements are ready 
         if (pageState.isInteractive(event)) {            
             containerMenuMain = document.getElementById('site-main-menu');
+            containerPage = document.getElementById('container-page');
 
             accessibility.init();
+            // Looks nicer if we force these two functions at the beggining
+            hide(force=true);
+            close();
 
             // Listeners
+
+            // Window
+            // Resize
+            window.addEventListener('resize', toggleContentScrolling, false);
 
             // Buttons 
             // Close menu
@@ -54,16 +65,19 @@ mainMenu = function() {
 
         // Window has been loaded
         if (pageState.isComplete(event)) {
-            // // Set current font size
-            // accessibility.zoom.storeSize();
+            //
         }
     });
 
     async function show() {
+        isBeingShown = true;
+
         containerMenuMain.style.display = 'flex';
-        await sleep(0.5); // Hack. Allows the transition to be performed
+        await sleep(0.5);  // Hack. Allows the transition to be performed
         containerMenuMain.style.right = '';
         containerMenuMain.style.left = '0';
+
+        toggleContentScrolling();
     }
 
     function hide(force = false) {
@@ -74,8 +88,24 @@ mainMenu = function() {
     }
 
     function close() {
+        isBeingShown = false;
+
         containerMenuMain.style.left = '';
         containerMenuMain.style.right = '0';
+
+        toggleContentScrolling();
+    }
+
+    function toggleContentScrolling() {
+        if (isBeingShown 
+            && containerMenuMain.offsetWidth === window.innerWidth) {
+                console.log("Adding class");
+                containerPage.classList.add('fixed-position');
+        }
+        else {
+            console.log("Removing class");
+            containerPage.classList.remove('fixed-position');
+        }
     }
 
     accessibility = function () {

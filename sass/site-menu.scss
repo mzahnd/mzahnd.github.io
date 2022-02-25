@@ -31,8 +31,9 @@
   $btn-padding: 10px 0;
   $btn-border-radius: 10px;
 
-  // min-width: $menu-min-width;
-  min-height: 100vh;
+  height: 100vh; /*Fallback for browsers that don't support Custom Properties*/
+  height: -webkit-fill-available; /* Chrome   */
+  height: -moz-available;         /* Firefox  */
 
   display: flex;
   @include common.flex-row;
@@ -75,6 +76,10 @@
     align-items: stretch;
 
     .logo {
+      width: unset;
+      min-width: unset;
+      max-width: unset;
+
       max-height: 8%;
 
       margin: 0;
@@ -218,4 +223,10 @@
       font-size: 1.5rem;
     }
   }
+}
+
+/* For fixing page content*/
+.fixed-position {
+  position: fixed;
+  min-width: 100vw; /* Fixes glitch in Firefox */
 }
