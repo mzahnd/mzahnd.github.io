@@ -18,6 +18,6 @@
 SCRIPT_DIR="$(dirname ${BASH_SOURCE[0]})"
 SCRIPT_DIR="${PWD}/${SCRIPT_DIR}"
 
-pushd "${SCRIPT_DIR}/../_site/" && python3 "${SCRIPT_DIR}/local_server.py"
+pushd "${SCRIPT_DIR}/../" && python3 "${SCRIPT_DIR}/local_server.py"
 popd
 

@@ -7,6 +7,8 @@ from os import curdir, sep, path
 HOST = 'localhost'
 PORT = 8080
 
+SERVE_FOLDER = '_site/'
+
 INDEX_URL = 'index.html'
 ERROR_URL = '404.html'          # Must live in root folder
 
@@ -20,7 +22,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         if code == 404:
             logging.debug('404 error code detected')
             self.error_message_format = ''
-            with open(curdir + sep + ERROR_URL, 
+            with open(curdir + sep + SERVE_FOLDER + ERROR_URL, 
                       mode='r', encoding='utf-8') as f:
                 self.error_message_format = f.read()
                 logging.debug('File %s read successfully.' % ERROR_URL)
@@ -33,7 +35,10 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
                       str(self.path), str(self.headers))
 
         if self.path == '/':
-            self.path = INDEX_URL
+            self.path = SERVE_FOLDER + INDEX_URL
+        else:
+            self.path = SERVE_FOLDER + self.path
+
         return http.server.SimpleHTTPRequestHandler.do_GET(self)
 
 
