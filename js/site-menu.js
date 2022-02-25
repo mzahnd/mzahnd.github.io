@@ -99,11 +99,9 @@ mainMenu = function() {
     function toggleContentScrolling() {
         if (isBeingShown 
             && containerMenuMain.offsetWidth === window.innerWidth) {
-                console.log("Adding class");
                 containerPage.classList.add('fixed-position');
         }
         else {
-            console.log("Removing class");
             containerPage.classList.remove('fixed-position');
         }
     }
