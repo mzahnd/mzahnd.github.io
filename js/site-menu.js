@@ -25,15 +25,27 @@ mainMenu = function() {
     const MIN_FONT_SIZE = DEFAULT_FONT_SIZE[0] / 2;
 
     let containerMenuMain = null;
+    let containerPage = null;
+
+    let isMenuBeingShown = false;  // Makes things easier. (Very short code...)
+    let windowYScroll = 0;
 
     document.addEventListener('readystatechange', event => {
         // HTML/DOM elements are ready 
         if (pageState.isInteractive(event)) {            
             containerMenuMain = document.getElementById('site-main-menu');
+            containerPage = document.getElementById('container-page');
 
             accessibility.init();
+            // Looks nicer if we force these two functions at the beggining
+            hide(force=true);
+            close();
 
             // Listeners
+
+            // Window
+            // Resize
+            window.addEventListener('resize', toggleContentScrolling, false);
 
             // Buttons 
             // Close menu
@@ -54,27 +66,70 @@ mainMenu = function() {
 
         // Window has been loaded
         if (pageState.isComplete(event)) {
-            // // Set current font size
-            // accessibility.zoom.storeSize();
+            //
         }
     });
 
     async function show() {
+        isMenuBeingShown = true;
+
         containerMenuMain.style.display = 'flex';
-        await sleep(1); // Hack. Allows the transition to be performed
-        containerMenuMain.style.left = 0;
+        await sleep(0.5);  // Hack. Allows the transition to be performed
+        containerMenuMain.style.right = '';
+        containerMenuMain.style.left = '0';
+
+        toggleContentScrolling();
     }
 
     function hide(force = false) {
-        // Negative left position
         if ((force && typeof(force) == "boolean") ||
-            containerMenuMain.style.left[0] === '-' ) {
+            containerMenuMain.style.right[0] === '0' ) {
             containerMenuMain.style.display = 'none';
         }
     }
 
     function close() {
-        containerMenuMain.style.left = '-100vw'; 
+        isMenuBeingShown = false;
+
+        containerMenuMain.style.left = '';
+        containerMenuMain.style.right = '0';
+
+        toggleContentScrolling();
+    }
+
+    function toggleContentScrolling() {
+        // Do nothing if top bar is not visible
+        if (!header.isBeingShown())
+            return;
+
+
+        // This only works in mobile or when the window's width is small
+        // enough to activate CSS mobile's settings.
+        // It should also only work once per "menu open" action by the user
+        // (that's why we check windowYScroll) and, of course, the user
+        // must have requested the menu to open.
+        if (isMenuBeingShown && windowYScroll === 0
+            && containerMenuMain.offsetWidth === window.innerWidth) {
+                windowYScroll = window.scrollY;
+
+                containerPage.style.top = `-${windowYScroll}px`;
+                containerPage.classList.add('fixed-position');
+        }
+        else if (!isMenuBeingShown
+            || (isMenuBeingShown && windowYScroll > 0
+                && containerMenuMain.offsetWidth != window.innerWidth)) {
+            // The conditional in this else if is here because this could be
+            // triggered in the middle of an open-menu transition efectively
+            // disabling the implemented "scroll locking" method.
+            //
+            // It can also be triggered by a desktop user enlargin the window.
+            containerPage.classList.remove('fixed-position');
+            containerPage.style.top = '';
+            window.scrollBy(0, getParsedInt(windowYScroll || '0'));
+
+            // Reset so it can be reused (see if first clause)
+            windowYScroll = 0;
+        }
     }
 
     accessibility = function () {
@@ -183,6 +238,6 @@ mainMenu = function() {
         show: show,
         hide: hide,
         close: close,
-        // accessZoomWriteSize: accessibility.zoom.se,
+        isBeingShown: () => isMenuBeingShown
     }
 }();

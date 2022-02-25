@@ -16,27 +16,20 @@
 
 
 header = function() {
+    let containerTopBar = null;
     let containerMenuMain = null;
     let containerBtnToggleMenu = null;    
     let containerPageContent = null;
     let containerFlexSeparator = null;
-    
-    function menuToggle() {
-        const computedLeft =getParsedInt(
-                    window.getComputedStyle(containerMenuMain)
-                    .getPropertyValue('left')
-        );
-        
-        if (computedLeft) {
-            mainMenu.show();
-        } else {
-            mainMenu.close();
-        }
-    }
+
+    let previousYCoord = 0;  // For window scrolling. See userScroll()
+    let scrollYAccumulator = 0;
+    let isTopBarBeingShown = true;
 
     document.addEventListener('readystatechange', event => {
         // HTML/DOM elements are ready 
         if (pageState.isInteractive(event)) {
+            containerTopBar = document.getElementById('top-bar');
             containerMenuMain = document.getElementById('site-main-menu');
             containerBtnToggleMenu =
                             document.getElementById('btn-toggle-menu');
@@ -47,10 +40,14 @@ header = function() {
 
             // Listeners
 
+            // Window
+            // Scrolling
+            window.addEventListener('scroll', userScroll, false);
+
             // Transitions
             try {
                 containerMenuMain.addEventListener(transitionEndEventName(),
-                                                        mainMenu.hide, false);
+                                                        mainMenu.hide, true);
                 // Force hiding the menu to avoid seeing it when rotating the
                 // screen (in a phone or tablet)
                 mainMenu.hide(true);
@@ -82,5 +79,67 @@ header = function() {
         }
     });
 
-    return {}
+    function menuToggle() {
+        const computedLeft = getParsedInt(
+                    window.getComputedStyle(containerMenuMain)
+                    .getPropertyValue('left')
+        );
+        
+        if (computedLeft) {
+            mainMenu.show();
+        } else {
+            mainMenu.close();
+        }
+    }
+
+    function userScroll() {
+        // Does not work when the main menu is open. This is on purpose to
+        // avoid a bug where the user scrolls up and down and ends up
+        // modifying (scrolling and showing/hidding things) the page while
+        // the menu is open.
+        if (mainMenu.isBeingShown()) {
+            console.log("Menu being shown");
+            return;
+        }
+
+        const currentYCoord = window.scrollY;
+        const lengthScrolled = Math.abs(currentYCoord - previousYCoord);
+
+        if (currentYCoord < previousYCoord) {
+            // Scroll up
+            scrollYAccumulator -= lengthScrolled;
+
+            if (Math.abs(scrollYAccumulator) > containerTopBar.offsetHeight) {
+                showTopBar();
+
+                scrollYAccumulator = 0;
+            }
+        }
+        else if (currentYCoord > previousYCoord) {
+            // Scroll down
+            scrollYAccumulator += lengthScrolled;
+
+            if (Math.abs(scrollYAccumulator) > containerTopBar.offsetHeight) {
+                hideTopBar();
+
+                scrollYAccumulator = 0;
+            }
+        }
+
+        previousYCoord = currentYCoord;
+    }
+
+    function hideTopBar() {
+        containerTopBar.classList.add('hidden');
+        isTopBarBeingShown = false;
+    }
+
+    function showTopBar() {
+        containerTopBar.classList.remove('hidden');
+        isTopBarBeingShown = true;
+    }
+
+    return {
+        isBeingShown: () => isTopBarBeingShown
+    }
 }();
