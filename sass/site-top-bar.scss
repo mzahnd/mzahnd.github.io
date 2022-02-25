@@ -31,14 +31,45 @@ $font-size-def:               16pt;
 $top-bar-logo-font-size:      $font-size-def;
 
 
+.site-top-bar {
+  display: block;
+
+  height: $mobile-height;
+
+  /* Tablet */
+  @include common.media-screen(tablet) {
+    height: $tablet-height;
+  }
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    height: $desktop-height;
+  }
+}
+
 .top-bar {
   $btn-margins:                   15px;
 
   &--container {
-    display: flex;
-    
+    position: fixed;
+    top: 0;
+    z-index: 90;
+
+
     width: 100%;
     height: $mobile-height;
+    
+    display: flex;
+
+    background-color: $background-color;
+
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+
+    transition-property: top;
+    transition-duration: 450ms;
+    transition-delay: 0s;
+    transition-timing-function: linear;
 
     /* Tablet */
     @include common.media-screen(tablet) {
@@ -48,12 +79,6 @@ $top-bar-logo-font-size:      $font-size-def;
     @include common.media-screen(desktop) {
       height: $desktop-height;
     }
-
-    background-color: $background-color;
-
-    justify-content: space-between;
-    align-items: center;
-    overflow: hidden;
 
     div {
       border-width: 0;
@@ -160,4 +185,17 @@ $top-bar-logo-font-size:      $font-size-def;
 .logo {
   max-height: 75%;
   object-fit: scale-down;
+}
+
+.hidden {
+  top: -$mobile-height;
+
+  /* Tablet */
+  @include common.media-screen(tablet) {
+    top: -$tablet-height;
+  }
+  /* Desktop */
+  @include common.media-screen(desktop) {
+    top: -$desktop-height;
+  }
 }
