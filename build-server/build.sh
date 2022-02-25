@@ -22,6 +22,8 @@ pushd "${SCRIPT_DIR}/../" &> /dev/null || exit 1
 
 readonly OUTPUT_DIR='_site'
 
+echo "Running time: $(date --rfc-3339=seconds)"
+echo ""
 
 echo -e "\e[1m\e[34m[ BUILD ]\e[0m"
 
