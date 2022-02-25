@@ -145,13 +145,6 @@ $-page-container-height:      100vh;
   min-height: 100vh;
 }
 
-.site-top-bar, .site-footer {
-  display: flex;
-  flex-grow: 0;
-  flex-shrink: 1;
-  flex-basis: auto;
-}
-
 :root {
   --page-font-size: 12pt;
 }

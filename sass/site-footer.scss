@@ -18,8 +18,14 @@
 @use 'common';
 @use 'pages-style';
 
+
 .site-footer {
   margin: auto;
+
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
 }
 
 .site-footer--container {
