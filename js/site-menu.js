@@ -27,7 +27,8 @@ mainMenu = function() {
     let containerMenuMain = null;
     let containerPage = null;
 
-    let isBeingShown = false;   // Makes things easier. (Very short code...)
+    let isMenuBeingShown = false;  // Makes things easier. (Very short code...)
+    let windowYScroll = 0;
 
     document.addEventListener('readystatechange', event => {
         // HTML/DOM elements are ready 
@@ -70,7 +71,7 @@ mainMenu = function() {
     });
 
     async function show() {
-        isBeingShown = true;
+        isMenuBeingShown = true;
 
         containerMenuMain.style.display = 'flex';
         await sleep(0.5);  // Hack. Allows the transition to be performed
@@ -88,7 +89,7 @@ mainMenu = function() {
     }
 
     function close() {
-        isBeingShown = false;
+        isMenuBeingShown = false;
 
         containerMenuMain.style.left = '';
         containerMenuMain.style.right = '0';
@@ -97,12 +98,37 @@ mainMenu = function() {
     }
 
     function toggleContentScrolling() {
-        if (isBeingShown 
+        // Do nothing if top bar is not visible
+        if (!header.isBeingShown())
+            return;
+
+
+        // This only works in mobile or when the window's width is small
+        // enough to activate CSS mobile's settings.
+        // It should also only work once per "menu open" action by the user
+        // (that's why we check windowYScroll) and, of course, the user
+        // must have requested the menu to open.
+        if (isMenuBeingShown && windowYScroll === 0
             && containerMenuMain.offsetWidth === window.innerWidth) {
+                windowYScroll = window.scrollY;
+
+                containerPage.style.top = `-${windowYScroll}px`;
                 containerPage.classList.add('fixed-position');
         }
-        else {
+        else if (!isMenuBeingShown
+            || (isMenuBeingShown && windowYScroll > 0
+                && containerMenuMain.offsetWidth != window.innerWidth)) {
+            // The conditional in this else if is here because this could be
+            // triggered in the middle of an open-menu transition efectively
+            // disabling the implemented "scroll locking" method.
+            //
+            // It can also be triggered by a desktop user enlargin the window.
             containerPage.classList.remove('fixed-position');
+            containerPage.style.top = '';
+            window.scrollBy(0, getParsedInt(windowYScroll || '0'));
+
+            // Reset so it can be reused (see if first clause)
+            windowYScroll = 0;
         }
     }
 
@@ -212,6 +238,6 @@ mainMenu = function() {
         show: show,
         hide: hide,
         close: close,
-        // accessZoomWriteSize: accessibility.zoom.se,
+        isBeingShown: () => isMenuBeingShown
     }
 }();
