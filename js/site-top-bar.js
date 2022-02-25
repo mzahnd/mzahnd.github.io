@@ -50,7 +50,7 @@ header = function() {
             // Transitions
             try {
                 containerMenuMain.addEventListener(transitionEndEventName(),
-                                                        mainMenu.hide, false);
+                                                        mainMenu.hide, true);
                 // Force hiding the menu to avoid seeing it when rotating the
                 // screen (in a phone or tablet)
                 mainMenu.hide(true);

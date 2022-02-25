@@ -61,20 +61,21 @@ mainMenu = function() {
 
     async function show() {
         containerMenuMain.style.display = 'flex';
-        await sleep(1); // Hack. Allows the transition to be performed
-        containerMenuMain.style.left = 0;
+        await sleep(0.5); // Hack. Allows the transition to be performed
+        containerMenuMain.style.right = '';
+        containerMenuMain.style.left = '0';
     }
 
     function hide(force = false) {
-        // Negative left position
         if ((force && typeof(force) == "boolean") ||
-            containerMenuMain.style.left[0] === '-' ) {
+            containerMenuMain.style.right[0] === '0' ) {
             containerMenuMain.style.display = 'none';
         }
     }
 
     function close() {
-        containerMenuMain.style.left = '-100vw'; 
+        containerMenuMain.style.left = '';
+        containerMenuMain.style.right = '0';
     }
 
     accessibility = function () {

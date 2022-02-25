@@ -304,6 +304,7 @@ a {
 
 .site-menu--container {
   $border-right-radius: 10px;
+  $transition-duration: 2s;
 
   width: 100vw;
   height: 100vh;
@@ -317,7 +318,7 @@ a {
   border-radius: 0;
 
   transition-property: left;
-  transition-duration: 2s;
+  transition-duration: $transition-duration;
   transition-delay: 0s;
   transition-timing-function: ease-in-out;
 
@@ -325,7 +326,7 @@ a {
   @include common.media-screen(desktop) {
     border-radius: 0 $border-right-radius $border-right-radius 0;
 
-    transition-duration: 2s;
+    transition-duration: $transition-duration;
 
     box-shadow: 1px 5px 20px -5px #4a4a4a;
   }
