@@ -181,6 +181,8 @@
 
   <p id="post-date">Published: 2022-02-22 21:50</p>
   
+  <p id="post-edit">Edited: 2022-03-05 21:00</p>
+  
   
   <p id="post-tags">Tags: 
       
@@ -212,7 +214,13 @@ Buenos Aires.</p>
 
 <ul id="toc" class="section-nav">
 <li class="toc-entry toc-h1"><a href="#aclaraci%C3%B3n-inicial">Aclaración inicial</a></li>
-<li class="toc-entry toc-h1"><a href="#paquetes-necesarios">Paquetes necesarios</a></li>
+<li class="toc-entry toc-h1">
+<a href="#paquetes-necesarios">Paquetes necesarios</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#ubuntu">Ubuntu</a></li>
+<li class="toc-entry toc-h2"><a href="#arch-linux">Arch Linux</a></li>
+</ul>
+</li>
 <li class="toc-entry toc-h1">
 <a href="#vcpkg">vcpkg</a>
 <ul>
@@ -252,14 +260,17 @@ normal (es decir, como un <em>no</em> super usuario).
 
 </p>
 <p>Si algún comando requiere privilegios elevados será indicado oportunamente o
-utilizará <code>sudo</code>.</p>
-
-<p>Este artículo fue escrito y probado utilizando Ubuntu 22.04 LTS.</p>
+utilizará <code>sudo</code>.
+Este artículo fue escrito y probado utilizando Ubuntu 22.04 LTS y Arch Linux.</p>
 
 <h1 id="paquetes-necesarios">Paquetes necesarios</h1>
 
 <p>Necesitamos varios paquetes. Están todos en este único comando para no 
 preocuparnos por ello más adelante.</p>
+
+<h2 id="ubuntu">Ubuntu</h2>
+
+<p>Si estamos utilizando <strong>Ubuntu</strong> y derivados instalamos los siguientes paquetes:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
 <td class="rouge-gutter gl"><pre class="lineno">1
@@ -288,6 +299,39 @@ básicas que se utilizarán a lo largo del cuatrimestre.</li>
 </li>
   <li>
 <strong>libglfw3-dev</strong>: Biblioteca para OpenGL. La necesitamos para algunos levels.</li>
+</ul>
+
+<h2 id="arch-linux">Arch Linux</h2>
+
+<p>En <strong>Arch Linux</strong> y derivados:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="nb">sudo </span>pacman <span class="nt">-Syu</span>
+<span class="nb">sudo </span>pacman <span class="nt">-S</span> base-devel cmake git curl zip unzip <span class="nb">tar </span>glfw-x11 glfw-wayland libx11 libxcursor libxinerama libxrandr ninja vulkan-headers xorg-server-devel xorg-xinput
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<ul>
+  <li>
+<strong>base-devel</strong>, <strong>cmake</strong>: Herramientas de compilación básicas que se
+utilizarán a lo largo del cuatrimestre.</li>
+  <li>
+<strong>git</strong>: Lo necesitamos para crear, clonar y manipular repositorios.</li>
+  <li>
+<strong>curl</strong>, <strong>zip</strong>, <strong>unzip</strong>, <strong>tar</strong>: Dependencias de vcpkg. 
+<sup id="fnref:vcpkg-dependencies:1" role="doc-noteref"><a href="#fn:vcpkg-dependencies" class="footnote" rel="footnote">1</a></sup>
+</li>
+  <li>
+<strong>libx11</strong>, <strong>libxcursor</strong>, <strong>libxinerama</strong>, <strong>libxrandr</strong>, <strong>ninja</strong>,
+<strong>vulkan-headers</strong>, <strong>xorg-server-devel</strong>, <strong>xorg-xinput</strong>: Dependencias
+de raylib. <sup id="fnref:raylib-dependencies:1" role="doc-noteref"><a href="#fn:raylib-dependencies" class="footnote" rel="footnote">2</a></sup>
+</li>
+  <li>
+<strong>glfw-x11</strong>, <strong>glfw-wayland</strong>: Biblioteca para OpenGL. La necesitamos para
+algunos levels.</li>
 </ul>
 
 <h1 id="vcpkg">vcpkg</h1>
@@ -489,7 +533,7 @@ similar al siguiente:</p>
     </span><span class="nl">"workbench.colorTheme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Default Dark+"</span><span class="w">
     </span><span class="p">,</span><span class="nl">"cmake.configureSettings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"CMAKE_TOOLCHAIN_FILE"</span><span class="p">:</span><span class="w"> </span><span class="s2">"~/dev/vcpkg/scripts/buildsystems/vcpkg.cmake"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></pre></td>
 </tr></tbody></table></code></pre></div></div>
@@ -685,7 +729,7 @@ una vez compilado, <code>Shift+F5</code> para ejecutarlo.</p>
     <li id="fn:vcpkg-dependencies" role="doc-endnote">
 
       <p>Del <a href="https://github.com/microsoft/vcpkg/blob/master/README.md#installing-linux-developer-tools" title="microsoft/vcpkg: Installing Linux Developer Tools" target="_blank">repositorio oficial en
-GitHub</a> <a href="#fnref:vcpkg-dependencies" class="reversefootnote" role="doc-backlink">↩</a></p>
+GitHub</a> <a href="#fnref:vcpkg-dependencies" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:vcpkg-dependencies:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
     <li id="fn:raylib-dependencies" role="doc-endnote">
 
@@ -706,7 +750,7 @@ oficial</a> nos dicen que</p>
         <p>You need to install some required libraries; ALSA for audio, Mesa for
 OpenGL accelerated graphics and X11 for windowing system.</p>
       </blockquote>
-      <p><a href="#fnref:raylib-dependencies" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p><a href="#fnref:raylib-dependencies" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:raylib-dependencies:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
     <li id="fn:vcpkg-integrate-install" role="doc-endnote">
 
