@@ -25,7 +25,7 @@ author: Martín E. Zahnd
 # Example: 2021-10-22 05:02:23 -0300
 date: 2022-02-22 21:50 -0300
 # If it was edited, put the date here
-# edit: 
+edit: 2022-03-05 21:00 -0300
 
 # Space separated tags
 tags: linux vcpkg vs code raylib ubuntu
@@ -52,13 +52,16 @@ normal (es decir, como un *no* super usuario).
 
 Si algún comando requiere privilegios elevados será indicado oportunamente o
 utilizará `sudo`.
-
-Este artículo fue escrito y probado utilizando Ubuntu 22.04 LTS.
+Este artículo fue escrito y probado utilizando Ubuntu 22.04 LTS y Arch Linux.
 
 # Paquetes necesarios
 
 Necesitamos varios paquetes. Están todos en este único comando para no 
 preocuparnos por ello más adelante.
+
+## Ubuntu
+
+Si estamos utilizando **Ubuntu** y derivados instalamos los siguientes paquetes:
 
 ~~~ bash
 sudo apt update
@@ -76,6 +79,26 @@ básicas que se utilizarán a lo largo del cuatrimestre.
 [^raylib-dependencies]
 - **libglfw3-dev**: Biblioteca para OpenGL. La necesitamos para algunos levels.
 
+
+## Arch Linux
+
+En **Arch Linux** y derivados:
+
+~~~bash
+sudo pacman -Syu
+sudo pacman -S base-devel cmake git curl zip unzip tar glfw-x11 glfw-wayland libx11 libxcursor libxinerama libxrandr ninja vulkan-headers xorg-server-devel xorg-xinput
+~~~
+
+- **base-devel**, **cmake**: Herramientas de compilación básicas que se
+utilizarán a lo largo del cuatrimestre.
+- **git**: Lo necesitamos para crear, clonar y manipular repositorios.
+- **curl**, **zip**, **unzip**, **tar**: Dependencias de vcpkg. 
+[^vcpkg-dependencies]
+- **libx11**, **libxcursor**, **libxinerama**, **libxrandr**, **ninja**,
+**vulkan-headers**, **xorg-server-devel**, **xorg-xinput**: Dependencias
+de raylib. [^raylib-dependencies]
+- **glfw-x11**, **glfw-wayland**: Biblioteca para OpenGL. La necesitamos para
+algunos levels.
 
 [^vcpkg-dependencies]:
     Del [repositorio oficial en
@@ -98,6 +121,7 @@ básicas que se utilizarán a lo largo del cuatrimestre.
     oficial][raylib-docs-gnu]{:target="_blank"} nos dicen que
     > You need to install some required libraries; ALSA for audio, Mesa for
     OpenGL accelerated graphics and X11 for windowing system.
+
 
 # vcpkg
 
@@ -276,7 +300,7 @@ Obteniendo un resultado similar al siguiente:
     "workbench.colorTheme": "Default Dark+"
     ,"cmake.configureSettings": {
         "CMAKE_TOOLCHAIN_FILE": "~/dev/vcpkg/scripts/buildsystems/vcpkg.cmake"
-        }
+    }
 }
 ~~~
 
