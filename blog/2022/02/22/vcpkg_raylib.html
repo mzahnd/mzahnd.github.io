@@ -682,27 +682,27 @@ contenido:</p>
 <span class="nb">endif</span><span class="p">()</span>
 
 
-<span class="nb">add_executable</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> main.cpp<span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span>ray-example main.cpp<span class="p">)</span>
 
 
 <span class="c1"># Raylib</span>
 <span class="nb">find_package</span><span class="p">(</span>raylib CONFIG REQUIRED<span class="p">)</span>
 
 <span class="nb">if</span><span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_SYSTEM_NAME</span><span class="si">}</span> MATCHES <span class="s2">"Windows"</span><span class="p">)</span>
-    <span class="nb">target_include_directories</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> PRIVATE <span class="si">${</span><span class="nv">RAYLIB_INCLUDE_DIRS</span><span class="si">}</span><span class="p">)</span>
-    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> PRIVATE <span class="si">${</span><span class="nv">RAYLIB_LIBRARIES</span><span class="si">}</span><span class="p">)</span>
+    <span class="nb">target_include_directories</span><span class="p">(</span>ray-example PRIVATE <span class="si">${</span><span class="nv">RAYLIB_INCLUDE_DIRS</span><span class="si">}</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span>ray-example PRIVATE <span class="si">${</span><span class="nv">RAYLIB_LIBRARIES</span><span class="si">}</span><span class="p">)</span>
 <span class="nb">elseif</span><span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_SYSTEM_NAME</span><span class="si">}</span> MATCHES <span class="s2">"Darwin"</span><span class="p">)</span>
-    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> PRIVATE raylib<span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span>ray-example PRIVATE raylib<span class="p">)</span>
 <span class="nb">elseif</span><span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_SYSTEM_NAME</span><span class="si">}</span> MATCHES <span class="s2">"Linux"</span><span class="p">)</span>
-    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> PRIVATE raylib m <span class="si">${</span><span class="nv">CMAKE_DL_LIBS</span><span class="si">}</span> pthread GL rt X11<span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span>ray-example PRIVATE raylib m <span class="si">${</span><span class="nv">CMAKE_DL_LIBS</span><span class="si">}</span> pthread GL rt X11<span class="p">)</span>
 <span class="nb">endif</span><span class="p">()</span>
 
 
 <span class="c1"># From "Working with CMake" documentation:</span>
 <span class="nb">if</span> <span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_SYSTEM_NAME</span><span class="si">}</span> MATCHES <span class="s2">"Darwin"</span><span class="p">)</span>
-    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> PRIVATE <span class="s2">"-framework IOKit"</span><span class="p">)</span>
-    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> PRIVATE <span class="s2">"-framework Cocoa"</span><span class="p">)</span>
-    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> PRIVATE <span class="s2">"-framework OpenGL"</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span>ray-example PRIVATE <span class="s2">"-framework IOKit"</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span>ray-example PRIVATE <span class="s2">"-framework Cocoa"</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span>ray-example PRIVATE <span class="s2">"-framework OpenGL"</span><span class="p">)</span>
 <span class="nb">endif</span><span class="p">()</span>
 </pre></td>
 </tr></tbody></table></code></pre></div></div>
