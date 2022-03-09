@@ -25,7 +25,7 @@ author: Martín E. Zahnd
 # Example: 2021-10-22 05:02:23 -0300
 date: 2022-02-22 21:50 -0300
 # If it was edited, put the date here
-edit: 2022-03-05 21:00 -0300
+edit: 2022-03-09 00:16 -0300
 
 # Space separated tags
 tags: linux vcpkg vs code raylib ubuntu
@@ -370,8 +370,6 @@ int main(void) {
 cmake_minimum_required(VERSION 3.0.0)
 project(raylib-example VERSION 0.1.0)
 
-set(EXECUTABLE_FILE_NAME main)
-
 # From "Working with CMake" documentation:
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(CMAKE_CXX_STANDARD 11)
@@ -380,18 +378,19 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 endif()
 
 
-add_executable(${EXECUTABLE_FILE_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp)
 
 
 # Raylib
 find_package(raylib CONFIG REQUIRED)
+
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    target_include_directories(${EXECUTABLE_FILE_NAME} PRIVATE ${RAYLIB_INCLUDE_DIRS})
-    target_link_libraries(${EXECUTABLE_FILE_NAME} PRIVATE ${RAYLIB_LIBRARIES})
+    target_include_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} PRIVATE ${RAYLIB_LIBRARIES})
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    target_link_libraries(${EXECUTABLE_FILE_NAME} PRIVATE raylib)
+    target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    target_link_libraries(${EXECUTABLE_FILE_NAME} PRIVATE raylib m ${CMAKE_DL_LIBS} pthread GL rt X11)
+    target_link_libraries(${PROJECT_NAME} PRIVATE raylib m ${CMAKE_DL_LIBS} pthread GL rt X11)
 endif()
 
 
