@@ -396,9 +396,9 @@ endif()
 
 # From "Working with CMake" documentation:
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    target_link_libraries(main PRIVATE "-framework IOKit")
-    target_link_libraries(main PRIVATE "-framework Cocoa")
-    target_link_libraries(main PRIVATE "-framework OpenGL")
+    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework IOKit")
+    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Cocoa")
+    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework OpenGL")
 endif()
 ~~~
 
