@@ -378,27 +378,27 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 endif()
 
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(ray-example main.cpp)
 
 
 # Raylib
 find_package(raylib CONFIG REQUIRED)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
-    target_include_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_INCLUDE_DIRS})
-    target_link_libraries(${PROJECT_NAME} PRIVATE ${RAYLIB_LIBRARIES})
+    target_include_directories(ray-example PRIVATE ${RAYLIB_INCLUDE_DIRS})
+    target_link_libraries(ray-example PRIVATE ${RAYLIB_LIBRARIES})
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
+    target_link_libraries(ray-example PRIVATE raylib)
 elseif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    target_link_libraries(${PROJECT_NAME} PRIVATE raylib m ${CMAKE_DL_LIBS} pthread GL rt X11)
+    target_link_libraries(ray-example PRIVATE raylib m ${CMAKE_DL_LIBS} pthread GL rt X11)
 endif()
 
 
 # From "Working with CMake" documentation:
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework IOKit")
-    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework Cocoa")
-    target_link_libraries(${PROJECT_NAME} PRIVATE "-framework OpenGL")
+    target_link_libraries(ray-example PRIVATE "-framework IOKit")
+    target_link_libraries(ray-example PRIVATE "-framework Cocoa")
+    target_link_libraries(ray-example PRIVATE "-framework OpenGL")
 endif()
 ~~~
 
