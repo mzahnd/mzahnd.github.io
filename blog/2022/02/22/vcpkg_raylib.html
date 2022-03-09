@@ -700,9 +700,9 @@ contenido:</p>
 
 <span class="c1"># From "Working with CMake" documentation:</span>
 <span class="nb">if</span> <span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_SYSTEM_NAME</span><span class="si">}</span> MATCHES <span class="s2">"Darwin"</span><span class="p">)</span>
-    <span class="nb">target_link_libraries</span><span class="p">(</span>main PRIVATE <span class="s2">"-framework IOKit"</span><span class="p">)</span>
-    <span class="nb">target_link_libraries</span><span class="p">(</span>main PRIVATE <span class="s2">"-framework Cocoa"</span><span class="p">)</span>
-    <span class="nb">target_link_libraries</span><span class="p">(</span>main PRIVATE <span class="s2">"-framework OpenGL"</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> PRIVATE <span class="s2">"-framework IOKit"</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> PRIVATE <span class="s2">"-framework Cocoa"</span><span class="p">)</span>
+    <span class="nb">target_link_libraries</span><span class="p">(</span><span class="si">${</span><span class="nv">PROJECT_NAME</span><span class="si">}</span> PRIVATE <span class="s2">"-framework OpenGL"</span><span class="p">)</span>
 <span class="nb">endif</span><span class="p">()</span>
 </pre></td>
 </tr></tbody></table></code></pre></div></div>
