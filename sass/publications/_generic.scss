@@ -32,27 +32,6 @@ $content-right-left-margin: auto;
   $desktop-left-right-margin: auto
 );
 
-%textdefaults {
-  width: auto;
-  max-width: $content-max-width;
-
-  padding: 0;
-  margin: 0.2rem $content-right-left-margin;
-
-  color: pages-style.get-color("text");
-  text-align: left;
-  text-decoration: none;
-  text-indent: 0.5rem;
-  font-size: 1rem;
-  font-family: Georgia, serif;
-  line-height: 1.75;
-  
-  /* Desktop */
-  @include common.media-screen(desktop) {
-    max-width: $content-max-width-desktop;
-  }
-}
-
 /* Code styles */
 %code-block {
   max-width: calc($content-max-width - 10px);
@@ -130,52 +109,6 @@ $content-right-left-margin: auto;
   @include common.media-screen(desktop) {
     max-width: $content-max-width-desktop;
   }
-}
-
-%blockquote-style {
-  $blockquote-content-margins: 0.75rem 1rem;
-
-  @extend %textdefaults;
-
-  width: auto;
-  margin: 1rem auto;
-  padding: 0;
-  
-  border: 1px solid pages-style.get-color("blockquote-border");
-  border-radius: 10px;
-
-  background-color: pages-style.get-color("blockquote-background");
-    
-  p {
-    width: auto;
-    margin: $blockquote-content-margins;
-
-    // font-style: oblique;
-    line-height: 1.6rem;
-    word-spacing: 0.05rem;
-
-    /* Desktop */
-    @include common.media-screen(desktop) {
-      max-width: $content-max-width-desktop;
-      margin: 0.75rem 1.5rem;
-
-      line-height: 1.5rem;
-      word-spacing: 0.05rem;
-    }
-  }
-
-  /* Code block */
-  div .highlight, pre {
-    code {
-      margin: $blockquote-content-margins;
-    }
-  }
-
-  /* Desktop */
-  @include common.media-screen(desktop) {
-    max-width: $content-max-width-desktop;
-  }
-
 }
 
 #post-title {

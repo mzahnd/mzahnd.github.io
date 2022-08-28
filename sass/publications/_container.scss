@@ -79,7 +79,7 @@
   }
 
   p {
-    text-align: justify;
+    text-align: left;
   }
 
   a {
@@ -101,6 +101,27 @@
     font-style: oblique;
 
     color: pages-style.get-color("header-main");
+  }
+
+  img {
+    max-width: 100%;
+    max-width: -webkit-fill-available; /* Safari/Chrome, other WebKit */
+    max-width: -moz-available; /* Firefox, other Gecko */
+    height: auto;
+    
+    display: block;
+    margin: 1rem auto;
+  
+    /* Desktop */
+    @include common.media-screen(desktop) {
+      max-width: 100%;
+      max-width: -webkit-fill-available; /* Safari/Chrome, other WebKit */
+      max-width: -moz-available; /* Firefox, other Gecko */
+    }
+  }
+
+  blockquote {
+    @extend %blockquote-style;
   }
 }
 
