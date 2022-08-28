@@ -17,17 +17,18 @@
 
 <header class="site-top-bar">
   <div class="top-bar--container" id="top-bar">
-    <button class="top-bar-btn" id="btn-toggle-menu">
+    <button aria-label="Menu button" title="Menu button"
+      type="button" class="top-bar-btn" id="btn-toggle-menu">
       <i class="fas fa-bars"></i>
     </button>
     <div class="top-bar-separator"></div>
     <div class="top-bar-logo">
-        <a href="/">
-          <p>{{ site.title }}</p>
+        <a href="/" alt="{{ site.title }}">
+          <h1>{{ site.title }}</h1>
           <img 
             class="logo"
             src="{{ site.logo }}"
-            alt="Logo"
+            alt="{{ site.title }}"
             loading="eager">
         </a>
       </div>

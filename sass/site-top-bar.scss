@@ -153,11 +153,12 @@ $top-bar-logo-font-size:      $font-size-def;
 
       height: 100%;
   
-      p {
+      h1, p {
         width: auto;
         margin: 15px 25px;
         padding: 0;
 
+        font-family: parent;
         font-size: $top-bar-logo-font-size;
 
         color: pages-style.get-color("text");

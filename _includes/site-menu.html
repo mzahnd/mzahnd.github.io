@@ -20,18 +20,21 @@
 {% else %}
 <div id="site-main-menu"></div>
 {% endif %}
-  <button class="btn" id="btn-site-main-menu-close">
+  <button aria-label="Close menu" title="Close menu"
+  class="btn" id="btn-site-main-menu-close">
     <i class="fas fa-times"></i>
   </button>
   <div class="menu-content">
-    <img src="{{ site.logo }}" class="logo" alt="Logo">
+    <img src="{{ site.logo }}" class="logo" alt="{{ site.title }}">
 
     <div class="flex-separator"></div>
 
     <ul class="menu-list">
       {% for item in site.data.navigation %}
       <li>
-        <a href="{{ item.link }}" class="btn btn-link">{{ item.name }}</a>
+        <a href="{{ item.link }}" alt="{{ item.name }}" class="btn btn-link">
+          {{ item.name }}
+        </a>
       </li>
       {% endfor %}
     </ul>
@@ -41,7 +44,9 @@
     <ul class="menu-info-list">
       {% for item in site.data.information %}
       <li>
-        <a href="{{ item.link }}" class="btn btn-link">{{ item.name }}</a>
+        <a href="{{ item.link }}" alt="{{ item.name }}" class="btn btn-link">
+          {{ item.name }}
+        </a>
       </li>
       {% endfor %}
     </ul>
@@ -54,17 +59,20 @@
       </p>
       <ul>
         <li>
-          <button class="btn" id="accessibility-zoom-reset">
+          <button aria-label="Restore font size" title="Restore font size"
+          type="button" class="btn" id="accessibility-zoom-reset">
             <i class="fas fa-undo-alt"></i>
           </button>
         </li>
         <li>
-          <button class="btn" id="accessibility-zoom-m">
+          <button aria-label="Decrease font size" title="Decrease font size"
+          type="button" class="btn" id="accessibility-zoom-m">
             <i class="fas fa-minus"></i>
           </button>
         </li>
         <li>
-          <button class="btn" id="accessibility-zoom-p">
+          <button aria-label="Increase font size" title="Increase font size"
+          type="button" class="btn" id="accessibility-zoom-p">
             <i class="fas fa-plus"></i>
           </button>
         </li>
