@@ -70,26 +70,32 @@
 
 <div class="site-menu--container" id="site-main-menu">
 
-  <button class="btn" id="btn-site-main-menu-close">
+  <button aria-label="Close menu" title="Close menu" class="btn" id="btn-site-main-menu-close">
     <i class="fas fa-times"></i>
   </button>
   <div class="menu-content">
-    <img src="/assets/logo.png" class="logo" alt="Logo" loading="lazy">
+    <img src="/assets/logo.png" class="logo" alt="Martín's blog" loading="lazy">
 
     <div class="flex-separator"></div>
 
     <ul class="menu-list">
       
       <li>
-        <a href="/" class="btn btn-link">Home</a>
+        <a href="/" alt="Home" class="btn btn-link">
+          Home
+        </a>
       </li>
       
       <li>
-        <a href="/blog" class="btn btn-link">Blog</a>
+        <a href="/blog" alt="Blog" class="btn btn-link">
+          Blog
+        </a>
       </li>
       
       <li>
-        <a href="/notes" class="btn btn-link">Notes</a>
+        <a href="/notes" alt="Notes" class="btn btn-link">
+          Notes
+        </a>
       </li>
       
     </ul>
@@ -99,11 +105,15 @@
     <ul class="menu-info-list">
       
       <li>
-        <a href="/about.html" class="btn btn-link">About</a>
+        <a href="/about.html" alt="About" class="btn btn-link">
+          About
+        </a>
       </li>
       
       <li>
-        <a href="/contact.html" class="btn btn-link">Contact</a>
+        <a href="/contact.html" alt="Contact" class="btn btn-link">
+          Contact
+        </a>
       </li>
       
     </ul>
@@ -116,17 +126,17 @@
       </p>
       <ul>
         <li>
-          <button class="btn" id="accessibility-zoom-reset">
+          <button aria-label="Restore font size" title="Restore font size" type="button" class="btn" id="accessibility-zoom-reset">
             <i class="fas fa-undo-alt"></i>
           </button>
         </li>
         <li>
-          <button class="btn" id="accessibility-zoom-m">
+          <button aria-label="Decrease font size" title="Decrease font size" type="button" class="btn" id="accessibility-zoom-m">
             <i class="fas fa-minus"></i>
           </button>
         </li>
         <li>
-          <button class="btn" id="accessibility-zoom-p">
+          <button aria-label="Increase font size" title="Increase font size" type="button" class="btn" id="accessibility-zoom-p">
             <i class="fas fa-plus"></i>
           </button>
         </li>
@@ -144,14 +154,14 @@
 
 <header class="site-top-bar">
   <div class="top-bar--container" id="top-bar">
-    <button class="top-bar-btn" id="btn-toggle-menu">
+    <button aria-label="Menu button" title="Menu button" type="button" class="top-bar-btn" id="btn-toggle-menu">
       <i class="fas fa-bars"></i>
     </button>
     <div class="top-bar-separator"></div>
     <div class="top-bar-logo">
-        <a href="/">
-          <p>Martín's blog</p>
-          <img class="logo" src="/assets/logo.png" alt="Logo" loading="eager">
+        <a href="/" alt="Martín's blog">
+          <h1>Martín's blog</h1>
+          <img class="logo" src="/assets/logo.png" alt="Martín's blog" loading="eager">
         </a>
       </div>
     <div class="top-bar-separator"></div>
@@ -170,32 +180,59 @@
 <div id="container-publications-by-type">
   <div class="container-publication" id="blog-section">
     <h1 class="publication-title"><a href="/blog/">Blog</a></h1>
-    <h3 class="publication-subtitle">Latest post</h3>
+    <h2 class="publication-subtitle">Latest post</h2>
     <ul>
       <li>
-          <h1><a href="/blog/2022/02/22/vcpkg_raylib.html">Instación y configuración de vcpkg, raylib y Visual Studio Code en Linux</a></h1>
-          <p id="post-date">Published: 2022-02-22 21:50:00 -0300</p>
+          <h1><a href="/blog/2022/08/28/ITBA_Drive_Migration.html">Migrando 1.3 TiB de datos en Google Drive</a></h1>
+          <p id="post-date">Published: 2022-08-28 09:34:38 -0300</p>
           
           <p id="post-tags">Tags: 
               
-                  linux, 
+                  google, 
               
-                  vcpkg, 
+                  drive,, 
               
-                  vs, 
+                  google,, 
               
-                  code, 
+                  drive,, 
               
-                  raylib, 
+                  itba,, 
               
-                  ubuntu
+                  ceitba,, 
+              
+                  cs,, 
+              
+                  computer, 
+              
+                  society
               
           </p>
           
-          <p>En este artículo detallo cómo instalar vcpkg, raylib y Visual Studio Code en
-Ubuntu para cursar durante el primer cuatrimestre del 2022 la materia 
-Algoritmos y Estructuras de Datos (22.08) del Instituto Tecnológico de
-Buenos Aires.</p>
+          <p>La aventura para salvar el centenar de apuntes que colectivamente crearon los alumnos comenzó el
+24 de mayo del 2022 cuando todos recibimos el mismo mail:
+<img width="651px" src="/assets/collections/posts/2022-08-28-ITBA_Drive_Migration-MailTI.png" alt="mail-ti" title="Mail del departamento de Tecnología de la Información" loading="lazy"></p>
+<blockquote>
+  <p><strong>Transcripción</strong></p>
+
+  <p>Espacio en tu cuenta ITBA</p>
+
+  <p>Estimada Comunidad</p>
+
+  <p>Google ha comunicado que dejará de ofrecer almacenamiento ilimitado a entidades educativas.</p>
+
+  <p>Por lo tanto, a partir del 1° de julio, todas las cuentas @itba.edu.ar tendrán un límite de 40 GB
+de almacenamiento, que se comparten entre Google Drive (incluyendo unidades compartidas), Gmail,
+Google Fotos y toda aplicación dentro de Google. Recomendamos revisar sus carpetas y eliminar los
+archivos viejos o en desuso para liberar espacio.</p>
+
+  <p>Quienes superen su límite de almacenamiento no perderán nada. Sin embargo, no podrás guardar 
+archivos nuevos en Google Drive, ni fotos o videos nuevos en Google Fotos, como tampoco recibir 
+correos electrónicos en su dirección de Gmail.</p>
+
+  <p>En nuestra intranet pueden encontrar más información.</p>
+
+  <p>Tecnología de la Información</p>
+</blockquote>
 
 
       </li>
@@ -210,7 +247,7 @@ Buenos Aires.</p>
 
   <div class="container-publication" id="notes-section">
     <h1 class="publication-title"><a href="/notes/">Notes</a></h1>
-    <h3 class="publication-subtitle">Latest note</h3>
+    <h2 class="publication-subtitle">Latest note</h2>
     <ul>
       <li>
           <h1><a href="/notes/raylib_portfile_patch.html">Live copy of vcpkg patch for raylib</a></h1>

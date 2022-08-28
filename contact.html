@@ -72,26 +72,32 @@
 
 <div class="site-menu--container" id="site-main-menu">
 
-  <button class="btn" id="btn-site-main-menu-close">
+  <button aria-label="Close menu" title="Close menu" class="btn" id="btn-site-main-menu-close">
     <i class="fas fa-times"></i>
   </button>
   <div class="menu-content">
-    <img src="/assets/logo.png" class="logo" alt="Logo" loading="lazy">
+    <img src="/assets/logo.png" class="logo" alt="Martín's blog" loading="lazy">
 
     <div class="flex-separator"></div>
 
     <ul class="menu-list">
       
       <li>
-        <a href="/" class="btn btn-link">Home</a>
+        <a href="/" alt="Home" class="btn btn-link">
+          Home
+        </a>
       </li>
       
       <li>
-        <a href="/blog" class="btn btn-link">Blog</a>
+        <a href="/blog" alt="Blog" class="btn btn-link">
+          Blog
+        </a>
       </li>
       
       <li>
-        <a href="/notes" class="btn btn-link">Notes</a>
+        <a href="/notes" alt="Notes" class="btn btn-link">
+          Notes
+        </a>
       </li>
       
     </ul>
@@ -101,11 +107,15 @@
     <ul class="menu-info-list">
       
       <li>
-        <a href="/about.html" class="btn btn-link">About</a>
+        <a href="/about.html" alt="About" class="btn btn-link">
+          About
+        </a>
       </li>
       
       <li>
-        <a href="/contact.html" class="btn btn-link">Contact</a>
+        <a href="/contact.html" alt="Contact" class="btn btn-link">
+          Contact
+        </a>
       </li>
       
     </ul>
@@ -118,17 +128,17 @@
       </p>
       <ul>
         <li>
-          <button class="btn" id="accessibility-zoom-reset">
+          <button aria-label="Restore font size" title="Restore font size" type="button" class="btn" id="accessibility-zoom-reset">
             <i class="fas fa-undo-alt"></i>
           </button>
         </li>
         <li>
-          <button class="btn" id="accessibility-zoom-m">
+          <button aria-label="Decrease font size" title="Decrease font size" type="button" class="btn" id="accessibility-zoom-m">
             <i class="fas fa-minus"></i>
           </button>
         </li>
         <li>
-          <button class="btn" id="accessibility-zoom-p">
+          <button aria-label="Increase font size" title="Increase font size" type="button" class="btn" id="accessibility-zoom-p">
             <i class="fas fa-plus"></i>
           </button>
         </li>
@@ -146,14 +156,14 @@
 
 <header class="site-top-bar">
   <div class="top-bar--container" id="top-bar">
-    <button class="top-bar-btn" id="btn-toggle-menu">
+    <button aria-label="Menu button" title="Menu button" type="button" class="top-bar-btn" id="btn-toggle-menu">
       <i class="fas fa-bars"></i>
     </button>
     <div class="top-bar-separator"></div>
     <div class="top-bar-logo">
-        <a href="/">
-          <p>Martín's blog</p>
-          <img class="logo" src="/assets/logo.png" alt="Logo" loading="eager">
+        <a href="/" alt="Martín's blog">
+          <h1>Martín's blog</h1>
+          <img class="logo" src="/assets/logo.png" alt="Martín's blog" loading="eager">
         </a>
       </div>
     <div class="top-bar-separator"></div>

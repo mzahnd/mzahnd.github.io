@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+      <title>Migrando 1.3 TiB de datos en Google Drive - Martín's blog</title>
+    
+
+    <!--
+      Included files have their own css, js files and will not be 
+      appear here. 
+    -->
+
+    <!-- ====== CSS Files ====== -->
+    <link rel="stylesheet" href="/css/site-top-bar.css">
+    <link rel="stylesheet" href="/css/site-footer.css">
+    <link rel="stylesheet" href="/css/site-menu.css">
+    
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+    
+    <link rel="stylesheet" href="/css/blog/post.css">
+    
+    
+    <!-- ====== END CSS Files ====== -->
+
+    <!-- ====== JS Files ====== -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/site-menu.js"></script>
+    <script type="text/javascript" src="/js/site-top-bar.js"></script>
+
+    
+    
+    <!-- ====== END JS Files ====== -->
+
+    <!-- ====== Font Awesome ====== -->
+    <script src="https://kit.fontawesome.com/0cfe53209a.js" crossorigin="anonymous">
+    </script>
+    <!-- ====== END Font Awesome ====== -->
+
+    
+
+    <!-- ====== SEO ====== -->
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Migrando 1.3 TiB de datos en Google Drive | Martín’s blog</title>
+<meta name="generator" content="Jekyll v4.2.1">
+<meta property="og:title" content="Migrando 1.3 TiB de datos en Google Drive">
+<meta name="author" content="Martín E. Zahnd">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="La aventura para salvar el centenar de apuntes que colectivamente crearon los alumnos comenzó el 24 de mayo del 2022 cuando todos recibimos el mismo mail: Transcripción Espacio en tu cuenta ITBA Estimada Comunidad Google ha comunicado que dejará de ofrecer almacenamiento ilimitado a entidades educativas. Por lo tanto, a partir del 1° de julio, todas las cuentas @itba.edu.ar tendrán un límite de 40 GB de almacenamiento, que se comparten entre Google Drive (incluyendo unidades compartidas), Gmail, Google Fotos y toda aplicación dentro de Google. Recomendamos revisar sus carpetas y eliminar los archivos viejos o en desuso para liberar espacio. Quienes superen su límite de almacenamiento no perderán nada. Sin embargo, no podrás guardar archivos nuevos en Google Drive, ni fotos o videos nuevos en Google Fotos, como tampoco recibir correos electrónicos en su dirección de Gmail. En nuestra intranet pueden encontrar más información. Tecnología de la Información">
+<meta property="og:description" content="La aventura para salvar el centenar de apuntes que colectivamente crearon los alumnos comenzó el 24 de mayo del 2022 cuando todos recibimos el mismo mail: Transcripción Espacio en tu cuenta ITBA Estimada Comunidad Google ha comunicado que dejará de ofrecer almacenamiento ilimitado a entidades educativas. Por lo tanto, a partir del 1° de julio, todas las cuentas @itba.edu.ar tendrán un límite de 40 GB de almacenamiento, que se comparten entre Google Drive (incluyendo unidades compartidas), Gmail, Google Fotos y toda aplicación dentro de Google. Recomendamos revisar sus carpetas y eliminar los archivos viejos o en desuso para liberar espacio. Quienes superen su límite de almacenamiento no perderán nada. Sin embargo, no podrás guardar archivos nuevos en Google Drive, ni fotos o videos nuevos en Google Fotos, como tampoco recibir correos electrónicos en su dirección de Gmail. En nuestra intranet pueden encontrar más información. Tecnología de la Información">
+<link rel="canonical" href="https://mzahnd.github.io/blog/2022/08/28/ITBA_Drive_Migration.html">
+<meta property="og:url" content="https://mzahnd.github.io/blog/2022/08/28/ITBA_Drive_Migration.html">
+<meta property="og:site_name" content="Martín’s blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-08-28T09:34:38-03:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Migrando 1.3 TiB de datos en Google Drive">
+<meta name="google-site-verification" content="CT3cmVw_OhpKeDjTSMDoO9zCxnArTWa8PcyuM0xfozs">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Martín E. Zahnd"},"dateModified":"2022-08-28T09:34:38-03:00","datePublished":"2022-08-28T09:34:38-03:00","description":"La aventura para salvar el centenar de apuntes que colectivamente crearon los alumnos comenzó el 24 de mayo del 2022 cuando todos recibimos el mismo mail: Transcripción Espacio en tu cuenta ITBA Estimada Comunidad Google ha comunicado que dejará de ofrecer almacenamiento ilimitado a entidades educativas. Por lo tanto, a partir del 1° de julio, todas las cuentas @itba.edu.ar tendrán un límite de 40 GB de almacenamiento, que se comparten entre Google Drive (incluyendo unidades compartidas), Gmail, Google Fotos y toda aplicación dentro de Google. Recomendamos revisar sus carpetas y eliminar los archivos viejos o en desuso para liberar espacio. Quienes superen su límite de almacenamiento no perderán nada. Sin embargo, no podrás guardar archivos nuevos en Google Drive, ni fotos o videos nuevos en Google Fotos, como tampoco recibir correos electrónicos en su dirección de Gmail. En nuestra intranet pueden encontrar más información. Tecnología de la Información","headline":"Migrando 1.3 TiB de datos en Google Drive","mainEntityOfPage":{"@type":"WebPage","@id":"https://mzahnd.github.io/blog/2022/08/28/ITBA_Drive_Migration.html"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://mzahnd.github.io/assets/logo.png"},"name":"Martín E. Zahnd"},"url":"https://mzahnd.github.io/blog/2022/08/28/ITBA_Drive_Migration.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <!-- ====== End SEO ====== -->
+  </head>
+  <body>
+    
+
+
+
+<div class="site-menu--container" id="site-main-menu">
+
+  <button aria-label="Close menu" title="Close menu" class="btn" id="btn-site-main-menu-close">
+    <i class="fas fa-times"></i>
+  </button>
+  <div class="menu-content">
+    <img src="/assets/logo.png" class="logo" alt="Martín's blog" loading="lazy">
+
+    <div class="flex-separator"></div>
+
+    <ul class="menu-list">
+      
+      <li>
+        <a href="/" alt="Home" class="btn btn-link">
+          Home
+        </a>
+      </li>
+      
+      <li>
+        <a href="/blog" alt="Blog" class="btn btn-link">
+          Blog
+        </a>
+      </li>
+      
+      <li>
+        <a href="/notes" alt="Notes" class="btn btn-link">
+          Notes
+        </a>
+      </li>
+      
+    </ul>
+
+    <div class="flex-separator"></div>
+    
+    <ul class="menu-info-list">
+      
+      <li>
+        <a href="/about.html" alt="About" class="btn btn-link">
+          About
+        </a>
+      </li>
+      
+      <li>
+        <a href="/contact.html" alt="Contact" class="btn btn-link">
+          Contact
+        </a>
+      </li>
+      
+    </ul>
+
+    <div class="flex-separator"></div>
+
+    <div class="accessibility-opts">
+      <p>Current font size: 
+        <span id="accessibility-font-size-label">0 pt</span>
+      </p>
+      <ul>
+        <li>
+          <button aria-label="Restore font size" title="Restore font size" type="button" class="btn" id="accessibility-zoom-reset">
+            <i class="fas fa-undo-alt"></i>
+          </button>
+        </li>
+        <li>
+          <button aria-label="Decrease font size" title="Decrease font size" type="button" class="btn" id="accessibility-zoom-m">
+            <i class="fas fa-minus"></i>
+          </button>
+        </li>
+        <li>
+          <button aria-label="Increase font size" title="Increase font size" type="button" class="btn" id="accessibility-zoom-p">
+            <i class="fas fa-plus"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="flex-separator"></div>
+  </div>
+</div>
+
+
+    <div id="container-page">
+        
+
+
+<header class="site-top-bar">
+  <div class="top-bar--container" id="top-bar">
+    <button aria-label="Menu button" title="Menu button" type="button" class="top-bar-btn" id="btn-toggle-menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="top-bar-separator"></div>
+    <div class="top-bar-logo">
+        <a href="/" alt="Martín's blog">
+          <h1>Martín's blog</h1>
+          <img class="logo" src="/assets/logo.png" alt="Martín's blog" loading="eager">
+        </a>
+      </div>
+    <div class="top-bar-separator"></div>
+  </div>
+</header>
+
+        
+          <div class="page-content">
+        
+            
+
+
+
+
+<div class="post-content">
+    
+
+
+
+
+<header>
+  <h1 id="post-title">Migrando 1.3 TiB de datos en Google Drive</h1>
+  <p id="post-author">Written by Martín E. Zahnd</p>
+
+  <p id="post-date">Published: 2022-08-28 09:34</p>
+  
+  
+  <p id="post-tags">Tags: 
+      
+          google, 
+      
+          drive,, 
+      
+          google,, 
+      
+          drive,, 
+      
+          itba,, 
+      
+          ceitba,, 
+      
+          cs,, 
+      
+          computer, 
+      
+          society
+      
+  </p>
+  
+  <br>
+
+  <div class="post-excerpt">
+      <p>La aventura para salvar el centenar de apuntes que colectivamente crearon los alumnos comenzó el
+24 de mayo del 2022 cuando todos recibimos el mismo mail:
+<img width="651px" src="/assets/collections/posts/2022-08-28-ITBA_Drive_Migration-MailTI.png" alt="mail-ti" title="Mail del departamento de Tecnología de la Información" loading="lazy"></p>
+<blockquote>
+  <p><strong>Transcripción</strong></p>
+
+  <p>Espacio en tu cuenta ITBA</p>
+
+  <p>Estimada Comunidad</p>
+
+  <p>Google ha comunicado que dejará de ofrecer almacenamiento ilimitado a entidades educativas.</p>
+
+  <p>Por lo tanto, a partir del 1° de julio, todas las cuentas @itba.edu.ar tendrán un límite de 40 GB
+de almacenamiento, que se comparten entre Google Drive (incluyendo unidades compartidas), Gmail,
+Google Fotos y toda aplicación dentro de Google. Recomendamos revisar sus carpetas y eliminar los
+archivos viejos o en desuso para liberar espacio.</p>
+
+  <p>Quienes superen su límite de almacenamiento no perderán nada. Sin embargo, no podrás guardar 
+archivos nuevos en Google Drive, ni fotos o videos nuevos en Google Fotos, como tampoco recibir 
+correos electrónicos en su dirección de Gmail.</p>
+
+  <p>En nuestra intranet pueden encontrar más información.</p>
+
+  <p>Tecnología de la Información</p>
+</blockquote>
+
+
+  </div>
+</header>
+
+<ul id="toc" class="section-nav">
+<li class="toc-entry toc-h1"><a href="#la-organizaci%C3%B3n">La organización</a></li>
+<li class="toc-entry toc-h1">
+<a href="#el-proceso-de-descarga">El proceso de descarga</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#de-cu%C3%A1nta-informaci%C3%B3n-estamos-hablando">¿De cuánta información estamos hablando?</a></li>
+<li class="toc-entry toc-h2"><a href="#descargando-m%C3%A1s-de-1-tib-de-google-drive">Descargando más de 1 TiB de Google Drive</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1">
+<a href="#unificando-los-apuntes">Unificando los apuntes</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#organizaci%C3%B3n-y-estructura">Organización y estructura</a></li>
+<li class="toc-entry toc-h2"><a href="#creando-301-carpetas-de-materias">Creando 301 carpetas de materias</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h1"><a href="#la-dulce-espera">La dulce espera</a></li>
+<li class="toc-entry toc-h1"><a href="#agregando-a-los-alumnos">Agregando a los alumnos</a></li>
+<li class="toc-entry toc-h1"><a href="#pendientes">Pendientes</a></li>
+<li class="toc-entry toc-h1"><a href="#agradecimientos-y-colaboradores">Agradecimientos y colaboradores</a></li>
+</ul>
+
+
+
+
+
+
+<article>
+  <div class="post-content">
+    
+
+<h1 id="la-organización">La organización</h1>
+
+<p>A los pocos días de recibido el correo comenzó a circular un grupo de Telegram creado para organizarnos con el copiado de los archivos.
+
+</p>
+<p>Tras discutir varias propuestas, el consenso general fue que primero debíamos comenzar a descargar todo lo posible, y mientras lo hacíamos definir con mayor precisión qué hacer con los apuntes.</p>
+
+<p>Se creó una planilla de cálculo compartida con una lista de carpetas en Google Drive que nos parecía importante copiar y se hizo pública para que todos pudieran completarla si olvidábamos alguna.</p>
+
+<h1 id="el-proceso-de-descarga">El proceso de descarga</h1>
+
+<h2 id="de-cuánta-información-estamos-hablando">¿De cuánta información estamos hablando?</h2>
+
+<p>La pregunta que surgió inmediatamente fue ¿cuánto espacio necesitábamos realmente para copiar todos los apuntes compartidos? ¿500 GiB? ¿1 TiB? ¿2? ¿más?.</p>
+
+<p>Resulta que Google Drive no informa a sus usuarios cuánto ocupa cada carpeta, solamente lo hace con archivos individuales, con lo cual, a priori, era imposible estimar el almacenamiento total que necesitábamos.</p>
+
+<p>Algunos compañeros decidieron escribir un script en Python usando Google Colaboratory para calcular el tamaño de las carpetas, lo cual funcionó muy bien, pero no utilizaron su código con todas las carpetas que teníamos que descargar pues la lista continuó creciendo durante los días posteriores.</p>
+
+<p>Cuando un tiempo después noté que la lista había dejado de crecer y conseguí un poco de tiempo libre, me propuse completar el cómputo del tamaño de los apuntes con las carpetas restantes.
+En ese momento me surgió la duda <em>¿habrá algún modo de hacer esto con <a href="https://rclone.org/" title="Rclone homepage">rclone</a>?</em>.
+Treinta segundos de búsqueda en internet me dieron la respuesta: sí, se puede hacer utilizando <a href="https://rclone.org/commands/rclone_size/" title="Rclone size command"><code>rclone size</code></a>.</p>
+
+<p>Y funcionó a la perfección… casi.
+El único detalle que debí tener en cuenta fue ignorar los accesos directos dentro de las carpetas.
+Muchas carpetas resultaron tener accesos circulares, por lo que al querer calcular el tamaño de una carpeta, por ejemplo “Apuntes Tincho”, entraba a otra, “Apuntes ITBA”, que a su vez tenía acceso a la primera, creando un ciclo interminable del cual rclone no se percataba.</p>
+
+<p><img height="161px" width="651px" src="/assets/collections/posts/2022-08-28-ITBA_Drive_Migration-Cyclic_shortcuts.png" alt="cyclic-shortcuts" loading="lazy"></p>
+
+<blockquote>
+  <p><strong>Nota técnica</strong></p>
+
+  <p>El comando final resultó ser:</p>
+
+  <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre>rclone size remote:folder <span class="nt">--drive-skip-shortcuts</span> <span class="nt">--drive-skip-dangling-shortcuts</span>
+</pre></td>
+</tr></tbody></table></code></pre></div>  </div>
+</blockquote>
+
+<p>En la lista compartida de carpetas que creamos, agregué el tamaño de las carpetas restantes, resultando en un total de 1.6 TiB, y continué con el siguiente paso.</p>
+
+<h2 id="descargando-más-de-1-tib-de-google-drive">Descargando más de 1 TiB de Google Drive</h2>
+
+<p>Para ahorrar tiempo y la cantidad de espacio libre que cada uno necesitaba, nos dividimos las tareas de acuerdo al espacio libre que cada uno tuviera a disposición en discos externos y lo que cada uno consideraba “prioritario” para su carrera (así, alumnos de ingeniería electrónica descargaron principalmente el contenido de esa carrera; mientras los de informática priorizamos el de la nuestra, etc).
+De todos modos, al final terminamos descargando material cruzado y logrando tener varias copias de lo mismo repartidas en varios discos.</p>
+
+<p>En particular, aprovechando que tenía a mí disposición varios discos duros de 1 TiB vacíos, un par de adaptadores SATA-USB y una Raspberry Pi 4, terminé descargando material de todas las carreras excepto de ingeniería electrónica: cerca de 1.3 TiB de información.</p>
+
+<p>Para realizar todo el proceso de descarga y subida de archivos usamos la maravillosa herramienta <a href="https://rclone.org/" title="Rclone homepage">rclone</a>, <em>“la navaja suiza del almacenamiento en la nube”</em>. <sup id="fnref:rclone-swiss-army-knife" role="doc-noteref"><a href="#fn:rclone-swiss-army-knife" class="footnote" rel="footnote">1</a></sup></p>
+
+<p>En mí servidor de juguete tenía un script escrito en Bash para subir archivos utilizando rclone, con lo cual me ahorré alguna parte del trabajo.</p>
+
+<blockquote>
+  <p><strong>Nota técnica</strong></p>
+
+  <p>Script escrito en Bash para ejecutar rclone y descargar carpetas de Google Drive.
+Cuando llegó el momento de subir la información nuevamente use el mismo script con mínimas
+modificaciones.</p>
+
+  <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+</pre></td>
+<td class="rouge-code"><pre><span class="c">#!/bin/bash</span>
+
+<span class="nb">readonly </span><span class="nv">me</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">0</span><span class="p">##*/</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="c"># Do not try to sync if already doing it :)</span>
+<span class="k">if </span>pidof <span class="nt">-o</span> %PPID <span class="nt">-x</span> <span class="s2">"</span><span class="nv">$me</span><span class="s2">"</span><span class="p">;</span> <span class="k">then
+   </span><span class="nb">exit </span>0
+<span class="k">fi</span>
+
+<span class="c"># ====== VARIABLES ======</span>
+
+<span class="nb">readonly </span><span class="nv">_RCLONE_HOME</span><span class="o">=</span><span class="s1">'/home/trinity/apuntes/'</span>
+<span class="nb">readonly </span><span class="nv">_RCLONE_LOCAL_FOLDER</span><span class="o">=</span><span class="s1">'/mnt/apuntes-itba/apuntes/Apuntes-ITBA/'</span>
+<span class="nb">readonly </span><span class="nv">_RCLONE_REMOTE_FOLDER</span><span class="o">=</span><span class="s1">'apuntes-itba:'</span>
+<span class="nb">readonly </span><span class="nv">_RCLONE_EXCLUDE</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">_RCLONE_HOME</span><span class="k">}</span><span class="s2">/exclude-file.txt"</span>
+<span class="nv">_RCLONE_CACHE</span><span class="o">=</span><span class="s2">"/cache/"</span>
+
+<span class="c"># export RCLONE_CONFIG_PASS=''</span>
+
+<span class="c"># ====== TRAP ======</span>
+<span class="nb">trap</span> <span class="s2">"echo [</span><span class="si">$(</span><span class="nb">date</span> <span class="nt">--rfc-3339</span><span class="o">=</span><span class="s1">'seconds'</span><span class="si">)</span><span class="s2">] Interrupted. &gt;&amp;2; exit 2"</span> INT TERM
+
+<span class="c"># ====== FUNCTIONS ======</span>
+
+<span class="k">function </span>log_info<span class="o">()</span>
+<span class="o">{</span>
+   <span class="nb">printf</span> <span class="s2">"[%s] %s</span><span class="se">\n</span><span class="s2">"</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">date</span> <span class="nt">--rfc-3339</span><span class="o">=</span><span class="s1">'seconds'</span><span class="si">)</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$*</span><span class="s2">"</span> <span class="o">&gt;</span>&amp;2<span class="p">;</span>
+<span class="o">}</span>
+
+<span class="k">function </span>cache_dir<span class="o">()</span>
+<span class="o">{</span>
+   <span class="nb">local </span><span class="nv">cache</span><span class="o">=</span><span class="si">$(</span><span class="nb">mktemp</span> <span class="nt">-d</span><span class="si">)</span>
+
+   <span class="nv">_RCLONE_CACHE</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">cache</span><span class="k">}</span><span class="s2">/</span><span class="k">${</span><span class="nv">_RCLONE_CACHE</span><span class="k">}</span><span class="s2">"</span>
+
+   <span class="nb">mkdir</span> <span class="nt">-p</span> <span class="s2">"</span><span class="nv">$_RCLONE_CACHE</span><span class="s2">"</span>
+<span class="o">}</span>
+
+<span class="k">function </span>clone<span class="o">()</span>
+<span class="o">{</span>
+   <span class="nb">local </span><span class="nv">rclone_return</span><span class="o">=</span>0
+
+   log_info <span class="s2">"Running..."</span>
+
+       <span class="c"># --bwlimit "00:30,off 06:30,1M:3.125M 08:00,512k:1M 23:30,512K:2M"   \</span>
+   rclone copy <span class="s2">"</span><span class="nv">$_RCLONE_REMOTE_FOLDER</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$_RCLONE_LOCAL_FOLDER</span><span class="s2">"</span>            <span class="se">\</span>
+       <span class="nt">--dry-run</span>                                                           <span class="se">\</span>
+       <span class="nt">--config</span> <span class="s2">"</span><span class="k">${</span><span class="nv">_RCLONE_HOME</span><span class="k">}</span><span class="s2">/rclone.conf"</span>                              <span class="se">\</span>
+       <span class="nt">--cache-dir</span> <span class="s2">"</span><span class="k">${</span><span class="nv">_RCLONE_HOME</span><span class="k">}</span><span class="s2">/cache/"</span>                                <span class="se">\</span>
+       <span class="nt">--checksum</span>                                                          <span class="se">\</span>
+       <span class="nt">--delete-after</span>                                                      <span class="se">\</span>
+       <span class="nt">--error-on-no-transfer</span>                                              <span class="se">\</span>
+       <span class="nt">--human-readable</span>                                                    <span class="se">\</span>
+       <span class="nt">--exclude-from</span> <span class="s2">"</span><span class="k">${</span><span class="nv">_RCLONE_EXCLUDE</span><span class="k">}</span><span class="s2">"</span>                                 <span class="se">\</span>
+       <span class="nt">--log-file</span> <span class="s2">"</span><span class="k">${</span><span class="nv">_RCLONE_HOME</span><span class="k">}</span><span class="s2">/log-</span><span class="k">${</span><span class="nv">me</span><span class="p">%%.*</span><span class="k">}</span><span class="s2">.txt"</span>                      <span class="se">\</span>
+       <span class="nt">--log-level</span> INFO                                                    <span class="se">\</span>
+       <span class="nt">--drive-skip-shortcuts</span>                                              <span class="se">\</span>
+       <span class="nt">--drive-skip-dangling-shortcuts</span>                                     <span class="se">\</span>
+       <span class="nt">--bwlimit</span> <span class="s2">"00:30,off 06:30,1M:3.125M 08:00,512k:1M 23:30,512K:2M"</span>   <span class="se">\</span>
+       <span class="nt">--update</span>
+   <span class="nv">rclone_return</span><span class="o">=</span><span class="nv">$?</span>
+
+   <span class="k">if</span> <span class="o">[</span> <span class="nv">$rclone_return</span> <span class="nt">-eq</span> 9 <span class="o">]</span><span class="p">;</span> <span class="k">then
+       </span><span class="nv">rclone_return</span><span class="o">=</span>0
+       log_info <span class="s2">"Operation successful. No files transferred."</span>
+   <span class="k">else
+       </span>log_info <span class="s2">"Operation finished with exit code: </span><span class="nv">$rclone_return</span><span class="s2">"</span>
+   <span class="k">fi
+
+   return</span> <span class="nv">$rclone_return</span>
+<span class="o">}</span>
+
+<span class="c"># ====== MAIN ======</span>
+
+cache_dir
+
+clone
+
+<span class="nb">rm</span> <span class="nt">-R</span> <span class="s2">"</span><span class="k">${</span><span class="nv">_RCLONE_CACHE</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="nb">exit</span> <span class="nv">$?</span>
+</pre></td>
+</tr></tbody></table></code></pre></div>  </div>
+</blockquote>
+
+<h1 id="unificando-los-apuntes">Unificando los apuntes</h1>
+
+<p>Decidimos unir todo el conocimiento acumulado por alumnos y ex-alumnos en una  única carpeta de
+apuntes, donde todos pudieran seguir aportando material y obtenerlo sin buscar en una decena de
+lugares diferentes, como ocurría hasta antes de la fecha.</p>
+
+<h2 id="organización-y-estructura">Organización y estructura</h2>
+
+<p>Al final elegimos utilizar la siguiente estructura para la carpeta unificada:</p>
+
+<pre><code class="language-plain">Apuntes
+├── 0-Ingreso
+├── 1-Materias
+│   ├── 12.34 - Materia interesante
+│   │   ├── Apuntes
+│   │   ├── Examenes
+│   │   │   ├── 1er Parcial
+│   │   │   ├── 2do Parcial
+│   │   │   └── Finales
+│   │   ├── Guías
+│   │   ├── Laboratorio
+│   │   └── Videos
+│   ├── 12.35 - Otra materia
+│   │   └── ...
+│   └── ...
+├── 2-Ingeniería
+│   ├── Ingeniería Electrónica
+│   │   ├── 12.34 - Materia interesante -&gt; Apuntes/1-Materias/12.34 - Materia interesante
+│   │   ├── ...
+│   │   └── 93.05 - Más materias -&gt; Apuntes/1-Materias/93.05 - Más materias
+│   ├── Ingeniería Informática
+│   │   └── ...
+│   ├── ...
+│   └── Ingeniería Química
+│   │   └── ...
+├── 3-Licenciatura
+│   ├── Analítica Empresarial y Social
+│   │   ├── 12.34 - Materia interesante -&gt; Apuntes/1-Materias/12.34 - Materia interesante
+│   │   ├── ...
+│   │   └── 93.05 - Más materias -&gt; Apuntes/1-Materias/93.05 - Más materias
+│   └── Gestión de Negocios
+│   │   └── ...
+└── License, disclaimer, readme, etc.
+</code></pre>
+
+<p>Es más simple de lo que parece: la carpeta principal contiene algunos archivos con la licencia, un
+disclaimer, etc; los alumnos de ingreso tienen una carpeta exclusiva para ellos (llamada 
+<code>0-Ingreso</code>); y las carreras de ingeniería (<code>2-Ingeniería</code>) y licenciatura (<code>3-Licenciatura</code>)
+tienen accesos directos a las distintas materias (que residen en <code>1-Materias</code>).</p>
+
+<p>Por ejemplo, un alumno de la carrera <em>Ingeniería Electrónica</em> podría acceder a las materias de 
+código <code>12.34</code> y <code>93.05</code> desde la carpeta de la carrera que estudia o desde la carpeta de materias.</p>
+<pre><code class="language-plain">...
+│ 
+├── 2-Ingeniería
+│   ├── Ingeniería Electrónica
+│   │   ├── 12.34 - Materia interesante -&gt; Apuntes/1-Materias/12.34 - Materia interesante
+│   │   ├── ...
+│   │   └── 93.05 - Más materias -&gt; Apuntes/1-Materias/93.05 - Más materias
+│   ...
+</code></pre>
+
+<p><em>¿Por qué tomamos la decisión de utilizar accesos directos?</em>
+Resulta que todas las carreras comparten al menos una materia entre sí, y la idea detrás de la
+unificación es disminuir la cantidad de material repetido y centralizar su búsqueda.
+La manera más simple y de menor mantenimiento son los accesos directos: lo único que se debe
+mantener actualizada es la materia en sí misma.</p>
+
+<p>A su vez, la carpeta <code>1-Materias</code>, la más interesante de todas, tiene, como ya dijimos, las
+materias de todas las carreras de la universidad nombradas como 
+<code>&lt;código-de-la-materia&gt; - &lt;nombre-de-la-materia&gt;</code>
+(por ejemplo: <code>22.08 - Algoritmos y Estructura de Datos</code>), y cada materia contiene el material 
+discriminado por su tipo: “Apuntes”, “Exámenes”, “Guías”, etc.</p>
+<pre><code class="language-plain">│   ...
+├── 1-Materias
+│   ├── 22.08 - Algoritmos y Estructura de Datos
+│   │   ├── Apuntes
+│   │   ├── Exámenes
+│   │   │   ├── 1er Parcial
+│   │   │   ├── 2do Parcial
+│   │   │   └── Finales
+│   │   ├── Guías
+│   │   ├── Laboratorio
+│   │   └── Videos
+│   ...
+</code></pre>
+
+<h2 id="creando-301-carpetas-de-materias">Creando 301 carpetas de materias</h2>
+
+<p>¿Cómo creamos y estructuramos la carpeta de las 301 materias que se dictan en la universidad?</p>
+
+<p>Son muchas carpetas para hacer a mano, por lo que la respuesta fue escribir un pequeño código que
+haga el trabajo por nosotros.</p>
+
+<p>Tras conseguir un archivo con la información básica de cada materia, que se veía más o menos 
+así:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td>
+<td class="rouge-code"><pre><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">" Interesting subject"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Codigo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12.34 "</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"depto"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"Nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Department of interesting subjects, ofc"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"Nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">" Algoritmos y Estructura de Datos"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Codigo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"22.08 "</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"depto"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"Nombre"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Electrónica"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>Escribí en pocos minutos un simple script en Python que crease las carpetas con su respectiva
+estructura.</p>
+
+<blockquote>
+  <p><strong>Nota técnica</strong></p>
+
+  <p>Script para crear el árbol de carpetas y subcarpetas.</p>
+
+  <div class="language-python highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+</pre></td>
+<td class="rouge-code"><pre><span class="c1">#!/usr/bin/python3
+</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">mkdir</span><span class="p">,</span> <span class="n">makedirs</span>
+
+<span class="c1"># JSON with subjects names and code.
+# Assumed format: An array of subject-objects
+# 
+# [
+#   {
+#     "Nombre": " Administración de Recursos Humanos",
+#     "Codigo": "94.27 ",
+#     "depto": {
+#       "Nombre": "Economía y Desarrollo Profesional"
+#     }
+#   },
+# ]
+</span><span class="n">JSON_MATERIAS</span><span class="o">=</span><span class="s">'MateriasDump.json'</span>
+
+<span class="c1"># Where all subjects should be created
+</span><span class="n">FOLDER_ROOT</span><span class="o">=</span><span class="s">'./Materias'</span>
+
+<span class="c1"># Creates this folders inside each subject folder.
+# Direct children first, grandsons later.
+</span><span class="n">FOLDER_CHILDREN</span><span class="o">=</span><span class="p">[</span><span class="s">'Apuntes'</span><span class="p">,</span> 
+                  <span class="s">'Examenes'</span><span class="p">,</span> 
+                  <span class="s">'Laboratorio'</span><span class="p">,</span> 
+                  <span class="s">'Guías'</span><span class="p">,</span>
+                  <span class="s">'Videos'</span><span class="p">,</span>
+                  <span class="s">'Examenes/Finales'</span><span class="p">,</span> 
+                  <span class="s">'Examenes/1er Parcial'</span><span class="p">,</span> 
+                  <span class="s">'Examenes/2do Parcial'</span><span class="p">,</span> 
+<span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">get_subject_names</span><span class="p">(</span><span class="n">jdump</span><span class="p">):</span>
+    <span class="n">subject_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">jdump</span><span class="p">:</span>
+        <span class="n">subject_names</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">subject</span><span class="p">[</span><span class="s">'Codigo'</span><span class="p">].</span><span class="n">strip</span><span class="p">()</span> 
+                                 <span class="o">+</span> <span class="s">' - '</span> 
+                                 <span class="o">+</span> <span class="n">subject</span><span class="p">[</span><span class="s">'Nombre'</span><span class="p">].</span><span class="n">strip</span><span class="p">()</span>
+                                 <span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">subject_names</span>
+
+
+<span class="k">def</span> <span class="nf">create_folders</span><span class="p">(</span><span class="n">subjects</span><span class="p">):</span>
+    <span class="c1"># Parent folder
+</span>    <span class="k">try</span><span class="p">:</span>
+        <span class="n">mkdir</span><span class="p">(</span><span class="n">FOLDER_ROOT</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mo">0o755</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">FileExistsError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">for</span> <span class="n">subject</span> <span class="ow">in</span> <span class="n">subjects</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">FOLDER_ROOT</span> <span class="o">+</span> <span class="s">'/'</span> <span class="o">+</span> <span class="n">subject</span>
+
+        <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">FOLDER_CHILDREN</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">makedirs</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s">'/'</span> <span class="o">+</span> <span class="n">child</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mo">0o755</span><span class="p">)</span>
+            <span class="k">except</span> <span class="nb">FileExistsError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">JSON_MATERIAS</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">'r'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">jdump</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">loads</span><span class="p">(</span><span class="n">f</span><span class="p">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="n">subject_names</span> <span class="o">=</span> <span class="n">get_subject_names</span><span class="p">(</span><span class="n">jdump</span><span class="p">)</span>
+
+        <span class="n">create_folders</span><span class="p">(</span><span class="n">subject_names</span><span class="p">)</span>
+
+</pre></td>
+</tr></tbody></table></code></pre></div>  </div>
+
+</blockquote>
+
+<p>Simple, se ejecuta en menos de un segundo y crea exactamente la estructura que precisamos.</p>
+
+<p>El siguiente paso fue subir las 2709 carpetas vacías que generamos a Google Drive. 
+Sorprendentemente el proceso tomó más de una hora.</p>
+
+<blockquote>
+  <p><strong>Nota técnica</strong></p>
+
+  <p>El comando utilizado fue:</p>
+
+  <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre>rclone copy Materias apuntes:1-Materias <span class="nt">--create-empty-src-dirs</span> <span class="nt">--progress</span>
+</pre></td>
+</tr></tbody></table></code></pre></div>  </div>
+
+  <p>¿Qué hace este comando?</p>
+  <ul>
+    <li>
+<code>copy</code>: le pedimos a rclone que copie “archivos de la fuente al destino, omitiendo archivos idénticos” [^rclone-copy]</li>
+    <li>
+<code>Materias</code>: es la carpeta local, la “fuente”.</li>
+    <li>
+<code>apuntes:1-Materias</code>: “apuntes” es la carpeta remota configurada en rclone; escrito de esta manera, la fuente es la carpeta “1-Materias” en Google Drive.</li>
+    <li>
+<code>--create-empty-src-dirs</code>: nuestra intención es crear carpetas vacías en la carpeta de Google Drive. Este flag hace exactamente eso.</li>
+    <li>
+<code>--progress</code>: muestra el progreso en pantalla.</li>
+  </ul>
+</blockquote>
+
+<h1 id="la-dulce-espera">La dulce espera</h1>
+
+<p>El centro de estudiantes de la universidad (CEITBA) decidió hacerse cargo de los apuntes de ahora en más, lo cual nos pareció razonable a todos por su rol en el día a día de los alumnos.</p>
+
+<p>Por ello, debimos esperar varias semanas para que pudieran comprar 2 TiB de almacenamiento en 
+Google Drive.
+Sabiendo que estábamos en fechas de exámenes y entregas de trabajos, supimos sentarnos a esperar
+con paciencia.</p>
+
+<p>A pesar de la compra más tarde de lo esperado, nos las arreglamos para continuar con el proceso.</p>
+
+<h1 id="agregando-a-los-alumnos">Agregando a los alumnos</h1>
+
+<p>Todo subido, llegó el momento de darle acceso al resto de nuestros compañeros.</p>
+
+<p>La primer idea fue crear un formulario para que se “inscriban” todos los interesados y utilizar 
+<a href="https://www.google.com/script/start/" title="Google Apps Script homepage">Google Apps Script</a> sobre la planilla de cálculo que genera el formulario.</p>
+
+<p>Parecía una buena idea: cada 15 minutos un temporizador de Apps Script ejecutaba el código que daba
+permisos de lectura a cada usuario que haya completado el formulario.</p>
+
+<p>El lector atento sabe que “parecía” significa que, al final, resultó ser un dolor de cabeza.</p>
+
+<blockquote>
+  <p><strong>Nota técnica</strong></p>
+
+  <p>Código originalmente ejecutado cada 15 minutos por Google Apps Scripts.</p>
+
+  <div class="language-javascript highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td>
+<td class="rouge-code"><pre><span class="kd">function</span> <span class="nx">shareFolderForm</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">sheet</span> <span class="o">=</span> <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nx">getActiveSheet</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">folderID</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">1F9lZX03o6Rdd0i3HgMZ3G5EiskgmXLfB</span><span class="dl">"</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">folderToShare</span> <span class="o">=</span> <span class="nx">DriveApp</span><span class="p">.</span><span class="nx">getFolderById</span><span class="p">(</span><span class="nx">folderID</span><span class="p">);</span>
+
+
+  <span class="kd">var</span> <span class="nx">emails</span> <span class="o">=</span> <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nx">getActiveSheet</span><span class="p">().</span><span class="nx">getDataRange</span><span class="p">().</span><span class="nx">getValues</span><span class="p">();</span>
+  <span class="nx">emails</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+  <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">emails</span><span class="p">){</span>
+     <span class="nx">Drive</span><span class="p">.</span><span class="nx">Permissions</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span>
+      <span class="p">{</span>
+        <span class="na">role</span><span class="p">:</span> <span class="dl">'</span><span class="s1">reader</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">user</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">value</span><span class="p">:</span> <span class="nx">emails</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+      <span class="p">},</span>
+      <span class="nx">folderID</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">sendNotificationEmails</span><span class="p">:</span> <span class="dl">'</span><span class="s1">false</span><span class="dl">'</span><span class="p">,</span>
+      <span class="p">}</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">sheet</span><span class="p">.</span><span class="nx">clearContents</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></td>
+</tr></tbody></table></code></pre></div>  </div>
+</blockquote>
+
+<p>El primer problema que nos encontramos fue que los usuarios se agregaban a la carpeta principal pero la veían vacía, a pesar de tener miles de archivos dentro; el segundo, que los nuevos usuarios no estaban siendo agregados siquiera a la carpeta principal.</p>
+
+<p>Tomé la delantera y empecé a investigar. 
+Los registros de errores del Apps Script mostraban siempre el mismo error, una y otra vez:
+<img src="/assets/collections/posts/2022-08-28-ITBA_Drive_Migration-AppsScript_ErrorLog.png" alt="apps-script-error-log" loading="lazy"></p>
+
+<p><img src="/assets/collections/posts/2022-08-28-ITBA_Drive_Migration-AppsScript_Error.png" alt="apps-script-error" loading="lazy"></p>
+
+<blockquote>
+  <p><strong>Transcripción</strong></p>
+
+  <p>4 ago 2022, 18:27:25</p>
+
+  <p>Error</p>
+
+  <p>GoogleJsonResponseException: API call to drive.permissions.insert failed with error: Invalid permission value at shareFolderForm(Código:11:24)</p>
+</blockquote>
+
+<p>¿Qué significa esto? ¿Por qué está fallando?</p>
+
+<p>Ejecutar el código “a mano” (sin esperar al temporizador) no mostraba ningún mensaje de error
+nuevo o mayores detalles, pero ejecutarlo línea por línea sí: resulta que un alumno se registró
+como <em>“pepe@gmail.com, hable con el ceitba por el @itba.edu.ar”</em>.
+La única validación del correo electrónico ingresado se hacía en el mismo formulario, verificando
+que lo escrito tuviera <em>“@itba.edu.ar”</em>, ¡y la oración anterior lo contenía! sólo que la oración
+no era un mail.
+Por esto y por la falta de verificación de errores en el código, cuando Google Drive intentaba
+darle acceso de lectura, fallaba.</p>
+
+<p>En el camino, también aprendí que Google impone un
+<a href="https://developers.google.com/apps-script/guides/services/quotas#current_limitations" title="Quotas for Apps Script">límite temporal de 6 minutos</a> en la ejecución de un App Script, por lo
+que no era una posibilidad leer una lista cada vez más larga de usuarios y darles permiso de
+lectura.</p>
+
+<p>Tras modificar el script para que valide los correos del formulario y agregando un manejo de 
+errores simple logré que el script nos informe <em>“por qué falló”</em> con un determinado correo pero sin
+dejar de ejecutarse.</p>
+
+<blockquote>
+  <p><strong>Nota técnica</strong></p>
+
+  <p>Script con las modificaciones mencionadas.</p>
+
+  <p>Además, cuenta con una función para eliminar permisos de una carpeta que menciono más adelante.</p>
+
+  <div class="language-javascript highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code><table class="rouge-line-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+</pre></td>
+<td class="rouge-code"><pre><span class="kd">function</span> <span class="nx">insertPermissions</span><span class="p">(</span><span class="nx">email</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">folderID</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">123ABCdef</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// Apuntes CEITBA</span>
+  <span class="kd">var</span> <span class="nx">resource</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">value</span><span class="p">:</span> <span class="nx">email</span><span class="p">,</span>
+    <span class="na">role</span><span class="p">:</span> <span class="dl">'</span><span class="s1">reader</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">type</span><span class="p">:</span> <span class="dl">'</span><span class="s1">user</span><span class="dl">'</span>
+  <span class="p">};</span>
+
+  <span class="kd">var</span> <span class="nx">optionalArgs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">sendNotificationEmails</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="na">supportsAllDrives</span><span class="p">:</span> <span class="kc">true</span>
+  <span class="p">};</span>
+
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="nx">Drive</span><span class="p">.</span><span class="nx">Permissions</span><span class="p">.</span><span class="nx">insert</span><span class="p">(</span><span class="nx">resource</span><span class="p">,</span> <span class="nx">folderID</span><span class="p">,</span> <span class="nx">optionalArgs</span><span class="p">);</span>
+  <span class="p">}</span>
+	<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Failed for mail: '</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">email</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">' with error: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">e</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Remove permissions for user with EMAIL</span>
+<span class="kd">function</span> <span class="nx">removePermissions</span><span class="p">(</span><span class="nx">email</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">folderID</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">123ABCdef</span><span class="dl">"</span><span class="p">;</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">Permissions for: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">email</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">permsissions</span> <span class="o">=</span> <span class="nx">Drive</span><span class="p">.</span><span class="nx">Permissions</span><span class="p">.</span><span class="nx">getIdForEmail</span><span class="p">(</span><span class="nx">email</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">permsissions</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="nx">Drive</span><span class="p">.</span><span class="nx">Permissions</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">folderID</span><span class="p">,</span> <span class="nx">permsissions</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">Failed for mail: '</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">email</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">' with error: </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">e</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">shareFolderForm</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">sheet</span> <span class="o">=</span> <span class="nx">SpreadsheetApp</span><span class="p">.</span><span class="nx">getActiveSheet</span><span class="p">();</span>
+
+  <span class="kd">const</span> <span class="nx">emailRegex</span> <span class="o">=</span> <span class="sr">/</span><span class="se">(\w)</span><span class="sr">+@itba.edu.ar/</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">emailsWithTimestamp</span> <span class="o">=</span> <span class="nx">sheet</span><span class="p">.</span><span class="nx">getDataRange</span><span class="p">().</span><span class="nx">getValues</span><span class="p">();</span>
+  <span class="nx">emailsWithTimestamp</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="k">in</span> <span class="nx">emailsWithTimestamp</span><span class="p">){</span>
+
+    <span class="kd">var</span> <span class="nx">email</span> <span class="o">=</span> <span class="nx">emailsWithTimestamp</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="mi">1</span><span class="p">].</span><span class="nx">match</span><span class="p">(</span><span class="nx">emailRegex</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">email</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">insertPermissions</span><span class="p">(</span><span class="nx">email</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">toString</span><span class="p">().</span><span class="nx">toLowerCase</span><span class="p">());</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Delete already parsed rows.</span>
+  <span class="c1">// This loop runs in reverse order to avoid skipping rows.</span>
+  <span class="nx">emailsWithTimestamp</span><span class="p">.</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">forEach</span><span class="p">((</span><span class="nx">row</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// deleteRow() starts at 1, at the same time, idx starts at 0, length is &gt;= 0</span>
+    <span class="c1">// and we made a shift before after declaring emailsWithTimestamp,</span>
+    <span class="c1">// For all this, we add one to rowNumber.</span>
+    <span class="kd">var</span> <span class="nx">rowNumber</span> <span class="o">=</span> <span class="nx">emailsWithTimestamp</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="nx">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="nx">sheet</span><span class="p">.</span><span class="nx">deleteRow</span><span class="p">(</span><span class="nx">rowNumber</span><span class="p">);</span>
+  <span class="p">})</span>
+<span class="p">}</span>
+</pre></td>
+</tr></tbody></table></code></pre></div>  </div>
+</blockquote>
+
+<p>Ahora teníamos un script que funcionaba correctamente pero seguíamos con el problema original: 
+agregábamos a un nuevo alumno y no podía ver el contenido de las carpetas o, más extraño aún, veía 
+algunas carpetas y otras no (y esto no era consistente entre todos los usuarios).</p>
+
+<p>Afortunadamente, mí compañero autor del código original para automatizar el formulario le comentó
+su problema a una amiga quien nos reveló el camino a seguir: Google Groups.</p>
+
+<p>Tras jugar un poco con esta herramienta, aprendimos Google Groups crea un correo
+“@googlegroups.com” y este mail se puede utilizar para dar permisos a todos los miembros del grupo
+en simultáneo. Si uno tiene acceso, todos lo tienen.
+También aprendimos que, si bien podíamos crear grupos desde cualquier cuenta de Google, solamente 
+se puede automatizar el agregado de nuevos miembros con una cuenta
+<a href="https://workspace.google.com/" title="Google Workspace homepage">Google Workspace</a>.</p>
+
+<p>Como queríamos simplificar el problema y dehacer el nudo de permisos innecesarios creados por usar
+el script decidimos hacer lo que debimos hacer desde un comienzo (qué fácil es decirlo ahora):
+detenernos a pensar.</p>
+
+<p>Resulta que nuestra universidad utiliza Google Groups para crear grupos de alumnos y enviarnos 
+mails a todos al mismo tiempo. 
+Así que la solución fue tan simple como compartir nuestra carpeta de apuntes con el mail del 
+alumnado que gestiona el ITBA y esperar que Google Drive aplique los cambios en cada carpeta y cada
+archivo (lo cual, sorprendentemente, tomó más de una semana). 
+Lo mismo hicimos con los alumnos de ingreso y un pequeño grupo de “administradores”, encargados de
+mantener la carpeta de apuntes, que creamos y gestionamos desde la cuenta del centro de
+estudiantes.</p>
+
+<p>Como extra, utilizar los grupos que creó el ITBA nos da la ventaja de que el mantenimiento es nulo 
+desde nuestro punto de vista: la universidad se encarga de actualizar la lista de alumnos cada 
+cuatrimestre y Google hace el trabajo de relacionar los permisos del grupo con cada usuario del
+mismo.</p>
+
+<p>En paralelo, revertimos el script para que <em>borre</em> los permisos que otorgamos individualmente al
+comienzo, dejando solamente a los grupos con acceso a las carpetas.</p>
+
+<h1 id="pendientes">Pendientes</h1>
+
+<p>Si bien con el trabajo realizado hasta ahora podría parecer que está todo funcionando, todavía hay algunos temas por resolver:</p>
+
+<ul>
+  <li>Algunas carpetas todavía tienen los permisos mezclados, muchas ocultas dentro de otras subcarpetas.
+Es probablemente el pendiente más urgente a resolver.</li>
+  <li>¿Cómo nos aseguramos que el contenido nuevo que suban nuestros compañeros se organice donde corresponde?</li>
+  <li>Google Drive considera la cuota de espacio del usuario que sube los archivos, incluso cuando lo
+hace en una carpeta cuyo dueño es otro usuario. ¿Cómo evitamos lo primero y nos “adueñamos” del
+contenido?</li>
+</ul>
+
+<h1 id="agradecimientos-y-colaboradores">Agradecimientos y colaboradores</h1>
+
+<p>Para finalizar, quiero dar las gracias a los creadores e impulsores de las carpetas originales de 
+material y a todos los que lograron que la unificación sea posible:</p>
+<ul>
+  <li>Nicolás Bustelo</li>
+  <li>Martín Saad Heinen</li>
+  <li>Abril Virili</li>
+  <li>Angela Toci</li>
+  <li>Benjamín Ricci</li>
+  <li>Ezequiel Grinbaum</li>
+  <li>Gabriela D’Aversa</li>
+  <li>Gonzalo Díaz Excoffon</li>
+  <li>Marcos Dedeu</li>
+  <li>Martín Casá</li>
+  <li>Máximo Navarrane</li>
+  <li>Tiffany Leiva</li>
+</ul>
+
+<p>Y a las organizaciones estudiantiles que representan algunos de los mencionados anteriormente, que
+también aportaron recursos:</p>
+<ul>
+  <li>CEITBA</li>
+  <li>IEEE Student Chapter</li>
+  <li>Computer Society</li>
+  <li>AIChE</li>
+</ul>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:rclone-swiss-army-knife" role="doc-endnote">
+
+      <p>De la sección <a href="https://rclone.org/#about" title="About rclone" target="_blank">“About rclone”</a>:</p>
+      <blockquote>
+        <p>Users call rclone “The Swiss army knife of cloud storage”, and “Technology 
+indistinguishable from magic”.</p>
+      </blockquote>
+      <p><a href="#fnref:rclone-swiss-army-knife" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+</article>
+</div>
+        </div>
+
+        <div class="flex-separator"></div>
+        
+
+
+<footer class="site-footer">
+  <div class="site-footer--container">
+    <p>
+      Created by Martín E. Zahnd 
+      <i class="far fa-copyright"></i> 
+      2022
+    </p>
+  </div>
+</footer>
+    </div>
+  </body>
+</html>
