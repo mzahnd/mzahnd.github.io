@@ -54,7 +54,7 @@ echo -e "\e[1m\e[35m( Jekyll )\e[0m"
 
 mv "${OUTPUT_DIR}" "_old_${OUTPUT_DIR}"
 
-if jekyll build --trace -d "${OUTPUT_DIR}"; then
+if bundle exec jekyll build --trace -d "${OUTPUT_DIR}"; then
     echo ""
     echo -e "Jekyll \e[32mOK\e[0m"
 else
