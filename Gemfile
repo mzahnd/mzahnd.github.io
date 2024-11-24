@@ -29,6 +29,8 @@ gem "http_parser.rb", ">= 0.6.1"
 gem "ffi", "~> 1.15"
 gem "rouge"
 gem "webrick", "~> 1.7"
+gem 'logger'
+gem "liquid", "~> 4.0.4"
 
 
 # Plugins
