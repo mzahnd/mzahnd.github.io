@@ -53,7 +53,9 @@ Even giving "adults" unlimited access to internet and "fast answers" has been ca
 
 Those who really understand what "AI" is and what it can (and cannot) do, and those who have at least taken the time to investigate the tip of this iceberg, know that machines do not think. Even if LLMs answer our questions, translate more decently than classic translation software, and speak full sentences out loud, they are not _thinking_.
 
+<div class="video-container" style="height: 350px;">
 <iframe width="622" height="350" src="https://www.youtube.com/embed/gLrraUzG24w" title="The Ability To Speak Does Not Make You Intelligent [1080p]" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 But an industry that is "90% marketing and 10% reality"[^torvalds-ai] with almost $300 billion invested in it, which may be seen as "unlimited money"[^vc-ai], AI is now being injected in the non-technically educated minds of the people with the added conviction that they are capable of limited _thinking_.[^oh-no].
 

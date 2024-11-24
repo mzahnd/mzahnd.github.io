@@ -291,3 +291,22 @@ img {
     margin: auto;
   }
 }
+
+.video-container {
+  position: relative;
+  max-width: $content-max-width;
+  overflow: hidden;
+  margin: auto;
+
+  @include common.media-screen(desktop) {
+    max-width: $content-max-width-desktop;
+  }
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
